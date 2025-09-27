@@ -44,3 +44,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ojbect
+    uniqueID: 2507492175
+    locked: 0
+  - name: Player
+    uniqueID: 460623013
+    locked: 0
