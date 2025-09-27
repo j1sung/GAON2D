@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator anim;
     private Vector2 movement;
+    public Vector2 Movement => movement;
 
     [Header("Dash")]
     public float dashSpeed = 15f;
@@ -21,9 +22,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         // 애니메이션
-        anim = GetComponentInChildren<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -32,11 +33,13 @@ public class PlayerController : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         movement = new Vector2(moveX, moveY).normalized;
 
+        /*
         if (anim != null)
         {
             anim.SetFloat("Speed", movement.sqrMagnitude);
             anim.SetBool("isDashing", isDashing);
         }
+        */
 
         // 좌우 반전
         if (moveX != 0) spriteRenderer.flipX = (moveX > 0);
@@ -57,5 +60,11 @@ public class PlayerController : MonoBehaviour
             rb.MovePosition(rb.position + movement * dashSpeed * Time.fixedDeltaTime);
         else
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
+        if (movement == Vector2.zero) // 멈출 때 잔여 속도 제거
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
     }
 }
