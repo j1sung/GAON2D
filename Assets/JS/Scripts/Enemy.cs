@@ -57,8 +57,9 @@ public class Enemy : MonoBehaviour
         ChangeState(EnemyStates.SpawnState);
     }
 
-    private string label = "";
+    //private string label = "";
 
+    /*
     private void OnGUI()
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 1.5f);
@@ -71,6 +72,7 @@ public class Enemy : MonoBehaviour
 
         GUI.Label(new Rect(screenPos.x - 100, Screen.height - screenPos.y - 140, 150, 20), label);
     }
+    */
 
     public void InitEnemy()
     {
