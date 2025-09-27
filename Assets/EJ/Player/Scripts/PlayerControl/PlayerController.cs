@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     private Rigidbody rb;
@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     bool isDashing;
     float dashEndTime;
     float nextDashTime;
-    Vector3 dashDir; 
+    Vector3 dashDir;
 
     void Start()
     {
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
         // --- 대쉬
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing && Time.time >= nextDashTime)
-        {   
+        {
             isDashing = true;
             dashEndTime = Time.time + dashDuration;
             nextDashTime = Time.time + dashCooldown;
