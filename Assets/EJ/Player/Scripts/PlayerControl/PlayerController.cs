@@ -1,39 +1,36 @@
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
-{
+{   
+    [Header("Move")]
     public float moveSpeed = 5f;
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-
     private Animator anim;
+    private Vector2 movement;
 
-    private Vector3 movement;
-    public Vector3 Movement => movement;
-
-    // ▼ 대쉬 변수
+    [Header("Dash")]
     public float dashSpeed = 15f;
     public float dashDuration = 0.2f;
     public float dashCooldown = 0.5f;
     bool isDashing;
     float dashEndTime;
     float nextDashTime;
-    Vector3 dashDir;
+    Vector2 dashDir;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-        // ▼ 추가
+        // 애니메이션
         anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
-        float moveZ = Input.GetAxisRaw("Vertical");
-        movement = new Vector3(moveX, 0f, moveZ).normalized;
+        float moveY = Input.GetAxisRaw("Vertical");
+        movement = new Vector2(moveX, moveY).normalized;
 
         if (anim != null)
         {
@@ -44,7 +41,7 @@ public class PlayerController : MonoBehaviour
         // 좌우 반전
         if (moveX != 0) spriteRenderer.flipX = (moveX > 0);
 
-        // --- 대쉬
+        // 대쉬
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing && Time.time >= nextDashTime)
         {
             isDashing = true;
@@ -60,11 +57,5 @@ public class PlayerController : MonoBehaviour
             rb.MovePosition(rb.position + movement * dashSpeed * Time.fixedDeltaTime);
         else
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-
-        if (movement == Vector3.zero)
-        {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
     }
 }
