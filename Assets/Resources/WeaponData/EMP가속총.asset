@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0700a7db59d9e409f03917a9558de3, type: 3}
+  m_Name: "EMP\uAC00\uC18D\uCD1D"
+  m_EditorClassIdentifier: 
+  weaponName: "EMP\uAC00\uC18D"
+  weaponIcon: {fileID: 21300000, guid: 33b2c5532d826ba4b8d38616591db9ae, type: 3}
+  blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}
+  coreA: {fileID: 11400000, guid: 1ab591dc649a52f498424ca6ca42db4e, type: 2}
+  coreB: {fileID: 11400000, guid: 84e91461660d6684a99830d8fa00acf7, type: 2}
+  attackType: 0
+  cooldown: 0.5

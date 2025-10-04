@@ -12,12 +12,12 @@ public class HUDManager : MonoBehaviour
             Instance = this;
     }
 
-    public void UpdateWeaponSlot(int slotIndex, Sprite weaponIcon)
+    public void UpdateWeaponSlot(int slotIndex, WeaponSO weaponData)
     {
-        if (slotIndex <= weaponSlots.Length)
-        {
-            weaponSlots[slotIndex - 1].sprite = weaponIcon;
-            weaponSlots[slotIndex - 1].color = Color.white;
-        }
+        if (slotIndex < 0 || slotIndex >= weaponSlots.Length) return;
+
+        var img = weaponSlots[slotIndex];
+        img.sprite = weaponData.weaponIcon;
+        img.color = Color.white;
     }
 }
