@@ -26,6 +26,7 @@ public class Inventory : MonoBehaviour
             {
                 s.blueprint = bp;
                 Debug.Log($"슬롯 {i + 1}에 {bp.blueprintName} 추가함.");
+                TryCombine(s, i);
                 return true;
             }
         }
@@ -44,7 +45,7 @@ public class Inventory : MonoBehaviour
             if (s == null) continue;
             if (!s.CanAddCore()) continue;
 
-            var cores = s.Cores ??= new List<CoreSO>(Slot.Capacity);
+            var cores = s.Cores ??= new List<CoreSO>(Slot.Capacity); // Cores가 Null 이면 새로 리스트 생성
             int count = cores.Count;
 
             // 슬롯 내에 코어가 0개면 바로 추가
@@ -93,9 +94,7 @@ public class Inventory : MonoBehaviour
         CoreSO a = s.Cores[0];
         CoreSO b = s.Cores[1];
 
-        Debug.Log("무기 조합 시도한다");
         WeaponSO w = weapon.GetWeapon(bp, a, b);
-        Debug.Log("여긴 문제 없음");
 
         if (w != null)
         {

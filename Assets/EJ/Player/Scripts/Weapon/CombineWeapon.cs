@@ -36,8 +36,8 @@ public class CombineWeapon : MonoBehaviour
             var b  = w.coreB.code;
             if (string.IsNullOrEmpty(bp) || string.IsNullOrEmpty(a) || string.IsNullOrEmpty(b)) continue;
 
-            var (low, high) = SortASC(a, b);     // 코어 순서 무시
-            table[(bp, low, high)] = w;                 // 같은 키면 마지막 항목이 남음
+            var (low, high) = SortASC(a, b);    // 코어 순서 무시
+            table[(bp, low, high)] = w;   // 같은 키면 마지막 항목이 남음
         }
     }
 

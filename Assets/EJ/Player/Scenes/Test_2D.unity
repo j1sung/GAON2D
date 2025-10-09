@@ -23299,7 +23299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotCount: 4
   slots: []
-  weapon: {fileID: 0}
+  weapon: {fileID: 2031851790}
 --- !u!1 &1581737232
 GameObject:
   m_ObjectHideFlags: 0
@@ -29458,6 +29458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allWeapons: []
+  resourcesPath: WeaponData
 --- !u!4 &2031851791
 Transform:
   m_ObjectHideFlags: 0
