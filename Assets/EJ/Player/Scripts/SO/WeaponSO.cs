@@ -4,7 +4,7 @@ using Attack.Pooling;
 [CreateAssetMenu(menuName = "SO/Weapon")]
 public class WeaponSO : ScriptableObject
 {
-    public enum FireType { gun, laser }
+    public enum FireType { gun, Laser }
 
     [Header("Info")]
     public string weaponName;
@@ -37,8 +37,6 @@ public class WeaponSO : ScriptableObject
         {
             case FireType.gun:
                 return new BulletFireModule();
-            case FireType.laser:
-                return new LaserFireModule();
             default:
                 return null;
         }

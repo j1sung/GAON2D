@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c20d0ff1b652bb34688029c1a7f245c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolName: Default_Crush
+  poolName: 
 --- !u!114 &7180456848902903787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,4 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb4d10632b91ee4b9c8403f013ca5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolName: 
   clip: {fileID: 7400000, guid: a3aa09f9e3892f545b55cbaaa9b1029e, type: 2}
+  fallback: 0.25

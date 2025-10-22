@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "EMP \uD655\uC0B0"
   m_EditorClassIdentifier: 
   weaponName: "EMP\uAC00\uC18D"
-  weaponIcon: {fileID: -1989570906, guid: 5013105147ee02847b0fd644c28d54b6, type: 3}
+  weaponIcon: {fileID: 307964152, guid: 44657edc19a02f14d9220cea11845ac3, type: 3}
   firetype: 0
   bulletPrefab: {fileID: 4736982253498273586, guid: 340b634e777b0ab449370634386d9543, type: 3}
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}
@@ -21,10 +21,10 @@ MonoBehaviour:
   coreB: {fileID: 11400000, guid: e00848974570c3645be3a2ed9497ba05, type: 2}
   damage: 20
   fireRate: 0.2
-  coolTime: 1.5
+  coolTime: 2
   burstCount: 10
   projectileSpeed: 20
   projectileLifetime: 2
   onHitTags: 1
-  bulletKey: EMP_MULTI_BULLET
+  bulletKey: MultiBullet
   impactKey: 

@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: 
   weaponIcon: {fileID: 0}
   firetype: 0
-  bulletPrefab: {fileID: 4736982253498273586, guid: df21cb8b2cd41be4ab84a9f97d930d6a, type: 3}
+  bulletPrefab: {fileID: 4736982253498273586, guid: b1d907dd873a7924eb3e77f495faccdd, type: 3}
   blueprint: {fileID: 0}
   coreA: {fileID: 0}
   coreB: {fileID: 0}
