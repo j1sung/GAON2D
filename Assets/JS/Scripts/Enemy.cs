@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
 
     public EnemyData enemyData; // 적의 데이터를 가져옴
     [SerializeField]private DropTable dropTable; // 아이템 데이터 가져옴
-    [SerializeField] private GameObject itemPrefab; // 빈 프리펩(추후 ItemManager로 분리)
     [SerializeField] private Transform dropParent; // 아이템 계층 부모
 
     public bool isLive { get; private set; } = false;
@@ -51,7 +50,7 @@ public class Enemy : MonoBehaviour
         originalColor = spriter.color;
         mpb = new MaterialPropertyBlock();
 
-        dropParent = GameObject.Find("===== Item =====").transform;
+        dropParent = GameObject.Find("====== Item ======").transform;
     }
 
     private void OnEnable()
@@ -150,14 +149,14 @@ public class Enemy : MonoBehaviour
 
         float rand = Random.Range(0, totalWeight);
         float sum = 0f;
-        IDropItem selected = null; // ItemData selected = null;
+        GameObject selected = null; // ItemData selected = null;
 
         foreach(var entry in dropTable.entries)
         {
             sum += entry.weight;
             if(rand <= sum)
             {
-                selected = entry.DropItem; // entry.item;
+                selected = entry.prefab; // entry.item;
                 break;
             }
         }
@@ -165,14 +164,10 @@ public class Enemy : MonoBehaviour
         if (selected != null) 
         {
             // 빈 프리펩 Instantiate
-            GameObject itemObj = Instantiate(itemPrefab, transform.position, Quaternion.identity);
+            GameObject itemObj = Instantiate(selected, transform.position, Quaternion.identity);
 
-            // DropItemData 세팅(주입)
+            // DropItemData 세팅
             itemObj.transform.SetParent(dropParent, true);
-            itemObj.name = selected.ItemName;
-            itemObj.GetComponent<SpriteRenderer>().sprite = selected.Image;
-            // 태그나 타입 등등 필요한거 더 주입 설정
-            // ...
         }
     }
 
