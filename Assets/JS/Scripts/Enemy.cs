@@ -1,23 +1,20 @@
-using EnemyOwnedStates;
+ï»¿using EnemyOwnedStates;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-//using static UnityEditorInternal.VersionControl.ListControl;
 
 public enum EnemyStates { SpawnState = 0, ChaseState, AttackState, DieState }
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
     public EnemyStatus status { get; private set; }
     public IEnemyAction action { get; private set; }
 
-    private IEnemyState[] states; // Enemy°¡ °¡Áø ¸ğµç »óÅÂ ÀÎ½ºÅÏ½º ÀúÀå
+    private IEnemyState[] states; // Enemyê°€ ê°€ì§„ ëª¨ë“  ìƒíƒœ ì¸ìŠ¤í„´ìŠ¤ ì €ì¥
     private EnemyFSM fsm = new EnemyFSM();
 
-    public EnemyData enemyData; // ÀûÀÇ µ¥ÀÌÅÍ¸¦ °¡Á®¿È
-    [SerializeField]private DropTable dropTable; // ¾ÆÀÌÅÛ µ¥ÀÌÅÍ °¡Á®¿È
-    [SerializeField] private Transform dropParent; // ¾ÆÀÌÅÛ °èÃş ºÎ¸ğ
+    public EnemyData enemyData;                 // ì ì˜ ë°ì´í„°ë¥¼ ê°€ì ¸ì˜´
+    [SerializeField] private DropTable dropTable; // ì•„ì´í…œ ë°ì´í„° ê°€ì ¸ì˜´
+    [SerializeField] private Transform dropParent; // ì•„ì´í…œ ê³„ì¸µ ë¶€ëª¨
 
     public bool isLive { get; private set; } = false;
     bool isInitialized = false;
@@ -27,12 +24,14 @@ public class Enemy : MonoBehaviour
     Animator animator;
 
     public Animator Animator => animator;
-    
+
     SpriteRenderer spriter;
     private Color originalColor;
     private MaterialPropertyBlock mpb;
 
-    //NavMeshAgent agent;
+    // === ì¤‘ë³µ íƒ€ê²© ë°©ì§€(í•œ í”„ë ˆì„ì— ë ˆì´ì €+íŠ¸ë¦¬ê±° ë™ì‹œ ì¶©ëŒ ì‹œ 1íšŒë§Œ ì²˜ë¦¬) ===
+    private int _lastHitFrame = -9999;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -77,24 +76,20 @@ public class Enemy : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!isLive) return;
-        spriter.flipX = target.position.x < rigid.position.x; // Àû ÁÂ¿ì º¯È¯
+        if (!isLive || target == null) return;
+        spriter.flipX = target.position.x < rigid.position.x; // ì  ì¢Œìš° ë³€í™˜
     }
 
     // =========== SpawnState ===========
     public void InitEnemy()
     {
-        if (isInitialized) // Ç®¿¡ Á¸ÀçÇÑ´Ù¸é
-        {
+        if (isInitialized) // í’€ì— ì¡´ì¬í•œë‹¤ë©´
             return;
-        }
-        // ÃÖÃÊ Àû ¿ÀºêÁ§Æ® »ı¼º½Ã ÃÊ±âÈ­
 
+        // ìµœì´ˆ ì  ì˜¤ë¸Œì íŠ¸ ìƒì„±ì‹œ ì´ˆê¸°í™”
         target = GameInstance.Instance.player.GetComponent<Rigidbody2D>();
 
-        //animator.runtimeAnimatorController = enemyData.controller; // »óÅÂ¿¡ µû¸¥ ¾Ö´Ï¸ŞÀÌ¼Ç ÀüÈ¯ÀÎµ¥ ÃßÈÄ Á¤»óÈ­
         status.InitStatus(enemyData);
-
         isInitialized = true;
     }
 
@@ -107,9 +102,9 @@ public class Enemy : MonoBehaviour
     // =========== ChaseState ===========
     public void MoveToTarget()
     {
-        // Àû -> ÇÃ·¹ÀÌ¾î ¹æÇâ = À§Ä¡Â÷ÀÌ Á¤±ÔÈ­
+        // ì  -> í”Œë ˆì´ì–´ ë°©í–¥ = ìœ„ì¹˜ì°¨ì´ ì •ê·œí™”
         Vector2 dirVec = target.position - rigid.position;
-        Vector2 nextVec = dirVec.normalized * status.Speed * Time.fixedDeltaTime; // ´ÙÀ½ º¤ÅÍ: fixedDeltaTime -> ÇÁ·¹ÀÓ ¿µÇâÀ» ¹ŞÁö ¾Ê°Ô
+        Vector2 nextVec = dirVec.normalized * status.Speed * Time.fixedDeltaTime; // í”„ë ˆì„ ë…ë¦½ ì´ë™
         rigid.MovePosition(rigid.position + nextVec);
         rigid.velocity = Vector2.zero;
     }
@@ -117,10 +112,10 @@ public class Enemy : MonoBehaviour
     // =========== AttackState ===========
     public bool IsInAttackRange()
     {
-        // ³ª¿Í Å¸°Ù »çÀÌÀÇ °Å¸®°¡ °ø°İ »ç°Å¸®º¸´Ù Âª°Å³ª °°À¸¸é true, ¾Æ´Ï¸é false ¹İÈ¯
-        return Vector2.Distance(transform.position, target.position) <= status.AttackRange; // Àû¸¶´Ù °ø°İ »ç°Å¸®°¡ ´Ù¸¦ ¼ö ÀÖÀ½
+        // ë‚˜ì™€ íƒ€ê²Ÿ ì‚¬ì´ì˜ ê±°ë¦¬ê°€ ê³µê²© ì‚¬ê±°ë¦¬ë³´ë‹¤ ì§§ê±°ë‚˜ ê°™ìœ¼ë©´ true
+        return Vector2.Distance(transform.position, target.position) <= status.AttackRange;
     }
-    
+
     public void DoAttack()
     {
         action?.Attack(this);
@@ -130,64 +125,90 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         isLive = false;
-        ItemDrop(); // Á×À»¶§ ¾ÆÀÌÅÛ µå¶ø
+        ItemDrop(); // ì£½ì„ë•Œ ì•„ì´í…œ ë“œë
         gameObject.SetActive(false);
     }
 
-    // ÃßÈÄ ItemManager³ª ´Ù¸¥ Å¬·¡½º·Î ºĞ¸®ÇØ¼­ ±¸Çö
-    /* 
-    ¾î¶² ¾ÆÀÌÅÛÀ» ½ºÆùÇÒÁö? -> ½ºÅ©¸³ÅÍºí µ¥ÀÌÅÍ·Î 1.¼³°èµµ, 2.ÄÚ¾î(¸ŞÀÎ, ¼­ºê)°¡ ÀÖÀ½ => ÇÁ¸®Æé¿¡ µ¥ÀÌÅÍ ³ÖÀ¸¸é ÇØ´ç ¾ÆÀÌÅÛÀÌ µÉ ¼ö ÀÖÀ½
-    ±×·³ ÀÌ 3°³Áß¿¡¼­ ¹¹¸¦ ½ºÆùÇÒÁö´Â È®·üÀûÀ¸·Î Á¤ÇÏ´Â ·ÎÁ÷ÀÌ ÇÊ¿äÇÔ
-    ÀÏ´Ü 1°³ item ½ºÆù -> ºó ÇÁ¸®ÆéÀ» ÁØºñÇÏ°í È®·üÀûÀ¸·Î Á¤ÇØÁø ¾ÆÀÌÅÛÀÇ ½ºÅ©¸³ÅÍºí µ¥ÀÌÅÍ¸¦ ³Ö¾î¼­ ½ºÆùÇÏ¸é µÊ
-    ¾ÆÀÌÅÛ µå¶ø À§Ä¡ ¼³Á¤ Ãß°¡
-    */
+    // ì¶”í›„ ItemManagerë‚˜ ë‹¤ë¥¸ í´ë˜ìŠ¤ë¡œ ë¶„ë¦¬í•´ì„œ êµ¬í˜„
     public void ItemDrop()
     {
         float totalWeight = 0f;
-        foreach(var entry in dropTable.entries)
+        foreach (var entry in dropTable.entries)
             totalWeight += entry.weight;
 
         float rand = Random.Range(0, totalWeight);
         float sum = 0f;
-        GameObject selected = null; // ItemData selected = null;
+        GameObject selected = null;
 
-        foreach(var entry in dropTable.entries)
+        foreach (var entry in dropTable.entries)
         {
             sum += entry.weight;
-            if(rand <= sum)
+            if (rand <= sum)
             {
-                selected = entry.prefab; // entry.item;
+                selected = entry.prefab;
                 break;
             }
         }
 
-        if (selected != null) 
+        if (selected != null)
         {
-            // ºó ÇÁ¸®Æé Instantiate
             GameObject itemObj = Instantiate(selected, transform.position, Quaternion.identity);
-
-            // DropItemData ¼¼ÆÃ
             itemObj.transform.SetParent(dropParent, true);
         }
     }
 
+    // =========================
+    //  ë ˆì´ì €/ì´ì•Œ ê³µí†µ ë°ë¯¸ì§€ ì§„ì…ì 
+    // =========================
+    public void ApplyHit(HitContext ctx)
+    {
+        if (!isLive) return;
+
+        // ê°™ì€ í”„ë ˆì„ ì¤‘ë³µ íƒ€ê²©(íƒœê·¸ íŠ¸ë¦¬ê±° + ë ˆì´ì € Raycast) ë°©ì§€
+        if (_lastHitFrame == Time.frameCount) return;
+        _lastHitFrame = Time.frameCount;
+
+        status.ReduceHealth(ctx.damage);
+
+        // ìƒíƒœì´ìƒ ì ìš©ì´ í•„ìš”í•˜ë©´ ì—¬ê¸°ì„œ ctx.statusTagsë¥¼ ì°¸ì¡°í•´ ì²˜ë¦¬
+        // e.g., status.ApplyStatus(ctx.statusTags);
+
+        // í”¼ê²© ì—°ì¶œ ì›í•˜ë©´ ì£¼ì„ í•´ì œ
+        // StartCoroutine(HitFlash());
+
+        if (status.IsDead)
+            ChangeState(EnemyStates.DieState);
+    }
+
+    // ========== ë ˆê±°ì‹œ: íƒœê·¸ ê¸°ë°˜ ì´ì•Œ íŠ¸ë¦¬ê±° ==========
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // ÃÑ¾Ë ÅÂ±×¸¦ Damage·Î ¼³Á¤
-        if (other.CompareTag("Damage"))
+        if (!isLive) return;
+
+        // ì´ì•Œ/ë ˆì´ì € ë“± í”¼í•´ ì½œë¼ì´ë” íƒœê·¸
+        if (!other.CompareTag("Damage")) return;
+
+        // ê°™ì€ í”„ë ˆì„ì— ì´ë¯¸ ApplyHitë¡œ ì²˜ë¦¬ëë‹¤ë©´ ìŠ¤í‚µ
+        if (_lastHitFrame == Time.frameCount) return;
+
+        // 1) ì‹ í˜•: ì´ì•Œë„ IDamageable ê²½ë¡œë¡œ ë„£ëŠ” ê²½ìš°ê°€ ë§ì•„ì„œ,
+        //    ìƒëŒ€ ìŠ¤í¬ë¦½íŠ¸ê°€ ìš°ë¦¬ì—ê²Œ ApplyHitë¥¼ í˜¸ì¶œí•´ì¤¬ë‹¤ë©´ ì—¬ê¸°ì„  ì•„ë¬´ ê²ƒë„ ì•ˆí•´ë„ ë¨.
+
+        // 2) êµ¬í˜•(í˜¸í™˜): Attack.Pooling.Bullet ê°™ì´ public damage í•„ë“œë¥¼ ì§ì ‘ ì½ë˜ ì´ì•Œ
+        var pooledBullet = other.GetComponent<Attack.Pooling.Bullet>();
+        if (pooledBullet != null)
         {
-            // ÃÑ¾ËÀÌ °¡Áø Bullet½ºÅ©¸³Æ®¿¡¼­ damage °¡Á®¿À±â
-            Attack.Pooling.Bullet bullet = other.GetComponent<Attack.Pooling.Bullet>();
-            status.ReduceHealth(bullet.damage);
-
-            // ÇÇ°İ ½Ã »ö»ó ¹İÂ¦ÀÌ±â
+            _lastHitFrame = Time.frameCount;
+            status.ReduceHealth(pooledBullet.damage);
             // StartCoroutine(HitFlash());
-
-            if (status.IsDead)
-            {
-                ChangeState(EnemyStates.DieState);
-            }
+            if (status.IsDead) ChangeState(EnemyStates.DieState);
+            return;
         }
+
+        // 3) (ì„ íƒ) ì•„ì£¼ ì˜›ë‚  ë„¤ì„ìŠ¤í˜ì´ìŠ¤: Attack.Bullet
+        //    ì—¬ê¸°ì„œëŠ” damageê°€ privateì¼ ìˆ˜ ìˆì–´ ì§ì ‘ ì²˜ë¦¬í•˜ì§€ ì•Šê³ ,
+        //    ì´ì•Œ ì¸¡ OnTriggerEnter2Dì—ì„œ IDamageable.ApplyHit()ë¥¼ í˜¸ì¶œí•˜ë„ë¡ ìœ ì§€í•˜ëŠ” í¸ì´ ì•ˆì „í•¨.
+        //    => ë³„ë„ ì²˜ë¦¬ ì—†ìŒ
     }
 
     private IEnumerator HitFlash()
@@ -197,32 +218,26 @@ public class Enemy : MonoBehaviour
         spriter.material.color = originalColor;
     }
 
-    // °ø°İ ¹üÀ§ ±âÁî¸ğ
+    // ê³µê²© ë²”ìœ„ ê¸°ì¦ˆëª¨
     void OnDrawGizmos()
     {
-        if (status == null)
-        {
-            return;
-        }
+        if (status == null) return;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, status.AttackRange);
     }
 
-    // ÀÓ½Ã Ã¼·Â UI
-
+    // (ì„ì‹œ ì²´ë ¥ GUIëŠ” ì£¼ì„ ìœ ì§€)
     /*
     private string label = "";
-
     private void OnGUI()
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 1.5f);
 
         int currentHP = Mathf.RoundToInt(status.CurrentHealth);
         int maxHP = Mathf.RoundToInt(status.MaxHealth);
-        string currentState = fsm.currentState.GetType().Name;
-        
-        label = $"{currentState} | HP: {currentHP}/{maxHP}";
+        int cs = (fsm.currentState != null) ? (int)fsm.currentState.GetType().Name.GetHashCode() : 0;
 
+        label = $"{fsm.currentState?.GetType().Name} | HP: {currentHP}/{maxHP}";
         GUI.Label(new Rect(screenPos.x - 100, Screen.height - screenPos.y - 140, 150, 20), label);
     }
     */

@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: DT_M2
   m_EditorClassIdentifier: 
   entries:
-  - prefab: {fileID: 7637774445338191571, guid: 206c8503ab5a79c4aa563eacd8e25270, type: 3}
-    weight: 8
-  - prefab: {fileID: 7360999937965238142, guid: 104831cc9f14e614ea86274b37937489, type: 3}
-    weight: 8
-  - prefab: {fileID: 4693676616035236677, guid: 990dfba0bf7ffaa4eafe5f6a17d3f3f0, type: 3}
-    weight: 8
-  - prefab: {fileID: 5307179801139091253, guid: 5452e5fd8f405bd4d8d49e848a3cca46, type: 3}
-    weight: 8
-  - prefab: {fileID: 2148674886527907764, guid: ce3fb80987b4f7640adcb50058aa2929, type: 3}
-    weight: 8
+  - prefab: {fileID: 4196105445842951691, guid: b0b1acf953e9f664cb550e69a0ac954c, type: 3}
+    weight: 5
+  - prefab: {fileID: 954134402453773284, guid: 6dc0139a2a6277a4dbea5dd73b84d754, type: 3}
+    weight: 5
+  - prefab: {fileID: 21547503183881913, guid: 014b99be507ec79408947f59add7bad0, type: 3}
+    weight: 5
+  - prefab: {fileID: 2114625161070588088, guid: 348e404309ebe7846ac8de1dc77b91ae, type: 3}
+    weight: 5
+  - prefab: {fileID: 3047962483870694682, guid: 8c9e3f706ffbce647ae6ad2c86e0f855, type: 3}
+    weight: 5
   - prefab: {fileID: 0}
-    weight: 60
+    weight: 80
