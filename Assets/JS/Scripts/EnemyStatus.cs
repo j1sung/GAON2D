@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyStatus : MonoBehaviour
 {
     public float MaxHealth { get; private set; }
-    public float CurrentHealth { get; private set; }
+    [field: SerializeField] public float CurrentHealth { get; private set; }
     public float Speed { get; private set; }
     public float AttackRange { get; private set; }
 

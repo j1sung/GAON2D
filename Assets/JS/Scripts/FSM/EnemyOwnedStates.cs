@@ -9,8 +9,8 @@ namespace EnemyOwnedStates
         public void Enter(Enemy enemy)
         {
             // 공통 스폰 로직
-            enemy.InitEnemy(); // 최초 적 오브젝트 생성시 호출
-            enemy.ResetEnemy(); // 풀에서 꺼내면 매번 호출
+            enemy.InitEnemy();
+            enemy.ResetEnemy(); // 필수 초기화만
         }
 
         public void Execute(Enemy enemy)
