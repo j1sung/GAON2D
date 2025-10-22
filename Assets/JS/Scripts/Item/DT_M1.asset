@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: DT_M1
   m_EditorClassIdentifier: 
   entries:
-  - item: {fileID: 11400000, guid: 39b417f975247944ba0ccba254594502, type: 2}
-    weight: 50
-  - item: {fileID: 11400000, guid: f2d0ccfaeeba5b342ab2536a9efa7c79, type: 2}
-    weight: 30
-  - item: {fileID: 11400000, guid: 4bc91b92aef966e47bba1489633a5636, type: 2}
-    weight: 10
-  - item: {fileID: 0}
-    weight: 10
+  - prefab: {fileID: 7637774445338191571, guid: 206c8503ab5a79c4aa563eacd8e25270, type: 3}
+    weight: 8
+  - prefab: {fileID: 7360999937965238142, guid: 104831cc9f14e614ea86274b37937489, type: 3}
+    weight: 8
+  - prefab: {fileID: 4693676616035236677, guid: 990dfba0bf7ffaa4eafe5f6a17d3f3f0, type: 3}
+    weight: 8
+  - prefab: {fileID: 5307179801139091253, guid: 5452e5fd8f405bd4d8d49e848a3cca46, type: 3}
+    weight: 8
+  - prefab: {fileID: 2148674886527907764, guid: ce3fb80987b4f7640adcb50058aa2929, type: 3}
+    weight: 8
+  - prefab: {fileID: 0}
+    weight: 60
