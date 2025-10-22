@@ -1,3 +1,8 @@
+/// 습득한 설계도/코어를 슬롯에 추가하는 클래스이다.
+/// 슬롯의 자리 여부를 판단해서 슬롯0부터 차례대로 채운다.
+/// 설계도나 코어를 획득 할 때마다 해당 슬롯에서 무기 조합을 시도한다.
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +13,15 @@ public class Inventory : MonoBehaviour
     public Slot[] slots;
 
     public CombineWeapon weapon;
+
+    [Header("Default Weapon")]
+    public WeaponSO defaultWeapon;
+
+    // 조합 성공 알림(WeaponManager가 구독해서 컨트롤러 재구성)
+    public event Action OnWeaponsChanged;
+
+    // 선택된 조합무기 슬롯 인덱스
+    private int selectedSlotIndex = -1;
 
     void Awake()
     {
@@ -102,10 +116,65 @@ public class Inventory : MonoBehaviour
             s.combinedWeapon = w;    // 조합 결과 저장
             HUDManager.Instance.UpdateWeaponSlot(slotIndex, w);
             Debug.Log($"슬롯 {slotIndex + 1}에 {w.weaponName} 추가함.");
+
+            // 만약 첫 조합이면, 자동으로 선택
+            if (selectedSlotIndex == -1)
+            {
+                selectedSlotIndex = slotIndex;
+                Debug.Log($"첫 조합무기 자동 선택: 슬롯 {slotIndex + 1}");
+            }
+            OnWeaponsChanged?.Invoke(); // 무기 변경 이벤트 발행
         }
         else
         {
             Debug.Log("조합 실패.");
         }
+    }
+
+    // 현재 선택된 조합무기를 직접 선택하는 함수
+    public bool SelectCombinedWeapon(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= slots.Length)
+        {
+            Debug.Log("잘못된 슬롯 인덱스");
+            return false;
+        }
+
+        if (slots[slotIndex].combinedWeapon == null)
+        {
+            Debug.Log("선택할 무기가 없습니다.");
+            return false;
+        }
+
+        selectedSlotIndex = slotIndex;
+        Debug.Log($"조합 무기 선택: 슬롯 {slotIndex + 1}");
+        OnWeaponsChanged?.Invoke(); // 무기 변경 알림
+        return true;
+    }
+
+    // 현재 선택된 조합 무기 반환 (없으면 null)
+    public WeaponSO GetSelectedCombinedWeapon()
+    {
+        if (selectedSlotIndex < 0 || selectedSlotIndex >= slots.Length)
+            return null;
+
+        return slots[selectedSlotIndex].combinedWeapon;
+    }
+
+    // 현재 전투에서 실제로 사용할 무기 목록 반환 (기본무기 + 선택된 조합무기 1개)
+    public List<WeaponSO> GetActiveWeapons()
+    {
+        var list = new List<WeaponSO>(2);
+
+        // 기본무기 
+        if (defaultWeapon != null)
+            list.Add(defaultWeapon);
+
+        // 선택된 조합무기
+        WeaponSO selected = GetSelectedCombinedWeapon();
+        if (selected != null)
+            list.Add(selected);
+
+        return list;
     }
 }

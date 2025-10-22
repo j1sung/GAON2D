@@ -6,7 +6,7 @@ public class CorePickup : BasePickup
 
     protected override bool TryPickup()
     {
-        if (targetInv == null || core == null) return false;
-        return targetInv.PickupCore(core);
+        if (inventory == null || core == null) return false;
+        return inventory.PickupCore(core);
     }
 }

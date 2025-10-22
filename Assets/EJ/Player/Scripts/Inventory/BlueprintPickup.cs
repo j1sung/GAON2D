@@ -6,7 +6,7 @@ public class BlueprintPickup : BasePickup
 
     protected override bool TryPickup()
     {
-        if (targetInv == null || blueprint == null) return false;
-        return targetInv.PickupBlueprint(blueprint);
+        if (inventory == null || blueprint == null) return false;
+        return inventory.PickupBlueprint(blueprint);
     }
 }

@@ -3,26 +3,26 @@ using UnityEngine;
 public abstract class BasePickup : MonoBehaviour
 {
     protected bool inRange;
-    protected Inventory targetInv;
+    protected Inventory inventory;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        targetInv = other.GetComponent<Inventory>();
-        inRange = targetInv != null;
+        inventory = other.GetComponent<Inventory>();
+        inRange = inventory != null;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        if (other.GetComponent<Inventory>() == targetInv)
+        if (other.GetComponent<Inventory>() == inventory)
         {
             inRange = false;
-            targetInv = null;
+            inventory = null;
         }
     }
 
-    protected abstract bool TryPickup(); // 자식이 실제 픽업 로직 구현
+    protected abstract bool TryPickup();
 
     private void Update()
     {

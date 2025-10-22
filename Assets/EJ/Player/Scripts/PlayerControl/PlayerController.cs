@@ -38,9 +38,6 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isDashing", isDashing);
         }
 
-        // 좌우 반전
-        if (moveX != 0) spriteRenderer.flipX = (moveX > 0);
-
         // 대쉬
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing && Time.time >= nextDashTime)
         {
