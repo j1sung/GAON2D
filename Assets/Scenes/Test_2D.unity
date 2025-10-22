@@ -375,6 +375,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1575886609381448905, guid: 087afd7c97e1864409424f9753caaa20, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f1d2b85510f4ef04e92da1f997bd3540, type: 3}
     - target: {fileID: 4882135599258103287, guid: 087afd7c97e1864409424f9753caaa20, type: 3}
       propertyPath: m_Name
       value: GameInstance
