@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 1670545316162788748}
   - component: {fileID: 4135109480741507307}
   m_Layer: 7
-  m_Name: Bullet 1
-  m_TagString: Untagged
+  m_Name: DefaultBullet
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c20d0ff1b652bb34688029c1a7f245c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolName: bullet_default
+  poolName: Default_Bullet
 --- !u!114 &4135109480741507307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,5 +185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b1fed906667f9a4db6fb898e87a324b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
   hitEffectPrefab: {fileID: 5232634435105991855, guid: 54f491594d8b3c14b83e176efdc56ffa, type: 3}
   fallbackImpactLife: 0.25

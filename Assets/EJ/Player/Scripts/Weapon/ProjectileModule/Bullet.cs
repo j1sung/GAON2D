@@ -10,7 +10,7 @@ namespace Attack.Pooling
         private Vector2 dir;
         private float speed;
         private float life;
-        private float damage;
+        public float damage;
         private StatusTag status;
 
         // ---- 컴포넌트 ----

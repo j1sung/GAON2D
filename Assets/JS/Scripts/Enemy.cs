@@ -177,11 +177,11 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("Damage"))
         {
             // 총알이 가진 Bullet스크립트에서 damage 가져오기
-            Bullet bullet = other.GetComponent<Bullet>();
+            Attack.Pooling.Bullet bullet = other.GetComponent<Attack.Pooling.Bullet>();
             status.ReduceHealth(bullet.damage);
 
             // 피격 시 색상 반짝이기
-            StartCoroutine(HitFlash());
+            // StartCoroutine(HitFlash());
 
             if (status.IsDead)
             {
