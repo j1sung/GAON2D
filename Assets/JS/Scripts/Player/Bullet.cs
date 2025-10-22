@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 10f;
     public float lifetime = 3f;
-    public float damage = 50f;
+    public float damage = 50f; // 이 부분만 Enemy에 넘겨주게끔 공격 구현
 
     private float timer = 0f;
     private Rigidbody rb;
