@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
     public Transform[] spawnPoint;
 
     int spawnCount = 0;
-    int spawnIndex = 0;
+    [SerializeField] int spawnIndex = 1;
 
     float time;
     [SerializeField] float spawnTime; // 스폰되는 시간
