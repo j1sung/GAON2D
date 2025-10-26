@@ -16,6 +16,5 @@ public class SelectionUIController : MonoBehaviour
     }
 
     public void OnLevelUp() => Open();
-
     public void OnSelectOption() => Close();
 }
