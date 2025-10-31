@@ -4,9 +4,9 @@ public class CorePickup : BasePickup
 {
     [SerializeField] private CoreSO core;
 
-    protected override bool TryPickup()
+    protected override bool TryPickup(PlayerAgents target)
     {
-        if (inventory == null || core == null) return false;
-        return inventory.PickupCore(core);
+        if (target == null || core == null) return false;
+        return target.inventory.PickupCore(core);
     }
 }
