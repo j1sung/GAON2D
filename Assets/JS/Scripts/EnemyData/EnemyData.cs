@@ -12,6 +12,7 @@ public class EnemyData : ScriptableObject
     public int health;
     public float speed;
     public float attackRange;
+    public float damage;
 }
 
 [CreateAssetMenu(fileName = "BossData", menuName = "Spawn/BossData")]

@@ -25,3 +25,4 @@ MonoBehaviour:
     weight: 5
   - prefab: {fileID: 0}
     weight: 80
+  exp: {fileID: 4196105445842951691, guid: 73912407035914e4da60fafc5385bf17, type: 3}

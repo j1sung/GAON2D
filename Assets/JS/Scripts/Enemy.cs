@@ -118,7 +118,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void DoAttack()
     {
-        action?.Attack(this);
+        action?.Attack(this, enemyData.damage);
     }
 
     // =========== DieState ===========
@@ -152,9 +152,18 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if (selected != null)
         {
-            GameObject itemObj = Instantiate(selected, transform.position, Quaternion.identity);
+            GameObject itemObj = Instantiate(selected, GetRandomSpawnPos(), Quaternion.identity);
             itemObj.transform.SetParent(dropParent, true);
         }
+
+        GameObject expObj = Instantiate(dropTable.exp, GetRandomSpawnPos(), Quaternion.identity);
+        expObj.transform.SetParent(dropParent, true);
+    }
+
+    private Vector3 GetRandomSpawnPos() // 드랍 아이템 생성 위치 랜덤
+    {
+        Vector2 offset = Random.insideUnitCircle * 2f; // 반경 0.5유닛 안에서 랜덤 위치
+        return transform.position + new Vector3(offset.x, offset.y, 0f);
     }
 
     // =========================
