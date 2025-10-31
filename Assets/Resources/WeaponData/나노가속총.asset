@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: "\uB098\uB178\uAC00\uC18D\uCD1D"
   weaponIcon: {fileID: 307964152, guid: 44657edc19a02f14d9220cea11845ac3, type: 3}
-  firetype: 0
-  bulletPrefab: {fileID: 4736982253498273586, guid: 0411b4974ad96ac4ab27f2f0a4b5adf8, type: 3}
+  firetype: 1
+  bulletPrefab: {fileID: 6747470851662068052, guid: 7ab2905c6d50b9d4cb72af19a2212797, type: 3}
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}
   coreA: {fileID: 11400000, guid: ee828f644ebe6a74693c619290566899, type: 2}
   coreB: {fileID: 11400000, guid: 84e91461660d6684a99830d8fa00acf7, type: 2}
-  damage: 20
+  damage: 100
   fireRate: 0.2
-  coolTime: 2
+  coolTime: 1
   burstCount: 10
-  projectileSpeed: 35
-  projectileLifetime: 2
+  projectileSpeed: 20
+  projectileLifetime: 0.2
   onHitTags: 4
   bulletKey: 
   impactKey: 

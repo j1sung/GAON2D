@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   code: GUN
   blueprintName: Gun
-  image: {fileID: 21300000, guid: baed6d032fb01b04b99d09824aa0fc5e, type: 3}
+  image: {fileID: 21300000, guid: 8db80f55272cedc46b13d5aa2662555d, type: 3}

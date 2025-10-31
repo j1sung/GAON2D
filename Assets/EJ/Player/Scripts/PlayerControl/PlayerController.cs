@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    private Animator anim;
     private Vector2 movement;
     public Vector2 Movement => movement;
 
@@ -19,12 +18,12 @@ public class PlayerController : MonoBehaviour
     float nextDashTime;
     Vector2 dashDir;
 
+    [SerializeField] private Animator anim;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        // 애니메이션
-        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -33,13 +32,12 @@ public class PlayerController : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         movement = new Vector2(moveX, moveY).normalized;
 
-        /*
+
         if (anim != null)
         {
             anim.SetFloat("Speed", movement.sqrMagnitude);
             anim.SetBool("isDashing", isDashing);
         }
-        */
 
         // 대쉬
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing && Time.time >= nextDashTime)

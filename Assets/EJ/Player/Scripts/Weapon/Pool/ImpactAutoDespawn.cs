@@ -24,8 +24,17 @@ public class ImpactAutoDespawn : MonoBehaviour
 
     void OnEnable()
     {
-        anim.Play(0, 0, 0f);      // 0프레임부터 재생
-        CancelInvoke();
+        // 애니메이터 초기화
+        var anim = GetComponent<Animator>();
+        if (anim != null)
+        {
+            anim.Rebind();          // Animator 상태 리셋
+            anim.Update(0f);        // 즉시 갱신
+            anim.Play(0, 0, 0f);    // 첫 프레임부터 재생
+        }
+
+        // 혹시 이전 Invoke 남아 있으면 취소하고 새로 시작
+        CancelInvoke(nameof(DespawnSelf));
         Invoke(nameof(DespawnSelf), len);
     }
 

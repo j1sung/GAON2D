@@ -31,3 +31,49 @@ public class EnemyStatus : MonoBehaviour
         CurrentHealth = Mathf.Max(CurrentHealth - amount, 0f);
     }
 }
+
+
+// 적 기본 값 확인
+/*
+ * 1. ScriptableObject로 적 기본 스탯 관리
+ * 2. EnemyStats 클래스 생성 (MaxHealth, Speed, AttackRange)
+ * 3. EnemyStats 상태 관리 클래스 생성 (현재 체력, 데미지 처리)
+ * 
+ * 
+ public class EnemyStats{
+    public float MaxHelath;
+    public float Speed;
+    public float AttackRange;
+
+    public EnemyStats(float maxHealth, float speed, float attackRange){
+        MaxHelath = maxHealth;
+        Speed = speed;
+        AttackRange = attackRange;
+    }
+
+    public EnemtyStats Clone(){
+        return new EnemyStats(MaxHelath, Speed, AttackRange);
+    }
+}
+ 
+public class a : MonoBehaviour{
+    [SerializeField] private EnemyStats baseStats;
+    public EnemyStats RuntimeStats { get; private set; }
+
+    public float CurrentHealth { get; private set; }
+    public bool IsDead => CurrentHealth <= 0;
+
+   private void Awake(){
+        RuntimeStats = baseStats.Clone();
+        CurrentHealth = RuntimeStats.MaxHelath;
+    }
+    
+    public void TakeDamage(float amount){
+        CurrentHealth = Mathf.Max(CurrentHealth - amount, 0f);
+    }
+
+    public void ResetStats() {
+    CurrentHealth = RuntimeStats.MaxHelath;
+    }
+}
+ */

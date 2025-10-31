@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.19, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 4eca16c77a7672f40b4c4816a829535b, type: 2}
   dropTable: {fileID: 11400000, guid: 623d64bed7160444aaf4f5bd7051736c, type: 2}
-  itemPrefab: {fileID: 1724334207634284905, guid: 1f76bb9aed1b9404babe5b0efb667259, type: 3}
+  dropParent: {fileID: 0}
 --- !u!114 &5032918710528338087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c37d3425f3ed0f408ba93707e0d0e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <CurrentHealth>k__BackingField: 0
 --- !u!114 &5592275271939503813
 MonoBehaviour:
   m_ObjectHideFlags: 0
