@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class M1Action : MonoBehaviour, IEnemyAction
 {
-    public void Attack(Enemy self)
+    public void Attack(Enemy self, float damage)
     {
         Debug.Log("M1 박치기 공격!");
+
+
     }
 }

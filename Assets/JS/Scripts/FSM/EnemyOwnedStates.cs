@@ -62,6 +62,7 @@ namespace EnemyOwnedStates
                 return;
             }
 
+            enemy.DoAttack();
             //enemy.StartCoroutine(AttackCoroutine(enemy));
         }
         private IEnumerator AttackCoroutine(Enemy enemy)
