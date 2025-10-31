@@ -15,4 +15,5 @@ public class DropEntry
 public class DropTable : ScriptableObject
 {
     public List<DropEntry> entries;
+    public GameObject exp; // 경험치 프리펩
 }

@@ -9,6 +9,7 @@ public class EnemyStatus : MonoBehaviour
     [field: SerializeField] public float CurrentHealth { get; private set; }
     public float Speed { get; private set; }
     public float AttackRange { get; private set; }
+    public float Damage {  get; private set; }
 
     // Status ¼ÂÆÃ
     public void InitStatus(EnemyData data)
@@ -16,6 +17,7 @@ public class EnemyStatus : MonoBehaviour
         MaxHealth = data.health;
         Speed = data.speed;
         AttackRange = data.attackRange;
+        Damage = data.damage;
     }
 
     public void ResetStatus()
