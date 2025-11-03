@@ -4,11 +4,10 @@ using UnityEngine;
 public class Portal : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameConfing config;
-    [SerializeField] private string overrideNextScene; 
-
-    public string Prompt => $"[{config.interactKey}] 이동";
+    [SerializeField] private string overrideNextScene;
 
     private bool _playerInside;
+    public string Prompt => $"[{config.interactKey}] 이동";
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,20 +17,26 @@ public class Portal : MonoBehaviour, IInteractable
     {
         if (other.GetComponent<PlayerTag>()) _playerInside = false;
     }
+
     private void Update()
     {
-        if (!_playerInside) return;
-        if (Input.GetKeyDown(config.interactKey)) Interact();
-    }
-    public void Interact()
-    {
-        var next = string.IsNullOrEmpty(overrideNextScene) ? config.nextSceneName : overrideNextScene;
-        GameEvents.OnRequestSceneChange?.Invoke(next);
+        if (_playerInside && Input.GetKeyDown(config.interactKey)) Interact();
     }
 
-    private void OnDrawGizmosSelected()
+    public void Interact()
     {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(GetComponent<Collider2D>().bounds.center, GetComponent<Collider2D>().bounds.size);
+        string nextScene = !string.IsNullOrEmpty(overrideNextScene)
+            ? overrideNextScene
+            : StageFlowManager.Instance?.GetNextScene();
+
+        if (string.IsNullOrEmpty(nextScene))
+        {
+            Debug.Log("[Portal] 모든 스테이지 클리어! 엔딩/결과로 이동");
+            GameEvents.OnGameOver?.Invoke();
+            return;
+        }
+
+        Debug.Log($"[Portal] 이동 요청: {nextScene}");
+        GameEvents.OnRequestSceneChange?.Invoke(nextScene);
     }
 }
