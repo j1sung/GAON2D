@@ -17,9 +17,9 @@ public class WeaponSO : ScriptableObject
     public CoreSO coreA;
     public CoreSO coreB;
 
-    [Header("기본 수치")] // 일단 디버그만
+    [Header("기본 수치")]
     public float damage;          // 공격력
-    public float fireRate;        // 연사 간격 (한 탄마다 몇 초)
+    public float fireRate;        // 탄환 발사 간격
     public float coolTime;        // 스킬 전체 쿨타임
     public int burstCount;        // 한 번의 스킬에서 발사되는 탄 개수
     public float projectileSpeed; // 탄속

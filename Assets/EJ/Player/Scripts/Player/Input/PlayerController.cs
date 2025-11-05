@@ -1,18 +1,18 @@
+
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {   
+    [SerializeField] private PlayerStatus status;
+
     [Header("Move")]
-    public float moveSpeed = 5f;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Vector2 movement;
     public Vector2 Movement => movement;
 
     [Header("Dash")]
-    public float dashSpeed = 15f;
-    public float dashDuration = 0.2f;
-    public float dashCooldown = 0.5f;
+
     bool isDashing;
     float dashEndTime;
     float nextDashTime;
@@ -43,8 +43,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing && Time.time >= nextDashTime)
         {
             isDashing = true;
-            dashEndTime = Time.time + dashDuration;
-            nextDashTime = Time.time + dashCooldown;
+            dashEndTime = Time.time + status.RUN_dashDuration;
+            nextDashTime = Time.time + status.RUN_dashCooldown;
         }
         if (isDashing && Time.time >= dashEndTime) isDashing = false;
     }
@@ -52,9 +52,9 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         if (isDashing)
-            rb.MovePosition(rb.position + movement * dashSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + movement * status.RUN_dashSpeed * Time.fixedDeltaTime);
         else
-            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + movement * status.RUN_moveSpeed * Time.fixedDeltaTime);
 
         if (movement == Vector2.zero) // 멈출 때 잔여 속도 제거
         {

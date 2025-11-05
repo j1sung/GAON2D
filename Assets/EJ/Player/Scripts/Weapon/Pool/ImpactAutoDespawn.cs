@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(PoolObject))]
 public class ImpactAutoDespawn : MonoBehaviour
 {
-    [SerializeField] AnimationClip clip; // 반드시 할당(길이로 타이머 계산)
+    [SerializeField] AnimationClip clip; 
 
     Animator anim;
     PoolObject po;
