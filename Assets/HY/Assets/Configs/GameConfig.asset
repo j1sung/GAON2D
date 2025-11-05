@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd4c305a554a2548bba462124ba6526, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  gameDurationSeconds: 10
+  gameDurationSeconds: 600
   nextSceneName: NextStage
   interactKey: 102

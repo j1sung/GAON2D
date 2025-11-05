@@ -1244,7 +1244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &293618848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138983,6 +138983,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc4339fedfedd24ab3b105e4e1875e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoCollect: 0
+  interactKey: 101
   core: {fileID: 11400000, guid: 84e91461660d6684a99830d8fa00acf7, type: 2}
 --- !u!60 &524976723
 PolygonCollider2D:
@@ -139723,6 +139725,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297d501660f94f14e811fab8f9cf0b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoCollect: 0
+  interactKey: 101
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}
 --- !u!50 &623012462
 Rigidbody2D:
@@ -139884,7 +139888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &627567683
 RectTransform:
   m_ObjectHideFlags: 0
@@ -140263,6 +140267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc4339fedfedd24ab3b105e4e1875e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoCollect: 0
+  interactKey: 101
   core: {fileID: 11400000, guid: e00848974570c3645be3a2ed9497ba05, type: 2}
 --- !u!50 &686829638
 Rigidbody2D:
@@ -145376,6 +145382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297d501660f94f14e811fab8f9cf0b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoCollect: 0
+  interactKey: 101
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}
 --- !u!50 &1505454713
 Rigidbody2D:
@@ -145480,10 +145488,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 94919584479052220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 545e33cc95f7b4f4baa89f03598bb1fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 0844be530b195b34f85799f5737ef6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 8
   dashSpeed: 15
   dashDuration: 0.2
   dashCooldown: 0.5
@@ -166988,6 +166996,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc4339fedfedd24ab3b105e4e1875e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoCollect: 0
+  interactKey: 101
   core: {fileID: 11400000, guid: 1ab591dc649a52f498424ca6ca42db4e, type: 2}
 --- !u!60 &1638742870
 PolygonCollider2D:
@@ -168498,6 +168508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc4339fedfedd24ab3b105e4e1875e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoCollect: 0
+  interactKey: 101
   core: {fileID: 11400000, guid: ee828f644ebe6a74693c619290566899, type: 2}
 --- !u!60 &2138628172
 PolygonCollider2D:
@@ -168571,6 +168583,7 @@ GameObject:
   - component: {fileID: 5754596134620604665}
   - component: {fileID: 5754596134620604667}
   - component: {fileID: 5754596134620604668}
+  - component: {fileID: 5754596134620604669}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -168757,7 +168770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d325af9454f63441b8b912ffd187a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponManager: {fileID: 5754596134620604666}
 --- !u!114 &5754596134620604668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168768,6 +168780,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25c8a92135ef50146b116693a9387a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5754596134620604669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94919584479052220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0bb4f45710623b4b8e250bf42fdaa00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8378542076367004653
