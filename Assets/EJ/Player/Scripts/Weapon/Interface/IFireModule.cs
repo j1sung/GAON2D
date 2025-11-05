@@ -1,5 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+/// 모든 무기의 공격 형태를 결정짓는 인터페이스이다.
+/// 
+
 using UnityEngine;
 
 // 공격 형태 인터페이스

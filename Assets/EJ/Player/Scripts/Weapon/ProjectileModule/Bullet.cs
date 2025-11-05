@@ -82,7 +82,7 @@ namespace Attack.Pooling
             Despawn();
         }
 
-        // ✅ 수명 만료 경로
+        // 수명 만료 경로
         void Expire()
         {
             if (dead) return;

@@ -56,7 +56,7 @@ namespace Attack.Pooling
                     speed = s.speed,
                     life = s.lifetime,
                     damage = r.RUN_damage,    
-                    status = r.OnHitTags      
+                    status = r.RUN_OnHitTags      
                 });
             }
         }

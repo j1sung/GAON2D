@@ -37,7 +37,7 @@ public sealed class LaserFireModule : IFireModule
                 life = Mathf.Max(0.03f, r.RUN_projectileLifetime), // 반짝 시간
                 width = 0.12f,               // 굵기(원하면 SO에 필드 하나 추가)
                 damage = r.RUN_damage,
-                status = r.OnHitTags,
+                status = r.RUN_OnHitTags,
                 pierceAll = true,                 // 여러 적 관통(원하면 false)
             });
         }
