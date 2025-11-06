@@ -19,11 +19,11 @@ public sealed class WeaponManager : MonoBehaviour
     private RuntimeWeapon _defaultRt;
     private WeaponController _defaultCtl;
 
-    // 선택된 조합 무기(있으면 활성)
+    // 선택된 조합 무기
     private RuntimeWeapon _combinedRt;
     private WeaponController _combinedCtl;
 
-    // 외부에서 갱신하는 조준
+    // PlayerAim.cs에서 갱신
     private Vector2 _aimDir = Vector2.right;
 
     // 슬롯 교체 쿨타임
