@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -83,9 +84,32 @@ public class GameManager : MonoBehaviour
         pauseManager?.Resume();
 
         if (sceneName == StageFlowManager.Instance?.GetLobbyScene())
+        {
             StageFlowManager.Instance.ResetFlow();
+            Debug.Log("[GameManager] 로비 진입 — 진행 상태 초기화");
+        }
+
         sceneController.Load(sceneName);
 
+        // 씬 로드 후 자동으로 Stage 타이머 시작 감지 코루틴 실행
+        StartCoroutine(WaitForSceneAndStart(sceneName));
+    }
+
+    private IEnumerator WaitForSceneAndStart(string sceneName)
+    {
+        // 씬이 완전히 로드될 때까지 잠시 대기
+        yield return new WaitForSeconds(0.2f);
+
+        //  Lobby에서는 타이머 시작 안 함
+        if (sceneName == StageFlowManager.Instance.GetLobbyScene())
+            yield break;
+
+        // Stage1, Stage2 … 이런 이름의 씬이면 자동으로 타이머 시작
+        if (sceneName.ToLower().Contains("stage"))
+        {
+            Debug.Log($"[GameManager] {sceneName} 진입 — 타이머 자동 시작");
+            StartStage();
+        }
     }
 
     private void OnStateChanged(GameState prev, GameState next)
