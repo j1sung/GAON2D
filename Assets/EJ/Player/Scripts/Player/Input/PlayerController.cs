@@ -1,5 +1,5 @@
-
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {   
@@ -12,11 +12,10 @@ public class PlayerController : MonoBehaviour
     public Vector2 Movement => movement;
 
     [Header("Dash")]
-
     bool isDashing;
     float dashEndTime;
     float nextDashTime;
-    Vector2 dashDir;
+    // public event Action OnDash; 나중에 대쉬 UI 정해지면 추가
 
     [SerializeField] private Animator anim;
 
@@ -52,7 +51,10 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         if (isDashing)
+        {
             rb.MovePosition(rb.position + movement * status.RUN_dashSpeed * Time.fixedDeltaTime);
+            // OnDash?.Invoke(); 
+        }
         else
             rb.MovePosition(rb.position + movement * status.RUN_moveSpeed * Time.fixedDeltaTime);
 
