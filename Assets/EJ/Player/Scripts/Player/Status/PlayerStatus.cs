@@ -85,6 +85,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable
 
     public void ApplyHit(HitContext ctx)
     {
+        Debug.Log(ctx.damage);
         TakeDamage(ctx.damage);
 
         // 상태이상은 여기서 적용 가능(적도 마찬가지)

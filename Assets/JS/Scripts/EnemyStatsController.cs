@@ -28,9 +28,6 @@ public class EnemyStatsController
 
     public void TakeDamage(float amount)
     {
-        Debug.Log(CurrentHealth);
         CurrentHealth = Mathf.Max(CurrentHealth - amount, 0f);
     }
-
-    
 }
