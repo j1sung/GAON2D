@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class M1Action : MonoBehaviour, IEnemyAction
 {
-    private Enemy owner;
+    private Transform owner;
     private float currentDamage;
     private StatusTag status;
 
-    public void Attack(Enemy self, float damage)
+    public void Attack(Transform transform, float damage)
     {
-        owner = self;
+        owner = transform;
         currentDamage = damage;
 
         Debug.Log("M1 박치기 공격!");
@@ -28,10 +28,11 @@ public class M1Action : MonoBehaviour, IEnemyAction
         {
             var hit = new HitContext
             {
-                attacker = owner.transform,
+                attacker = owner,
                 damage = currentDamage,
                 statusTags = status
             };
+            Debug.Log("적 공격 데미지: "+currentDamage);
             dmg.ApplyHit(hit);
         }
     }
