@@ -1262,6 +1262,9 @@ MonoBehaviour:
   - {fileID: 527621785}
   - {fileID: 905203523}
   - {fileID: 1049686797}
+  hpBar: {fileID: 0}
+  expBar: {fileID: 0}
+  level: {fileID: 0}
 --- !u!114 &293618849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139937,6 +139940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 2009366409}
+  playerStatus: {fileID: 0}
 --- !u!1 &629902404
 GameObject:
   m_ObjectHideFlags: 0
@@ -141611,6 +141615,7 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: 82045262cc8c89c46bccb5dc287b92a7, type: 2}
   pauseManager: {fileID: 689526416}
   sceneController: {fileID: 556526912}
+  stageFlowManager: {fileID: 0}
 --- !u!1 &1058801647
 GameObject:
   m_ObjectHideFlags: 0
@@ -145491,10 +145496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0844be530b195b34f85799f5737ef6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
-  dashSpeed: 15
-  dashDuration: 0.2
-  dashCooldown: 0.5
+  status: {fileID: 0}
   anim: {fileID: 739283801}
 --- !u!61 &1525301721
 BoxCollider2D:

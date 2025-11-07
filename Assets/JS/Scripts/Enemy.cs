@@ -118,7 +118,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void DoAttack()
     {
-        action?.Attack(this, enemyData.damage);
+        action?.Attack(this, status.Damage);
     }
 
     // =========== DieState ===========
