@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStatus : MonoBehaviour
+public class Legacy_EnemyStatus : MonoBehaviour
 {
     public float MaxHealth { get; private set; }
     [field: SerializeField] public float CurrentHealth { get; private set; }
@@ -53,7 +53,7 @@ public class EnemyStatus : MonoBehaviour
         AttackRange = attackRange;
     }
 
-    public EnemtyStats Clone(){
+    public EnemtStats Clone(){
         return new EnemyStats(MaxHelath, Speed, AttackRange);
     }
 }
