@@ -27,6 +27,6 @@ public class SelectionUIController : MonoBehaviour
         GameEvents.OnSelectionClosed?.Invoke();
     }
 
-    public void OnLevelUp() => Open();
+    public void OnLevelUp(int level) => Open();
     public void OnSelectOption() => Close();
 }

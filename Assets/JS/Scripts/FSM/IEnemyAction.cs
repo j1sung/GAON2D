@@ -1,4 +1,6 @@
+using UnityEngine;
+
 public interface IEnemyAction
 {
-    void Attack(Enemy self, float Damage);
+    void Attack(Transform transform, float Damage);
 }
