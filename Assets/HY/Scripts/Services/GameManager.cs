@@ -1,6 +1,5 @@
-using System.Collections;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,17 +8,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameConfing config;
     [SerializeField] private PauseManager pauseManager;
     [SerializeField] private SceneController sceneController;
-
-    public GameState Current => _sm.State;
-    public float TimeLeft => _timer?.TimeLeft ?? 0f;
+    [SerializeField] private StageFlowManager stageFlowManager;
 
     private StateMachine<GameState> _sm;
     private GameTimer _timer;
 
+    public GameState Current => _sm.State;
+    public float TimeLeft => _timer?.TimeLeft ?? 0f;
+
     private void Awake()
     {
         if (Instance != null) { Destroy(gameObject); return; }
-        Instance = this; DontDestroyOnLoad(gameObject);
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
 
         _sm = new StateMachine<GameState>(GameState.Boot, OnStateChanged);
         _timer = new GameTimer(config.gameDurationSeconds);
@@ -31,12 +32,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartGame();
+        _sm.Change(GameState.Boot);
     }
 
     private void Update()
     {
         if (_sm.State != GameState.Playing) return;
+
         if (_timer.Tick())
         {
             _sm.Change(GameState.GameOver);
@@ -44,22 +46,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public void StartStage()
     {
         _timer.Reset(config.gameDurationSeconds);
         _timer.Start();
         _sm.Change(GameState.Playing);
         GameEvents.OnGameStarted?.Invoke();
+
+        string nextScene = stageFlowManager.GetNextScene();
+        if (nextScene != null)
+            sceneController.Load(nextScene);
+        else
+        {
+            _sm.Change(GameState.GameOver);
+            GameEvents.OnGameOver?.Invoke();
+        }
     }
 
     private void HandleSelectionOpen()
     {
         if (_sm.State != GameState.Playing) return;
         _sm.Change(GameState.LevelUpSelect);
-        pauseManager.Pause(); 
+        pauseManager.Pause();
     }
+
     private void HandleSelectionClose()
-    { 
+    {
         if (_sm.State != GameState.LevelUpSelect) return;
         pauseManager.Resume();
         _sm.Change(GameState.Playing);
@@ -68,14 +80,17 @@ public class GameManager : MonoBehaviour
     private void HandleSceneChange(string sceneName)
     {
         _sm.Change(GameState.Transition);
-        pauseManager.Resume();
+        pauseManager?.Resume();
+
+        if (sceneName == StageFlowManager.Instance?.GetLobbyScene())
+            StageFlowManager.Instance.ResetFlow();
         sceneController.Load(sceneName);
+
     }
 
     private void OnStateChanged(GameState prev, GameState next)
     {
-        // »óÅÂº° ÁøÀÔ/Á¾·á ÈÅ ·Î±ë/»ç¿îµå Ã³¸®
-        // Debug.Log($"State: {prev} -> {next}");
+        Debug.Log($"[GameState] {prev} â†’ {next}");
     }
 
     private void OnDestroy()
