@@ -8,8 +8,8 @@ public class HUDManager : MonoBehaviour
 
     [Header("UI References")]
     public Image[] weaponSlots;
-    [SerializeField] private Slider hpBar;
-    [SerializeField] private Slider expBar;
+    [SerializeField] private Image hpBar;
+    [SerializeField] private Image expBar;
     [SerializeField] private Text level;
 
     void Awake()
@@ -24,26 +24,32 @@ public class HUDManager : MonoBehaviour
 
     void Start()
     {
-        if (PlayerStatus.Instance != null)
+        var ps = PlayerStatus.Instance;
+        if (ps != null)
         {
-            PlayerStatus.Instance.OnHPChanged += UpdateHPBar;
-            PlayerStatus.Instance.OnExpChanged += UpdateExpBar;
-            PlayerStatus.Instance.OnLevelUp += () => UpdateLevel(PlayerStatus.Instance.level);
-            
+            ps.OnHPChanged += UpdateHPBar;
+            ps.OnExpChanged += UpdateExpBar;
+            ps.OnLevelUp += UpdateLevel;
+
+            // 직접 초기화
+            UpdateHPBar(ps.currentHP / ps.RUN_maxHP);
+            UpdateExpBar(ps.currentExp / ps.RUN_expToNextLevel);
+            UpdateLevel(ps.level);
         }
     }
 
     void UpdateHPBar(float normalizedHP)
     {
         if (hpBar != null)
-            hpBar.value = normalizedHP;
+            hpBar.fillAmount = normalizedHP;
     }
 
     void UpdateExpBar(float normalizedExp)
     {
         if (expBar != null)
-            expBar.value = normalizedExp;
+            expBar.fillAmount = normalizedExp;
     }
+
 
     void UpdateLevel(int nextLevel)
     {

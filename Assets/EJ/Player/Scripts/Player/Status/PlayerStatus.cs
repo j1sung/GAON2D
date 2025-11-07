@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using EnemyOwnedStates;
 
 public class PlayerStatus : MonoBehaviour, IDamageable
 {   
@@ -19,8 +18,8 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     public float RUN_expCollectRadius;
 
     [Header("Level / EXP")]
-    public int level = 1;
-    public float currentExp = 0f;
+    public int level;
+    public float currentExp;
     public float RUN_expToNextLevel;
 
 
@@ -32,7 +31,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable
 
     public event Action<float> OnHPChanged; // 체력 변동
     public event Action<float> OnExpChanged; // 경험치 변동
-    public event Action OnLevelUp; // 레벨업시 발생하는 이벤트
+    public event Action<int> OnLevelUp; // 레벨업시 발생하는 이벤트
     public event Action OnDeath; // 사망시 발생하는 이벤트
 
     void Awake()
@@ -44,6 +43,10 @@ public class PlayerStatus : MonoBehaviour, IDamageable
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
         InitializeStats();
     }
 
@@ -52,6 +55,8 @@ public class PlayerStatus : MonoBehaviour, IDamageable
         if (baseStats == null) return;
         RUN_maxHP = baseStats.maxHP;
         currentHP = RUN_maxHP;
+        level = 1;
+        currentExp = 0;
         RUN_baseDamage = baseStats.baseDamage;
         RUN_damageMul = baseStats.damageMul;
         RUN_fireRateMul = baseStats.fireRateMul;
@@ -64,6 +69,9 @@ public class PlayerStatus : MonoBehaviour, IDamageable
         RUN_dashSpeed = baseStats.dashSpeed;
         RUN_dashDuration = baseStats.dashDuration;
         RUN_dashCooldown = baseStats.dashCooldown;
+
+        OnHPChanged?.Invoke(currentHP / RUN_maxHP);
+        OnExpChanged?.Invoke(currentExp / RUN_expToNextLevel);
     }
 
     // 최종 데미지 계산
@@ -108,11 +116,13 @@ public class PlayerStatus : MonoBehaviour, IDamageable
             currentExp -= RUN_expToNextLevel;
             LevelUp();
         }
+        OnExpChanged?.Invoke(currentExp / RUN_expToNextLevel);
     }
     
     private void LevelUp()
     {
         level++;
-        OnLevelUp?.Invoke();
+        
+        OnLevelUp?.Invoke(level);
     }
 }
