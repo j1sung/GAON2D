@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3120444642676994753}
   - component: {fileID: 4744202099264794113}
   - component: {fileID: 4475673745069255414}
-  - component: {fileID: 3355490532459154473}
   - component: {fileID: 3090291037556463203}
   - component: {fileID: 8958207230100419300}
   - component: {fileID: 7169011576563217225}
@@ -107,19 +106,6 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 083dd6612ea694042aae15f79c7de5db, type: 2}
   dropTable: {fileID: 11400000, guid: 53fac50a07b0504408f4cb8f7a2fe646, type: 2}
   dropParent: {fileID: 0}
---- !u!114 &3355490532459154473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4883256576568174926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c37d3425f3ed0f408ba93707e0d0e6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 0
 --- !u!114 &3090291037556463203
 MonoBehaviour:
   m_ObjectHideFlags: 0

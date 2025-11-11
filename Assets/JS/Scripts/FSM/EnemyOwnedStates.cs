@@ -9,7 +9,6 @@ namespace EnemyOwnedStates
         public void Enter(Enemy enemy)
         {
             // 공통 스폰 로직
-            enemy.InitEnemy();
             enemy.ResetEnemy(); // 필수 초기화만
         }
 

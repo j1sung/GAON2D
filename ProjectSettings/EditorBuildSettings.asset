@@ -6,15 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 0
     path: Assets/HY/Start.unity
     guid: b39f87a0a3c53da4b81c6ac402bff158
   - enabled: 0
-    path: Assets/HY/main.unity
-    guid: 008315bb0862f1a44afd76f4b5def81e
+    path: Assets/HY/Lobby.unity
+    guid: d7145be87536712418cc16e40b8ce51d
+  - enabled: 0
+    path: Assets/HY/Boss1.unity
+    guid: 68bc794643d573d408152e1a56bf2f5a
+  - enabled: 0
+    path: Assets/HY/Stage1.unity
+    guid: 06b31e2395868d64ebeba604abee8c01
   - enabled: 1
-    path: Assets/Scenes/Test_Proto.unity
-    guid: 1700d68d40c40c2428126b120104a6f8
+    path: Assets/EJ/Player/Scenes/Stage1.unity
+    guid: 4c19257c2b0963c41a2a50858f479aff
   m_configObjects: {}

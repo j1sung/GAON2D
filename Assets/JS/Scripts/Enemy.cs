@@ -6,18 +6,17 @@ public enum EnemyStates { SpawnState = 0, ChaseState, AttackState, DieState }
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    public EnemyStatus status { get; private set; }
+    public EnemyStatsController status { get; private set; }
     public IEnemyAction action { get; private set; }
 
     private IEnemyState[] states; // Enemy가 가진 모든 상태 인스턴스 저장
     private EnemyFSM fsm = new EnemyFSM();
 
-    public EnemyData enemyData;                 // 적의 데이터를 가져옴
+    [SerializeField] private EnemyData enemyData; // 적의 데이터를 가져옴
     [SerializeField] private DropTable dropTable; // 아이템 데이터 가져옴
     [SerializeField] private Transform dropParent; // 아이템 계층 부모
 
     public bool isLive { get; private set; } = false;
-    bool isInitialized = false;
 
     Rigidbody2D target;
     Rigidbody2D rigid;
@@ -38,7 +37,7 @@ public class Enemy : MonoBehaviour, IDamageable
         animator = GetComponent<Animator>();
         spriter = GetComponent<SpriteRenderer>();
         action = GetComponent<IEnemyAction>();
-        status = GetComponent<EnemyStatus>();
+        status = new EnemyStatsController(enemyData);
 
         states = new IEnemyState[4];
         states[(int)EnemyStates.SpawnState] = new EnemyOwnedStates.SpawnState();
@@ -55,6 +54,12 @@ public class Enemy : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         ChangeState(EnemyStates.SpawnState);
+    }
+
+    private void Start()
+    {
+        // 최초 적 오브젝트 생성시 초기화
+        target = GameInstance.Instance.player.GetComponent<Rigidbody2D>();
     }
 
     public void ChangeState(EnemyStates newstate)
@@ -81,22 +86,11 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
     // =========== SpawnState ===========
-    public void InitEnemy()
-    {
-        if (isInitialized) // 풀에 존재한다면
-            return;
-
-        // 최초 적 오브젝트 생성시 초기화
-        target = GameInstance.Instance.player.GetComponent<Rigidbody2D>();
-
-        status.InitStatus(enemyData);
-        isInitialized = true;
-    }
 
     public void ResetEnemy()
     {
         isLive = true;
-        status.ResetStatus();
+        status.ResetStats();
     }
 
     // =========== ChaseState ===========
@@ -118,7 +112,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void DoAttack()
     {
-        action?.Attack(this, enemyData.damage);
+        action?.Attack(transform, status.Damage);
     }
 
     // =========== DieState ===========
@@ -177,7 +171,7 @@ public class Enemy : MonoBehaviour, IDamageable
         if (_lastHitFrame == Time.frameCount) return;
         _lastHitFrame = Time.frameCount;
 
-        status.ReduceHealth(ctx.damage);
+        status.TakeDamage(ctx.damage);
 
         // 상태이상 적용이 필요하면 여기서 ctx.statusTags를 참조해 처리
         // e.g., status.ApplyStatus(ctx.statusTags);
@@ -208,8 +202,8 @@ public class Enemy : MonoBehaviour, IDamageable
         if (pooledBullet != null)
         {
             _lastHitFrame = Time.frameCount;
-            status.ReduceHealth(pooledBullet.damage);
-            // StartCoroutine(HitFlash());
+            status.TakeDamage(pooledBullet.damage);
+            // StartCoroutine(HitFlash()); //적 피격 VFX
             if (status.IsDead) ChangeState(EnemyStates.DieState);
             return;
         }
@@ -220,6 +214,7 @@ public class Enemy : MonoBehaviour, IDamageable
         //    => 별도 처리 없음
     }
 
+    // 적 피격 VFX
     private IEnumerator HitFlash()
     {
         spriter.material.color = Color.white;
