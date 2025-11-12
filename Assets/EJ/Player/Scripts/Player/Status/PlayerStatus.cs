@@ -111,7 +111,6 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     {
         currentExp += amount;
         OnExpChanged?.Invoke(currentExp / RUN_expToNextLevel);
-        Debug.Log($"경험치 {currentExp}");
         while (currentExp >= RUN_expToNextLevel)
         {
             currentExp -= RUN_expToNextLevel;
