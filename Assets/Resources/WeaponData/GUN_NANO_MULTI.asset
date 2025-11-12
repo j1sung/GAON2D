@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: "EMP\uBA40\uD2F0\uCD1D"
   weaponIcon: {fileID: -1989570906, guid: 5013105147ee02847b0fd644c28d54b6, type: 3}
   firetype: 0
-  bulletPrefab: {fileID: 4736982253498273586, guid: 340b634e777b0ab449370634386d9543, type: 3}
+  bulletPrefab: {fileID: 4736982253498273586, guid: bef534523d0b5b14cb3bce11e8e060a6, type: 3}
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}
   coreA: {fileID: 11400000, guid: ee828f644ebe6a74693c619290566899, type: 2}
   coreB: {fileID: 11400000, guid: e00848974570c3645be3a2ed9497ba05, type: 2}

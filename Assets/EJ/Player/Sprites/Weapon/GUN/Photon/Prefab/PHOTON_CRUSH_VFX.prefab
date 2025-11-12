@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6077788922232579230}
   - component: {fileID: -1471700947163290474}
   m_Layer: 0
-  m_Name: EMP_CRUSH_VFX
+  m_Name: PHOTON_CRUSH_VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 1613698772, guid: ef267baaa990d304cad9ac9ee3821c39, type: 3}
+  m_Sprite: {fileID: -798172687, guid: 498117a5bfbf39d4c86e8224a3736cd7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 314153537925671170}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8babfe7d333f92643a3d19e7380afb5e, type: 2}
+  m_Controller: {fileID: 9100000, guid: e46d6ccc802e9c14693e5aec29676ff3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c20d0ff1b652bb34688029c1a7f245c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolName: EMP_CRUSH
+  poolName: Crush_PhotonBullet
 --- !u!114 &-1471700947163290474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,4 +133,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb4d10632b91ee4b9c8403f013ca5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 7400000, guid: 0780adcc89a48ec4b893358cebcdc58d, type: 2}
+  clip: {fileID: 7400000, guid: e36312ab90b6a114db0aefa9bd348f7a, type: 2}
