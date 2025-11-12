@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: "PHOTON\uAC00\uC18D\uCD1D"
   weaponIcon: {fileID: -1989570906, guid: 5013105147ee02847b0fd644c28d54b6, type: 3}
   firetype: 0
-  bulletPrefab: {fileID: 314153537925671170, guid: 4676e2fc4e6e8794a9fdd6bf64f8ca1b, type: 3}
+  bulletPrefab: {fileID: 4736982253498273586, guid: 1073b86662065b6428cc414ac641b13b, type: 3}
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}
   coreA: {fileID: 11400000, guid: 12e255871c9dfac45a1e9000d8f96535, type: 2}
   coreB: {fileID: 11400000, guid: 84e91461660d6684a99830d8fa00acf7, type: 2}

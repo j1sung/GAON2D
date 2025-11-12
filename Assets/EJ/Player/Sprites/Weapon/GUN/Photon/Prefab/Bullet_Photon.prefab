@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4135109480741507307}
   - component: {fileID: 5453855353020319010}
   m_Layer: 7
-  m_Name: EMPBall
+  m_Name: Bullet_Photon
   m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
