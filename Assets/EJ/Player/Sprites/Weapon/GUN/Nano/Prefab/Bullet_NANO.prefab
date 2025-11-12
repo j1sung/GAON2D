@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c20d0ff1b652bb34688029c1a7f245c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolName: EMP_Bullet
+  poolName: Bullet_Nano
 --- !u!114 &4135109480741507307
 MonoBehaviour:
   m_ObjectHideFlags: 0

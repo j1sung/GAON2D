@@ -18,6 +18,12 @@ EditorBuildSettings:
     path: Assets/HY/Stage1.unity
     guid: 06b31e2395868d64ebeba604abee8c01
   - enabled: 1
+    path: Assets/Scenes/Start.unity
+    guid: 13e6a05c22bd0744281f5e848ca3d09f
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: ccd676a38487a6747b166a639de4f7bf
+  - enabled: 1
     path: Assets/Scenes/Stage1.unity
     guid: 4c19257c2b0963c41a2a50858f479aff
   m_configObjects: {}
