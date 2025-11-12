@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0700a7db59d9e409f03917a9558de3, type: 3}
+  m_Name: LASER_EMP_MULTI
+  m_EditorClassIdentifier: 
+  weaponName: "EMP\uD655\uC0B0\uB808\uC774\uC800"
+  weaponIcon: {fileID: 307964152, guid: 44657edc19a02f14d9220cea11845ac3, type: 3}
+  firetype: 1
+  bulletPrefab: {fileID: 6747470851662068052, guid: 7ab2905c6d50b9d4cb72af19a2212797, type: 3}
+  blueprint: {fileID: 11400000, guid: 8f71d807c9a9a9a4bab239643c597e21, type: 2}
+  coreA: {fileID: 11400000, guid: 1ab591dc649a52f498424ca6ca42db4e, type: 2}
+  coreB: {fileID: 11400000, guid: e00848974570c3645be3a2ed9497ba05, type: 2}
+  damage: 100
+  fireRate: 0.2
+  coolTime: 1
+  burstCount: 10
+  projectileSpeed: 20
+  projectileLifetime: 0.2
+  onHitTags: 4
+  bulletKey: 
+  impactKey: 
