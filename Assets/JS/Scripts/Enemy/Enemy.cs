@@ -126,6 +126,8 @@ public class Enemy : MonoBehaviour, IDamageable
     // 추후 ItemManager나 다른 클래스로 분리해서 구현
     public void ItemDrop()
     {
+        /*
+        // 랜덤한 값 뽑기
         float totalWeight = 0f;
         foreach (var entry in dropTable.entries)
             totalWeight += entry.weight;
@@ -134,6 +136,7 @@ public class Enemy : MonoBehaviour, IDamageable
         float sum = 0f;
         GameObject selected = null;
 
+        // 랜덤 값에 걸리는 아이템 선택
         foreach (var entry in dropTable.entries)
         {
             sum += entry.weight;
@@ -144,13 +147,15 @@ public class Enemy : MonoBehaviour, IDamageable
             }
         }
 
+        // 선택된 아이템 드랍
         if (selected != null)
         {
             GameObject itemObj = Instantiate(selected, GetRandomSpawnPos(), Quaternion.identity);
             itemObj.transform.SetParent(dropParent, true);
         }
+        */
 
-        GameObject expObj = Instantiate(dropTable.exp, GetRandomSpawnPos(), Quaternion.identity);
+        GameObject expObj = Instantiate(dropTable.exp, transform.position, Quaternion.identity);
         expObj.transform.SetParent(dropParent, true);
     }
 
