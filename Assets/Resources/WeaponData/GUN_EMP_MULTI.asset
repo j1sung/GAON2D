@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GUN_EMP_MULTI
   m_EditorClassIdentifier: 
   weaponName: "EMP\uBA40\uD2F0\uCD1D"
-  weaponIcon: {fileID: -1989570906, guid: 5013105147ee02847b0fd644c28d54b6, type: 3}
+  weaponIcon: {fileID: 21300000, guid: 7e4700a31e36beb4194a9635536dda63, type: 3}
   firetype: 0
   bulletPrefab: {fileID: 4736982253498273586, guid: 340b634e777b0ab449370634386d9543, type: 3}
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}

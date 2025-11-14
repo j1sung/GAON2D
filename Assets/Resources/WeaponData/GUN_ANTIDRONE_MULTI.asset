@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GUN_ANTIDRONE_MULTI
   m_EditorClassIdentifier: 
   weaponName: "EMP\uBA40\uD2F0\uCD1D"
-  weaponIcon: {fileID: -1989570906, guid: 5013105147ee02847b0fd644c28d54b6, type: 3}
+  weaponIcon: {fileID: 21300000, guid: a974ef7f890e9304e990eb57bb16062a, type: 3}
   firetype: 0
   bulletPrefab: {fileID: 4736982253498273586, guid: 463a82442883e1746b0654dad2ab4687, type: 3}
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}

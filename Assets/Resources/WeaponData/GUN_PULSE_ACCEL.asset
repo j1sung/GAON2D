@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GUN_PULSE_ACCEL
   m_EditorClassIdentifier: 
   weaponName: "PULSE\uAC00\uC18D\uCD1D"
-  weaponIcon: {fileID: -1989570906, guid: 5013105147ee02847b0fd644c28d54b6, type: 3}
+  weaponIcon: {fileID: 21300000, guid: 6b47f1730d8b41f49ad22e5a7504e044, type: 3}
   firetype: 0
   bulletPrefab: {fileID: 4736982253498273586, guid: 9a82bd04e6a69674b8aace3ff6c03943, type: 3}
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}

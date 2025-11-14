@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b0700a7db59d9e409f03917a9558de3, type: 3}
   m_Name: GUN_NANO_MULTI
   m_EditorClassIdentifier: 
-  weaponName: "EMP\uBA40\uD2F0\uCD1D"
-  weaponIcon: {fileID: -1989570906, guid: 5013105147ee02847b0fd644c28d54b6, type: 3}
+  weaponName: "Nano\uBA40\uD2F0\uCD1D"
+  weaponIcon: {fileID: 21300000, guid: 0a977a88b5bbc5b4ba53605dfa8b5528, type: 3}
   firetype: 0
   bulletPrefab: {fileID: 4736982253498273586, guid: bef534523d0b5b14cb3bce11e8e060a6, type: 3}
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}

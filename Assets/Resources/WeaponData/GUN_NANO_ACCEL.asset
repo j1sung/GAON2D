@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GUN_NANO_ACCEL
   m_EditorClassIdentifier: 
   weaponName: "NANO\uAC00\uC18D\uCD1D"
-  weaponIcon: {fileID: -1989570906, guid: 5013105147ee02847b0fd644c28d54b6, type: 3}
+  weaponIcon: {fileID: 21300000, guid: 2af8c54362879ac46bddfb8e0ca538e5, type: 3}
   firetype: 0
   bulletPrefab: {fileID: 4736982253498273586, guid: bef534523d0b5b14cb3bce11e8e060a6, type: 3}
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}
