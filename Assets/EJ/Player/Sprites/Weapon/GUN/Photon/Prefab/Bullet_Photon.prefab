@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4135109480741507307}
   - component: {fileID: 5453855353020319010}
   m_Layer: 7
-  m_Name: EMPBall
+  m_Name: Bullet_Photon
   m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 230f116f128c516478e9a058dae34cfc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 49ed252a26a64a84baa227f55ee90d32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,7 +125,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.4375, y: 0.4375}
+    oldSize: {x: 1.5833334, y: 1.4791666}
     newSize: {x: 0.104166664, y: 0.5208333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c20d0ff1b652bb34688029c1a7f245c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolName: Bullet_EMP
+  poolName: EMP_Bullet
 --- !u!114 &4135109480741507307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  hitEffectPrefab: {fileID: 314153537925671170, guid: ef10d35a0b6164c44965266e20c284ce, type: 3}
+  hitEffectPrefab: {fileID: 314153537925671170, guid: 4676e2fc4e6e8794a9fdd6bf64f8ca1b, type: 3}
   fallbackImpactLife: 0.25
 --- !u!82 &5453855353020319010
 AudioSource:

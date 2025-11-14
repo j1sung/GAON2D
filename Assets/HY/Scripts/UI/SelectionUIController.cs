@@ -5,15 +5,29 @@ public class SelectionUIController : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private PlayerStatus playerStatus;
 
-    // 활성화 시 구독
-    void OnEnable()
+    private void Awake()
     {
-        playerStatus.OnLevelUp += OnLevelUp;
+        if (GameInstance.Instance != null && GameInstance.Instance.player != null)
+        {
+            playerStatus = GameInstance.Instance.player.GetComponent<PlayerStatus>();
+        }
     }
 
-    void OnDisable()
+    private void OnEnable()
     {
-        playerStatus.OnLevelUp -= OnLevelUp;
+        if (playerStatus == null && GameInstance.Instance?.player != null)
+        {
+            playerStatus = GameInstance.Instance.player.GetComponent<PlayerStatus>();
+        }
+
+        if (playerStatus != null) playerStatus.OnLevelUp += OnLevelUp;
+
+    }
+
+    private void OnDisable()
+    {
+        if (playerStatus != null)
+            playerStatus.OnLevelUp -= OnLevelUp;
     }
 
     public void Open()
