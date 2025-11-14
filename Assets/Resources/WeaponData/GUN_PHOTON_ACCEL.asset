@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GUN_PHOTON_ACCEL
   m_EditorClassIdentifier: 
   weaponName: "PHOTON\uAC00\uC18D\uCD1D"
-  weaponIcon: {fileID: -1989570906, guid: 5013105147ee02847b0fd644c28d54b6, type: 3}
+  weaponIcon: {fileID: 21300000, guid: 4aaeba50d15dca9438ca87e4eebb4b62, type: 3}
   firetype: 0
   bulletPrefab: {fileID: 4736982253498273586, guid: 1073b86662065b6428cc414ac641b13b, type: 3}
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}

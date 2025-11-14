@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: LASER_EMP_ACCEL
   m_EditorClassIdentifier: 
   weaponName: "EMP\uAC00\uC18D\uB808\uC774\uC800"
-  weaponIcon: {fileID: 307964152, guid: 44657edc19a02f14d9220cea11845ac3, type: 3}
+  weaponIcon: {fileID: 21300000, guid: 10ac2f907b88e894f92fb9e2a11ccc72, type: 3}
   firetype: 1
-  bulletPrefab: {fileID: 6747470851662068052, guid: 7ab2905c6d50b9d4cb72af19a2212797, type: 3}
+  bulletPrefab: {fileID: 6747470851662068052, guid: 3929c7b6646e4dc40a2f3b8b826f7064, type: 3}
   blueprint: {fileID: 11400000, guid: 8f71d807c9a9a9a4bab239643c597e21, type: 2}
   coreA: {fileID: 11400000, guid: 1ab591dc649a52f498424ca6ca42db4e, type: 2}
   coreB: {fileID: 11400000, guid: 84e91461660d6684a99830d8fa00acf7, type: 2}
-  damage: 100
-  fireRate: 0.2
+  damage: 20
+  fireRate: 0.4
   coolTime: 1
   burstCount: 10
   projectileSpeed: 20
   projectileLifetime: 0.2
-  onHitTags: 4
+  onHitTags: 0
   bulletKey: 
   impactKey: 
