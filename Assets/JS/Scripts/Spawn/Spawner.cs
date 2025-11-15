@@ -30,7 +30,7 @@ public class Spawner : MonoBehaviour
     void Spawn() // 추후 GameManager의 시간, 이벤트, 조건에 따라 적 스폰으로 수정
     {
         spawnCount++;
-        //spawnIndex = spawnCount % 3 == 0 ?  1 : 0;
+        spawnIndex = spawnCount % 3 == 0 ?  1 : 0;
 
         GameObject enemyObj = GameInstance.Instance.pool.Get(spawnIndex);
         if (enemyObj == null)

@@ -186,11 +186,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 5008347374892744713, guid: 5a234cf1625895344830a934e85c9c39, type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a234cf1625895344830a934e85c9c39, type: 3}
+--- !u!4 &436173684 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4974854951137637237, guid: 5a234cf1625895344830a934e85c9c39, type: 3}
+  m_PrefabInstance: {fileID: 436173683}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &546310067 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1671797326596825602, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
@@ -497,49 +506,20 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2119520758972260798, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1671797326596825602, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
       insertIndex: 0
-      addedObject: {fileID: 932920025}
+      addedObject: {fileID: 1251356541}
     - targetCorrespondingSourceObject: {fileID: 1671797326596825602, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 1012725440}
+      addedObject: {fileID: 436173684}
     - targetCorrespondingSourceObject: {fileID: 1671797326596825602, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1722080665}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2119520758972260798, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 932048897}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
---- !u!1 &932048896 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2119520758972260798, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
-  m_PrefabInstance: {fileID: 932048895}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &932048897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932048896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a7cf79eba1158439de4c5297095746, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &932920025 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4974854951137637237, guid: 5a234cf1625895344830a934e85c9c39, type: 3}
-  m_PrefabInstance: {fileID: 436173683}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1012725440 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1755263642848191357, guid: 3927b498f1fff3d4f97a1c747032de8e, type: 3}
-  m_PrefabInstance: {fileID: 1251356540}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1042316146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -688,6 +668,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Virtual Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 1439296132760879188, guid: 3927b498f1fff3d4f97a1c747032de8e, type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 1755263642848191357, guid: 3927b498f1fff3d4f97a1c747032de8e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -741,6 +725,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3927b498f1fff3d4f97a1c747032de8e, type: 3}
+--- !u!4 &1251356541 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1755263642848191357, guid: 3927b498f1fff3d4f97a1c747032de8e, type: 3}
+  m_PrefabInstance: {fileID: 1251356540}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1361676282
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +740,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1361676284}
   - component: {fileID: 1361676283}
-  - component: {fileID: 1361676285}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -827,51 +815,6 @@ Transform:
   - {fileID: 1998539159}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1361676285
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1361676282}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
-    newSize: {x: 1, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2}
-  m_EdgeRadius: 0
 --- !u!1001 &1722080664
 PrefabInstance:
   m_ObjectHideFlags: 0
