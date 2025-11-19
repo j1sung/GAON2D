@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b0700a7db59d9e409f03917a9558de3, type: 3}
   m_Name: LASER_ANTIDRONE_ACCEL
   m_EditorClassIdentifier: 
-  weaponName: "EMP\uAC00\uC18D\uB808\uC774\uC800"
-  weaponIcon: {fileID: 307964152, guid: 44657edc19a02f14d9220cea11845ac3, type: 3}
+  weaponName: "\uC548\uD2F0\uB4DC\uB860\uB808\uC774\uC800"
+  weaponIcon: {fileID: 21300000, guid: ccdfff161dba2924ea934353ccc7d8ba, type: 3}
   firetype: 1
   bulletPrefab: {fileID: 6747470851662068052, guid: e10ba0a35b7b360459f2be5d90d4e085, type: 3}
   blueprint: {fileID: 11400000, guid: 8f71d807c9a9a9a4bab239643c597e21, type: 2}
   coreA: {fileID: 11400000, guid: 3f9fab921ceca904f9614cf4c0da1670, type: 2}
   coreB: {fileID: 11400000, guid: 84e91461660d6684a99830d8fa00acf7, type: 2}
-  damage: 100
-  fireRate: 0.2
+  damage: 20
+  fireRate: 0.4
   coolTime: 1
   burstCount: 10
   projectileSpeed: 20
   projectileLifetime: 0.2
-  onHitTags: 16
+  onHitTags: 0
   bulletKey: 
   impactKey: 
