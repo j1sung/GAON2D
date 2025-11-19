@@ -66,17 +66,6 @@ public class CombinedWeaponIdleFollow : MonoBehaviour
         Vector3 desiredWorld = followTarget.TransformPoint(targetLocal);
         float k = 1f - Mathf.Exp(-followDamping * Time.deltaTime);
         transform.position = Vector3.Lerp(transform.position, desiredWorld, k);
-
-        // 4) 시각적 플립(원하면 끄기)
-        if (flipToAim && Camera.main)
-        {
-#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBGL
-            float aimSign = (Camera.main.ScreenToWorldPoint(Input.mousePosition).x >= followTarget.position.x) ? 1f : -1f;
-            var ls = transform.localScale;
-            ls.x = Mathf.Abs(ls.x) * aimSign;
-            transform.localScale = ls;
-#endif
-        }
     }
 
     /// 필요 시, 현재 위치를 기준으로 다시 앵커를 재설정

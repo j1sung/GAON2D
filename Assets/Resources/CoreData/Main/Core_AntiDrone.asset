@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3da0497f0d7844c8e09e093211b0cd, type: 3}
   m_Name: Core_AntiDrone
   m_EditorClassIdentifier: 
-  code: Photon
+  code: AntiDrone
   type: 0
-  coreName: Photon
-  image: {fileID: 21300000, guid: 302cd66b181f9dd4fbc35d46fbbb02f8, type: 3}
+  coreName: AntiDrone
+  image: {fileID: 21300000, guid: 0e87cff2c6ba67e498b6d2a715947227, type: 3}

@@ -224,7 +224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2109142769265893002}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -643,8 +643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0844be530b195b34f85799f5737ef6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status: {fileID: 7857489941373859901}
-  anim: {fileID: 3178684667994620049}
 --- !u!50 &5754343690706662034
 Rigidbody2D:
   serializedVersion: 4
@@ -796,6 +794,7 @@ MonoBehaviour:
   firePoint: {fileID: 3228245805355087674}
   combinedFirePoint: {fileID: 1007490133315761396}
   defaultWeapon: {fileID: 11400000, guid: c030f83f445aa8d428ee2bd5114e4c95, type: 2}
+  aimDir: {x: 1, y: 0}
 --- !u!114 &3431345032281593118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,8 +807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd71cf2d799581e47a7443a684928715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graphics: {fileID: 1167855243815701415}
-  sprite: {fileID: 0}
+  graphics: {fileID: 0}
 --- !u!114 &3996992246129406267
 MonoBehaviour:
   m_ObjectHideFlags: 0

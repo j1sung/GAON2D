@@ -137925,7 +137925,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 6542152af706cb64cab47f211548f6de, type: 3}
     m_FontSize: 64
     m_FontStyle: 1
     m_BestFit: 0
@@ -139820,8 +139820,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 5754596134620604664}
-  m_Follow: {fileID: 5754596134620604664}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 75
     OrthographicSize: 5
@@ -165241,8 +165241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0844be530b195b34f85799f5737ef6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status: {fileID: 5754596134620604670}
-  anim: {fileID: 739283801}
 --- !u!61 &1525301721
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -167238,7 +167236,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphics: {fileID: 527781534}
-  sprite: {fileID: 0}
 --- !u!114 &5754596134620604666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167257,6 +167254,7 @@ MonoBehaviour:
   firePoint: {fileID: 1171172888}
   combinedFirePoint: {fileID: 1233793663}
   defaultWeapon: {fileID: 11400000, guid: c030f83f445aa8d428ee2bd5114e4c95, type: 2}
+  aimDir: {x: 1, y: 0}
 --- !u!114 &5754596134620604667
 MonoBehaviour:
   m_ObjectHideFlags: 0
