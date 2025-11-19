@@ -17,6 +17,7 @@ public class StageFlowData : ScriptableObject
 
     [Header("Scene Flow Settings")]
     public string lobbyScene = "Lobby";
+    public AudioClip bgm;
     public List<StageInfo> stages = new();
 
 }

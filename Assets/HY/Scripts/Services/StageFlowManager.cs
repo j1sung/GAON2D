@@ -77,4 +77,13 @@ public class StageFlowManager : MonoBehaviour
         Debug.Log($" 다음 스테이지 진입: {next}");
         return next;
     }
+
+
+    public StageFlowData.StageInfo GetCurrentStageInfo()
+    {
+        if (currentStageIndex < 0 || currentStageIndex >= data.stages.Count)
+            return null;
+
+        return data.stages[currentStageIndex];
+    }
 }
