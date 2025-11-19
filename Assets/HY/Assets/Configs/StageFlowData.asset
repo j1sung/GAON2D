@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StageFlowData
   m_EditorClassIdentifier: 
   lobbyScene: Lobby
+  bgm: {fileID: 8300000, guid: c6c5cd0ee2d7db447be3ac0e13978c23, type: 3}
   stages:
   - stageSceneName: Stage1
     bossSceneName: Boss1
