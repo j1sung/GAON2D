@@ -7,9 +7,18 @@ public class SelectionUIController : MonoBehaviour
 
     private void Awake()
     {
-        if (GameInstance.Instance != null && GameInstance.Instance.player != null)
+        BindPlayerStatus();
+    }
+
+    private void BindPlayerStatus()
+    {
+        if (playerStatus != null) return;
+
+        var playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null)
         {
-            playerStatus = GameInstance.Instance.player.GetComponent<PlayerStatus>();
+            playerStatus = playerObj.GetComponent<PlayerStatus>();
+            playerStatus.OnLevelUp += OnLevelUp;
         }
     }
 
