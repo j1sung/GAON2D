@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GUN_ANTIDRONE_ACCEL
   m_EditorClassIdentifier: 
   weaponName: "ANTIDRONE\uAC00\uC18D\uCD1D"
-  weaponIcon: {fileID: -1989570906, guid: 5013105147ee02847b0fd644c28d54b6, type: 3}
+  weaponIcon: {fileID: 21300000, guid: 08bdd10b4b0bcaa40bcaaf5fbf686ad6, type: 3}
   firetype: 0
   bulletPrefab: {fileID: 4736982253498273586, guid: 463a82442883e1746b0654dad2ab4687, type: 3}
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}

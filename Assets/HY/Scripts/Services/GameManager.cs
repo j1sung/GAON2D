@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PauseManager pauseManager;
     [SerializeField] private SceneController sceneController;
     [SerializeField] private StageFlowManager stageFlowManager;
+    [SerializeField] private StageFlowData stageFlowData;
 
     private StateMachine<GameState> _sm;
     private GameTimer _timer;
@@ -80,6 +81,10 @@ public class GameManager : MonoBehaviour
 
     private void HandleSceneChange(string sceneName)
     {
+
+        Debug.Log($"[BGM DEBUG] Scene Change Detected: {sceneName}");
+        Debug.Log($"[BGM DEBUG] Lobby Scene Name: {StageFlowManager.Instance.GetLobbyScene()}");
+
         _sm.Change(GameState.Transition);
         pauseManager?.Resume();
 
@@ -92,7 +97,9 @@ public class GameManager : MonoBehaviour
         sceneController.Load(sceneName);
 
         // 씬 로드 후 자동으로 Stage 타이머 시작 감지 코루틴 실행
-        StartCoroutine(WaitForSceneAndStart(sceneName));
+        //StartCoroutine(WaitForSceneAndStart(sceneName));
+
+        StartCoroutine(WaitAndPlayBGM(sceneName));
     }
 
     private IEnumerator WaitForSceneAndStart(string sceneName)
@@ -123,4 +130,29 @@ public class GameManager : MonoBehaviour
         GameEvents.OnSelectionClosed -= HandleSelectionClose;
         GameEvents.OnRequestSceneChange -= HandleSceneChange;
     }
+
+    private IEnumerator WaitAndPlayBGM(string sceneName)
+    {
+
+        Debug.Log("[BGM DEBUG] WaitAndPlayBGM 실행됨");
+
+
+        yield return new WaitForSeconds(0.2f);
+
+        if (sceneName == StageFlowManager.Instance.GetLobbyScene())
+        {
+            AudioManager.Instance.PlayBGM(stageFlowData.bgm);
+            yield break;
+        }
+
+        if (sceneName.ToLower().Contains("stage"))
+        {
+            var stageInfo = StageFlowManager.Instance.GetCurrentStageInfo();
+            if (stageInfo != null && stageInfo.bgm != null)
+            {
+                AudioManager.Instance.PlayBGM(stageInfo.bgm);
+            }
+        }
+    }
 }
+
