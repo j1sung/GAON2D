@@ -22,17 +22,17 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     public float currentExp;
     public float RUN_expToNextLevel;
 
-
     [Header("Move")]
     public float RUN_moveSpeed;
     public float RUN_dashSpeed;
     public float RUN_dashDuration;
     public float RUN_dashCooldown;
-
+    
     public event Action<float> OnHPChanged; // 체력 변동
     public event Action<float> OnExpChanged; // 경험치 변동
     public event Action<int> OnLevelUp; // 레벨업시 발생하는 이벤트
     public event Action OnDeath; // 사망시 발생하는 이벤트
+    public event Action OnStatsChanged; // 스탯 변동
 
     void Awake()
     {
@@ -85,9 +85,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable
 
     public void ApplyHit(HitContext ctx)
     {
-        Debug.Log(ctx.damage);
         TakeDamage(ctx.damage);
-
         // 상태이상은 여기서 적용 가능(적도 마찬가지)
     }
 
@@ -122,7 +120,6 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     private void LevelUp()
     {
         level++;
-        
         OnLevelUp?.Invoke(level);
     }
 }

@@ -57,6 +57,5 @@ public class PlayerAim : MonoBehaviour
         var s = baseScale;
         s.x = Mathf.Abs(baseScale.x) * sign;
         graphics.localScale = s;
-        Debug.Log($"Player rot = {graphics.rotation.eulerAngles}");
     }
 }
