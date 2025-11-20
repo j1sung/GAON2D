@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public enum EnemyStates { SpawnState = 0, ChaseState, AttackState, DieState }
+public enum EnemyStates { SpawnState = 0, PatrolState, ChaseState, AttackState, DieState }
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -39,8 +39,9 @@ public class Enemy : MonoBehaviour, IDamageable
         action = GetComponent<IEnemyAction>();
         status = new EnemyStatsController(enemyData);
 
-        states = new IEnemyState[4];
+        states = new IEnemyState[5];
         states[(int)EnemyStates.SpawnState] = new EnemyOwnedStates.SpawnState();
+        states[(int)EnemyStates.PatrolState] = new EnemyOwnedStates.PatrolState();
         states[(int)EnemyStates.ChaseState] = new EnemyOwnedStates.ChaseState();
         states[(int)EnemyStates.AttackState] = new EnemyOwnedStates.AttackState();
         states[(int)EnemyStates.DieState] = new EnemyOwnedStates.DieState();
@@ -59,7 +60,8 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Start()
     {
         // 최초 적 오브젝트 생성시 초기화
-        target = GameInstance.Instance.player.GetComponent<Rigidbody2D>();
+        //target = GameInstance.Instance.player.GetComponent<Rigidbody2D>();
+        target = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
     }
 
     public void ChangeState(EnemyStates newstate)
@@ -79,12 +81,6 @@ public class Enemy : MonoBehaviour, IDamageable
         fsm.FixedUpdate(this);
     }
 
-    private void LateUpdate()
-    {
-        if (!isLive || target == null) return;
-        spriter.flipX = target.position.x < rigid.position.x; // 적 좌우 변환
-    }
-
     // =========== SpawnState ===========
 
     public void ResetEnemy()
@@ -93,7 +89,46 @@ public class Enemy : MonoBehaviour, IDamageable
         status.ResetStats();
     }
 
+    // =========== PatrolState ===========
+    private bool goingLeft = true;
+    private float leftX;
+    private float rightX;
+
+    public void ReAllocCurrentPos() // 위치 재설정
+    {
+        leftX = transform.position.x - 2f;
+        rightX = transform.position.x + 2f;
+    }
+    public void PatrolAround() // 주변 순찰
+    {
+        float targetX = goingLeft ? leftX : rightX;
+        float dir = Mathf.Sign(targetX - transform.position.x);
+
+        Vector2 nextPos = new Vector2(
+            transform.position.x + dir * status.Speed * Time.fixedDeltaTime,
+            transform.position.y
+            );
+
+        rigid.MovePosition(nextPos);
+
+        // 바라보는 방향 변경
+        spriter.flipX = goingLeft;
+
+        if (Mathf.Abs(transform.position.x - targetX) < 0.05f)
+        {
+            goingLeft = !goingLeft;
+        }
+    }
+
+    private float chaseRange = 7f;
+    public bool IsInChaseRange() // Chase 범위 체크
+    {
+        // 적과 플레이어 사이 거리 범위 내부라면 true
+        return Vector2.Distance(transform.position, target.position) <= chaseRange;
+    }
+
     // =========== ChaseState ===========
+
     public void MoveToTarget()
     {
         // 적 -> 플레이어 방향 = 위치차이 정규화
@@ -101,14 +136,16 @@ public class Enemy : MonoBehaviour, IDamageable
         Vector2 nextVec = dirVec.normalized * status.Speed * Time.fixedDeltaTime; // 프레임 독립 이동
         rigid.MovePosition(rigid.position + nextVec);
         rigid.velocity = Vector2.zero;
+
+        spriter.flipX = target.position.x < rigid.position.x; // 적 좌우 변환
+    }
+    public bool IsInAttackRange()
+    {
+        // 적과 플레이어 사이 거리가 공격 사거리 범위 내부라면 true
+        return Vector2.Distance(transform.position, target.position) <= status.AttackRange;
     }
 
     // =========== AttackState ===========
-    public bool IsInAttackRange()
-    {
-        // 나와 타겟 사이의 거리가 공격 사거리보다 짧거나 같으면 true
-        return Vector2.Distance(transform.position, target.position) <= status.AttackRange;
-    }
 
     public void DoAttack()
     {
@@ -120,6 +157,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         isLive = false;
         ItemDrop(); // 죽을때 아이템 드랍
+        SectorController.Instance.OnEnemyDied(); // 죽은 갯수 카운트
         gameObject.SetActive(false);
     }
 
@@ -231,6 +269,12 @@ public class Enemy : MonoBehaviour, IDamageable
     void OnDrawGizmos()
     {
         if (status == null) return;
+
+        // Chase 범위
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
+
+        // Attack 범위
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, status.AttackRange);
     }

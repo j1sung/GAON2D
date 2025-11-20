@@ -14,7 +14,7 @@ namespace EnemyOwnedStates
 
         public void Execute(Enemy enemy)
         {
-            enemy.ChangeState(EnemyStates.ChaseState);
+            enemy.ChangeState(EnemyStates.PatrolState);
         }
 
         public void FixedExecute(Enemy enemy)
@@ -22,6 +22,25 @@ namespace EnemyOwnedStates
             
         }
         public void Exit(Enemy enemy) { }
+    }
+
+    public class PatrolState : IEnemyState
+    {
+        public void Enter(Enemy enemy) 
+        { 
+            enemy.ReAllocCurrentPos(); // 현재 위치 재설정
+        }
+
+        public void Execute(Enemy enemy)
+        {
+            if (enemy.IsInChaseRange())
+                enemy.ChangeState(EnemyStates.ChaseState);
+        }
+        public void FixedExecute(Enemy enemy)
+        {
+            enemy.PatrolAround(); // 좌우 주변 순찰
+        }
+        public void Exit(Enemy enemy) { /* 애니메이션 정리 */ }
     }
 
     public class ChaseState : IEnemyState
@@ -32,6 +51,9 @@ namespace EnemyOwnedStates
         {
             if (enemy.IsInAttackRange())
                 enemy.ChangeState(EnemyStates.AttackState);
+            
+            if (!enemy.IsInChaseRange())
+                enemy.ChangeState(EnemyStates.PatrolState);
         }
         public void FixedExecute(Enemy enemy)
         {
@@ -46,26 +68,31 @@ namespace EnemyOwnedStates
         public void Enter(Enemy enemy)
         {
             isAttacking = false;
+            enemy.StartCoroutine(AttackCoroutine(enemy));
         }
 
         public void Execute(Enemy enemy)
         {
             if (isAttacking) return;
 
-            // 공격은 비동기로 가야하나? 혹은 Invoke()?
-            // 애니메이션 모션 끝날때를 트리거로 쿨타임 가지고 범위 내라면 계속 공격
-
+            /*
             if (!enemy.IsInAttackRange())
             {
                 enemy.ChangeState(EnemyStates.ChaseState);
                 return;
             }
+            */
 
-            enemy.DoAttack();
+            //enemy.DoAttack();
             //enemy.StartCoroutine(AttackCoroutine(enemy));
         }
         private IEnumerator AttackCoroutine(Enemy enemy)
         {
+            enemy.DoAttack();
+            yield return new WaitForSeconds(1f);
+            enemy.ChangeState(EnemyStates.ChaseState);
+
+            /*
             isAttacking = true;
 
             enemy.Animator.SetTrigger("IsAttack");
@@ -76,6 +103,7 @@ namespace EnemyOwnedStates
             yield return new WaitForSeconds(stateInfo.length);
 
             isAttacking = false;
+            */
         }
         public void FixedExecute(Enemy enemy)
         {

@@ -6,13 +6,17 @@ using UnityEngine.UIElements;
 public class Reposition : MonoBehaviour
 {
     Collider2D coll;
+    GameObject player;
 
     private void Awake()
     {
         coll = GetComponent<Collider2D>();
     }
 
-
+    private void Start()
+    {
+        player = GameObject.FindWithTag("Player");
+    }
 
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -23,8 +27,10 @@ public class Reposition : MonoBehaviour
         if (coll.enabled) // 살아있는 적들만 위치 변동, 죽은 적은 풀링 회수 -> 죽은 적은 콜라이더 꺼져있음
         {
             // 플레이어의 현재 위치를 가져옵니다.
-            Vector2 playerPos = GameInstance.Instance.player.transform.position;
-            Vector2 playerDir = GameInstance.Instance.player.Movement;
+            Vector2 playerPos = player.transform.position;
+            Vector2 playerDir = player.GetComponent<PlayerController>().Movement;
+            //Vector2 playerPos = GameInstance.Instance.player.transform.position;
+            //Vector2 playerDir = GameInstance.Instance.player.Movement;
             //float dirX = playerDir.x < 0 ? -1 : 1;
             //float dirY = playerDir.y < 0 ? -1 : 1;
 
