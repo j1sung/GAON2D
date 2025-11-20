@@ -20,11 +20,10 @@ public sealed class LaserBeamSprite : MonoBehaviour
     [Header("Hit")]
     [SerializeField] LayerMask hitMask = ~0;
 
-    [Tooltip("스프라이트 pivot이 'Center'일 때를 기준으로 계산합니다.")]
+    // 스프라이트 pivot이 center일때를 기준으로 계산
     [SerializeField] bool spritePivotIsCenter = true;
 
     [Header("Impact VFX (pooled)")]
-    [Tooltip("충돌 시 풀에서 꺼내어 스폰할 임팩트 프리팹(ImpactAutoDespawn, PoolObject 부착 권장)")]
     [SerializeField] GameObject impactPrefab;
 
     Transform   owner;

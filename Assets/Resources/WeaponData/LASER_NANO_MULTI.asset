@@ -20,9 +20,9 @@ MonoBehaviour:
   coreA: {fileID: 11400000, guid: ee828f644ebe6a74693c619290566899, type: 2}
   coreB: {fileID: 11400000, guid: e00848974570c3645be3a2ed9497ba05, type: 2}
   damage: 20
-  fireRate: 0.4
+  fireRate: 0.2
   coolTime: 1
-  burstCount: 10
+  burstCount: 5
   projectileSpeed: 20
   projectileLifetime: 0.2
   onHitTags: 0

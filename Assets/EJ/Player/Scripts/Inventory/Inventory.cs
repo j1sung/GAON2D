@@ -17,8 +17,10 @@ public class Inventory : MonoBehaviour
     [Header("Default Weapon")]
     public WeaponSO defaultWeapon;
 
-    // 조합 성공 알림(WeaponManager가 구독해서 컨트롤러 재구성)
+    // --- 습득 및 조합 성공시 이벤트 ---
     public event Action OnWeaponsChanged;
+    public event Action OnInventoryChanged;
+
 
     // 선택된 조합무기 슬롯 인덱스
     private int selectedSlotIndex = -1;
@@ -40,6 +42,7 @@ public class Inventory : MonoBehaviour
             {
                 s.blueprint = bp;
                 Debug.Log($"슬롯 {i + 1}에 {bp.blueprintName} 추가함.");
+                OnInventoryChanged?.Invoke(); // 인벤토리 UI 반영
                 TryCombine(s, i);
                 return true;
             }
@@ -67,6 +70,7 @@ public class Inventory : MonoBehaviour
             {
                 cores.Add(core);
                 Debug.Log($"슬롯 {i + 1}에 {core.coreName} 추가함.");
+                OnInventoryChanged?.Invoke();
                 TryCombine(s, i);
                 return true;
             }
@@ -88,6 +92,7 @@ public class Inventory : MonoBehaviour
 
                 cores.Add(core);
                 Debug.Log($"슬롯 {i + 1}에 {core.coreName} 추가함.");
+                OnInventoryChanged?.Invoke();
                 TryCombine(s, i); // 코어가 2개이므로 조합 시도
                 return true;
             }
@@ -111,8 +116,7 @@ public class Inventory : MonoBehaviour
         WeaponSO w = weapon.GetWeapon(bp, a, b);
 
         if (w != null)
-        {
-            s.ClearSlot();           // 코어/설계도 비우기
+        {   
             s.combinedWeapon = w;    // 조합 결과 저장
             HUDManager.Instance.UpdateWeaponSlot(slotIndex, w);
             Debug.Log($"슬롯 {slotIndex + 1}에 {w.weaponName} 추가함.");
