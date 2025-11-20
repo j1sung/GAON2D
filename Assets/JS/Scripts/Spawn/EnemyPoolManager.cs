@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolManager : MonoBehaviour
+public class EnemyPoolManager : MonoBehaviour
 {
     // 프리펩들 저장하는 변수
     public GameObject[] prefabs;
 
-    public int maxPoolSizes = 25; // 각 몬스터 풀의 최대 개수 -> 추후 몬스터마다 설정 필요할 수도?
+    public int maxPoolSizes = 10; // 각 몬스터 풀의 최대 개수 -> 추후 몬스터마다 설정 필요할 수도?
 
     // 풀 담당 리스트들
     List<GameObject>[] pools;
@@ -49,6 +49,7 @@ public class PoolManager : MonoBehaviour
         // 못 찾았다면?
         if (!select && pools[index].Count < maxPoolSizes)
         {
+            Debug.Log("생성함!");
             // 새롭게 생성하고 select 변수에 할당(해당 프리펩 그룹 오브젝트 하위로 생성)
             select = Instantiate(prefabs[index], poolGroups[index]);
             pools[index].Add(select);
