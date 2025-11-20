@@ -5,7 +5,7 @@ public class GameInstance : MonoBehaviour
 {
     public static GameInstance Instance;
     public PlayerController player;
-    public PoolManager pool;
+    public EnemyPoolManager pool;
 
     private void Awake()
     {

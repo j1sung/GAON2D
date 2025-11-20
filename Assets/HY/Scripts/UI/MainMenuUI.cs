@@ -17,13 +17,11 @@ public class MainMenuUI : MonoBehaviour
 
     public void OnStartClicked()
     {
-        Debug.Log("[MainMenuUI] Start 버튼 클릭됨");
-        SceneController.Instance?.Load(lobbySceneName);
+        GameEvents.OnRequestSceneChange?.Invoke(lobbySceneName);
     }
 
     public void OnExitClicked()
     {
-        Debug.Log("[MainMenuUI] Exit 버튼 클릭됨");
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
