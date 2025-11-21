@@ -18,8 +18,8 @@ public sealed class LaserFireModule : IFireModule
 
     public void Fire(in FireContext ctx)
     {
-        var basePlan = new ShotPlan { count = 1, dir = new[] { ctx.aimDir.normalized } };
-        var plan = sub?.ApplyMultiple(r, ctx, basePlan) ?? basePlan;
+        var basePlan = new ShotPlan { count = 1, dir = new[] { ctx.aimDir.normalized } }; // 기본 발사 방향
+        var plan = sub?.ApplyMultiple(r, ctx, basePlan) ?? basePlan; // 확산 코어 존재시, basePlan을 기준으로 추가 방향 지정
 
         for (int i = 0; i < plan.count; i++)
         {

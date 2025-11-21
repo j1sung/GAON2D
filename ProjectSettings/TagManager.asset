@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Damage
   - Bullet
+  - VirtualCamera
   layers:
   - Default
   - TransparentFX

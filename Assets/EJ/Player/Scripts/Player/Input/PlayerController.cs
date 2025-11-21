@@ -3,13 +3,15 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {   
-    [SerializeField] private PlayerStatus status;
+    private PlayerStatus status;
+    private WeaponManager weaponManager;
 
     [Header("Move")]
     private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
     private Vector2 movement;
     public Vector2 Movement => movement;
+    private Animator anim;
+    
 
     [Header("Dash")]
     bool isDashing;
@@ -17,12 +19,12 @@ public class PlayerController : MonoBehaviour
     float nextDashTime;
     // public event Action OnDash; 나중에 대쉬 UI 정해지면 추가
 
-    [SerializeField] private Animator anim;
-
     void Start()
-    {
+    {   
+        status = GetComponent<PlayerStatus>();
+        weaponManager = GetComponent<WeaponManager>();
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -31,12 +33,7 @@ public class PlayerController : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         movement = new Vector2(moveX, moveY).normalized;
 
-
-        if (anim != null)
-        {
-            anim.SetFloat("Speed", movement.sqrMagnitude);
-            anim.SetBool("isDashing", isDashing);
-        }
+        UpdateAnimator();
 
         // 대쉬
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing && Time.time >= nextDashTime)
@@ -46,6 +43,8 @@ public class PlayerController : MonoBehaviour
             nextDashTime = Time.time + status.RUN_dashCooldown;
         }
         if (isDashing && Time.time >= dashEndTime) isDashing = false;
+
+        HandleWeaponInput();
     }
 
     void FixedUpdate()
@@ -63,5 +62,26 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0f;
         }
+    }
+
+    private void UpdateAnimator()
+    {
+        if (!anim) return;
+
+        anim.SetFloat("Speed", movement.sqrMagnitude);
+        anim.SetBool("isDashing", isDashing);
+    }
+
+    private void HandleWeaponInput()
+    {
+        float dt = Time.deltaTime;
+
+        // 기본 무기: 왼쪽 클릭 (Held)
+        if (Input.GetMouseButton(0))
+            weaponManager.FireDefault(dt);
+
+        // 조합 무기: 오른쪽 클릭 (단발)
+        if (Input.GetMouseButtonDown(1))
+            weaponManager.FireCombined();
     }
 }

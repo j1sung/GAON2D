@@ -16,15 +16,13 @@ public sealed class WeaponManager : MonoBehaviour
     [SerializeField] private WeaponSO defaultWeapon;
 
     // 기본 무기
-    private RuntimeWeapon _defaultRt;
     private WeaponController _defaultCtl;
 
     // 선택된 조합 무기
-    private RuntimeWeapon _combinedRt;
     private WeaponController _combinedCtl;
 
     // PlayerAim.cs에서 갱신
-    private Vector2 _aimDir = Vector2.right;
+    public Vector2 aimDir = Vector2.right;
 
     // 슬롯 교체 쿨타임
     private float _switchCooldown = 3f;
@@ -34,16 +32,16 @@ public sealed class WeaponManager : MonoBehaviour
     {
         if (!inventory) inventory = FindObjectOfType<Inventory>();
 
-        _defaultRt  = new RuntimeWeapon(defaultWeapon);
-        _defaultCtl = new WeaponController(_defaultRt);
+        var rt = new RuntimeWeapon(defaultWeapon);
+        _defaultCtl = new WeaponController(rt);
         _defaultCtl.Setup(new FireInitContext {
-            runtime = _defaultRt,
+            runtime = rt,
             owner   = owner,
             pool    = poolManager,
             subCore = null
         });
     }
-
+    
     void OnEnable()
     {
         if (inventory != null) inventory.OnWeaponsChanged += HandleWeaponsChanged;
@@ -54,45 +52,73 @@ public sealed class WeaponManager : MonoBehaviour
         if (inventory != null) inventory.OnWeaponsChanged -= HandleWeaponsChanged;
     }
 
+    void LateUpdate()
+    {
+        float dt = Time.deltaTime;
+
+        // 각 무기의 쿨타임 계속 감소
+        _defaultCtl?.TickCooldown(dt);
+        _combinedCtl?.TickCooldown(dt);
+
+        // 우클릭, StartBurst에서 초기화하면서 Burst가 시작된다.
+        _combinedCtl?.SingleFire(combinedFirePoint, aimDir, owner, dt);
+    }
+
+    // 기본 공격
+    public void FireDefault(float dt)
+    {
+        _defaultCtl?.ContinousFire(firePoint, aimDir, owner, dt);
+    }
+
+    // 조합 무기 공격
+    public void FireCombined()
+    {
+        _combinedCtl?.StartBurst();
+    }
+
     // 인벤토리에서 "선택된 조합 무기"가 바뀔 때마다 재구성
     private void HandleWeaponsChanged()
     {
         var selected = inventory.GetSelectedCombinedWeapon();
 
-        // 기존 조합 컨트롤러 해제
-        _combinedRt  = null;
         _combinedCtl = null;
 
         if (selected == null) return;
 
-        _combinedRt  = new RuntimeWeapon(selected);
-        _combinedCtl = new WeaponController(_combinedRt);
+        var rt = new RuntimeWeapon(selected);
+        var ctl = new WeaponController(rt);
 
+        // SubCore 생성
         var sub = MapCoreToSubModule(selected.coreA) ?? MapCoreToSubModule(selected.coreB);
 
-        _combinedCtl.Setup(new FireInitContext {
-            runtime = _combinedRt,
+        // Setup
+        ctl.Setup(new FireInitContext {
+            runtime = rt,
             owner   = owner,
             pool    = poolManager,
             subCore = sub
         });
+
+        // 등록
+        _combinedCtl = ctl;
     }
 
-    void Update()
-    {
-        if (!firePoint || !owner) return;
-        float dt = Time.deltaTime;
+    // ====== 자동 공격 ======
+    // void Update()
+    // {
+    //     if (!firePoint || !owner) return;
+    //     float dt = Time.deltaTime;
 
-        // 기본 무기 항상 발사 루프
-        _defaultCtl?.TickAndFire(firePoint, _aimDir, owner, dt);
+    //     // 기본 무기 항상 발사 루프
+    //     _defaultCtl?.TickAndFire(firePoint, _aimDir, owner, dt);
 
-        // 선택된 조합 무기 병행 발사(있을 때만)
-        _combinedCtl?.TickAndFire(combinedFirePoint, _aimDir, owner, dt);
+    //     // 선택된 조합 무기 병행 발사(있을 때만)
+    //     _combinedCtl?.TickAndFire(combinedFirePoint, _aimDir, owner, dt);
 
-        // 쿨타임 타이머 감소
-        if (_switchTimer > 0f)
-            _switchTimer -= dt;
-    }
+    //     // 쿨타임 타이머 감소
+    //     if (_switchTimer > 0f)
+    //         _switchTimer -= dt;
+    // }
 
 
     // 슬롯 교체 코드
@@ -113,10 +139,10 @@ public sealed class WeaponManager : MonoBehaviour
     public void SetAimDir(Vector2 dir)
     {
         if (dir.sqrMagnitude < 1e-6f) return;
-        _aimDir = dir.normalized;
+        aimDir = dir.normalized;
     }
 
-    // --- 유틸: CoreSO → SubCore 매핑(키워드 기반 최소 구현) ---
+    //CoreSO → SubCore 매핑
     private ISubCoreModule MapCoreToSubModule(CoreSO core)
     {
         if (core == null || core.type != CoreSO.CoreType.sub) return null;

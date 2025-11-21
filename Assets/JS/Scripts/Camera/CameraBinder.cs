@@ -8,7 +8,7 @@ public class CameraBinder : MonoBehaviour
     void OnEnable()
     {
 
-        var vcam = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineConfiner2D>();
+        var vcam = GameObject.FindWithTag("VirtualCamera").GetComponent<CinemachineConfiner2D>();
         var sector = GetComponent<PolygonCollider2D>();
 
         if (vcam != null)
