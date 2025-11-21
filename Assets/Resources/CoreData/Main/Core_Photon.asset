@@ -15,4 +15,4 @@ MonoBehaviour:
   code: Photon
   type: 0
   coreName: Photon
-  image: {fileID: 21300000, guid: 58f23a525c8fe6b4b83b905822b7e255, type: 3}
+  image: {fileID: 21300000, guid: ad56190d36c8c324ba5bd49ecaa307cb, type: 3}

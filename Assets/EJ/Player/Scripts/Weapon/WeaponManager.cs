@@ -9,8 +9,8 @@ public sealed class WeaponManager : MonoBehaviour
     [SerializeField] private Inventory inventory;
 
     [Header("Fire Points")]
-    [SerializeField] private Transform firePoint; // 기본무기용
-    [SerializeField] private Transform combinedFirePoint; // 조합무기용
+    [SerializeField] public Transform firePoint; // 기본무기용
+    [SerializeField] public Transform combinedFirePoint; // 조합무기용
 
     [Header("Default Weapon")]
     [SerializeField] private WeaponSO defaultWeapon;
@@ -22,11 +22,13 @@ public sealed class WeaponManager : MonoBehaviour
     private WeaponController _combinedCtl;
 
     // PlayerAim.cs에서 갱신
-    public Vector2 aimDir = Vector2.right;
+    public Vector2 aimDir_Default;
+    public Vector2 aimDir_Combined;
 
     // 슬롯 교체 쿨타임
     private float _switchCooldown = 3f;
     private float _switchTimer = 0f;
+
 
     void Awake()
     {
@@ -52,7 +54,7 @@ public sealed class WeaponManager : MonoBehaviour
         if (inventory != null) inventory.OnWeaponsChanged -= HandleWeaponsChanged;
     }
 
-    void LateUpdate()
+    void Update()
     {
         float dt = Time.deltaTime;
 
@@ -61,13 +63,13 @@ public sealed class WeaponManager : MonoBehaviour
         _combinedCtl?.TickCooldown(dt);
 
         // 우클릭, StartBurst에서 초기화하면서 Burst가 시작된다.
-        _combinedCtl?.SingleFire(combinedFirePoint, aimDir, owner, dt);
+        _combinedCtl?.SingleFire(combinedFirePoint, aimDir_Combined, owner, dt);
     }
 
     // 기본 공격
     public void FireDefault(float dt)
     {
-        _defaultCtl?.ContinousFire(firePoint, aimDir, owner, dt);
+        _defaultCtl?.ContinousFire(firePoint, aimDir_Default, owner, dt);
     }
 
     // 조합 무기 공격
@@ -136,10 +138,26 @@ public sealed class WeaponManager : MonoBehaviour
     }
 
     // --- 외부 입력 ---
-    public void SetAimDir(Vector2 dir)
+    public void SetDefaultAimDir(Vector3 mouseWorldPos)
     {
-        if (dir.sqrMagnitude < 1e-6f) return;
-        aimDir = dir.normalized;
+        Vector3 dir3 = mouseWorldPos - firePoint.position;
+        Vector2 dir = new Vector2(dir3.x, dir3.y);  // Z 제거
+        if (dir.sqrMagnitude > 0.0001f)
+            aimDir_Default = dir.normalized;
+    }
+
+    public void SetCombinedAimDir(Vector3 mouseWorldPos)
+    {
+        Vector3 dir3 = mouseWorldPos - combinedFirePoint.position;
+        Vector2 dir = new Vector2(dir3.x, dir3.y);
+        if (dir.sqrMagnitude > 0.0001f)
+            aimDir_Combined = dir.normalized;
+    }
+
+    // 공격중인지 여부
+    public bool IsCombinedFiring 
+    {
+        get { return _combinedCtl != null && _combinedCtl.IsBurstFiring; }
     }
 
     //CoreSO → SubCore 매핑
