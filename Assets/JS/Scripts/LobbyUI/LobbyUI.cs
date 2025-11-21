@@ -15,20 +15,36 @@ public class LobbyUI : MonoBehaviour
 
     [TextArea] public string[] description;
 
+    private Coroutine tutorialRoutine;
+
     private bool isReady; // 설명끝나면
 
     void Start()
     {
         pc.enabled = false;
-        StartCoroutine(Tutorial());
+        tutorialRoutine = StartCoroutine(Tutorial());
     }
 
     private void Update()
     {
-        Debug.Log(isReady);
         if (Input.GetKeyDown(KeyCode.E) && isReady)
         {
-            Debug.Log("눌림");
+            pc.enabled = true;
+            isReady = false;
+            tutorialUI.SetActive(false);
+        }
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            if (tutorialRoutine != null)
+            {
+                StopCoroutine(tutorialRoutine);
+                tutorialRoutine = null;
+            }
+
+            if (!pc)
+            {
+                pc = FindObjectOfType<PlayerController>();
+            }
             pc.enabled = true;
             isReady = false;
             tutorialUI.SetActive(false);

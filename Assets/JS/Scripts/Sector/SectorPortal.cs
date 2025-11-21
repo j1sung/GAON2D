@@ -12,7 +12,7 @@ public class SectorPortal : MonoBehaviour
         {
             collision.transform.position = t.position;
             sector.SetActive(true);
-            transform.root.gameObject.SetActive(false);
+            transform.parent.gameObject.SetActive(false);
         }
     }
 }
