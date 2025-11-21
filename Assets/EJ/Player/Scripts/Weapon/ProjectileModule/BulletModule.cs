@@ -46,7 +46,6 @@ namespace Attack.Pooling
 
                 // 탄환 생성 및 초기화
                 var go = pool.Get(r.bulletPrefabKey, ctx.muzzle.position, Quaternion.identity);
-                go.transform.right = s.dir;
 
                 var bullet = go.GetComponent<Bullet>();
                 bullet.Init(new Bullet.Args

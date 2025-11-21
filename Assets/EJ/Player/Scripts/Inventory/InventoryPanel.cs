@@ -56,11 +56,13 @@ public class InventoryPanel : MonoBehaviour
         {   
             invPanel.SetActive(true);
             isOpened = true;
+            GameEvents.OnSelectionOpened?.Invoke();
         }
         else
         {   
             invPanel.SetActive(false);
             isOpened = false;
+            GameEvents.OnSelectionClosed?.Invoke();
         }
     }
 
