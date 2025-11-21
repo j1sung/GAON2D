@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2705550108720734072}
   - component: {fileID: 8983773327158783840}
-  - component: {fileID: 8574745402486126203}
+  - component: {fileID: -7655565594793347704}
   - component: {fileID: 2350555890774898684}
+  - component: {fileID: 8574745402486126203}
   - component: {fileID: 8381056176276956268}
   m_Layer: 8
   m_Name: SC_Accel
@@ -87,6 +88,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7655565594793347704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2577167692743008307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b40547721a7154eb2e18f15649010a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobspeed: 2
+  bobAmplitude: 0.1
+--- !u!114 &2350555890774898684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2577167692743008307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc4339fedfedd24ab3b105e4e1875e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoCollect: 0
+  interactKey: 101
+  core: {fileID: 11400000, guid: 84e91461660d6684a99830d8fa00acf7, type: 2}
 --- !u!50 &8574745402486126203
 Rigidbody2D:
   serializedVersion: 4
@@ -114,21 +144,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2350555890774898684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2577167692743008307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfc4339fedfedd24ab3b105e4e1875e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoCollect: 0
-  interactKey: 101
-  core: {fileID: 11400000, guid: 84e91461660d6684a99830d8fa00acf7, type: 2}
 --- !u!60 &8381056176276956268
 PolygonCollider2D:
   m_ObjectHideFlags: 0

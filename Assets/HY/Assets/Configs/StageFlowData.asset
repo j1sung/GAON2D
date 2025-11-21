@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: StageFlowData
   m_EditorClassIdentifier: 
   lobbyScene: Lobby
-  bgm: {fileID: 8300000, guid: c6c5cd0ee2d7db447be3ac0e13978c23, type: 3}
+  bgm: {fileID: 8300000, guid: 3220df8b4a4e241b9b1833cd386bfe98, type: 3}
   stages:
   - stageSceneName: Stage1
     bossSceneName: Boss1
-    bgm: {fileID: 8300000, guid: fb273957e7edc6a4fb4bc7a4449bd241, type: 3}
+    bgm: {fileID: 8300000, guid: ab0125e1d557a1d4d8fa2c80c3060810, type: 3}
     thumbnail: {fileID: 0}
     rewardItem: 
   - stageSceneName: Stage2
     bossSceneName: Boss2
-    bgm: {fileID: 0}
+    bgm: {fileID: 8300000, guid: 07a835246ac33774b906e3d962dd39e6, type: 3}
     thumbnail: {fileID: 0}
     rewardItem: 
