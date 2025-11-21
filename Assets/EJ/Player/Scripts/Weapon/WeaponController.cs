@@ -14,11 +14,15 @@ public class WeaponController
     // 현재 남은 공격 수
     private int _fireRemaining = 0;
 
+    // 조합 무기가 나가고 있는지 여부
+    public bool IsBurstFiring => _fireRemaining > 0;
+
     public WeaponController(RuntimeWeapon weapon)
     {
         _weapon = weapon;
         _module = _weapon.source.CreateModule();
     }
+    
 
     public void Setup(FireInitContext ctx) => _module.Init(ctx);
 

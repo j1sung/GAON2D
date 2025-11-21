@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 using TMPro;
 
 public class InventoryPanel : MonoBehaviour
@@ -17,6 +16,10 @@ public class InventoryPanel : MonoBehaviour
     [SerializeField] private Image[] blueprintSlots;
     [SerializeField] private Image[] coreA_Slots;
     [SerializeField] private Image[] coreB_Slots;
+
+    [SerializeField] private GameObject invPanel;
+    [SerializeField] private bool isOpened;
+
 
     void Awake()
     {
@@ -46,44 +49,61 @@ public class InventoryPanel : MonoBehaviour
         speedText.text = $"Move Speed: {st.RUN_moveSpeed:F1}";
     }
 
-public void UpdateSlotUI(Inventory inv)
-{
-    for (int i = 0; i < inv.slots.Length; i++)
-    {
-        var s = inv.slots[i];
-
-        // Blueprint
-        if (s.blueprint == null)
-        {
-            blueprintSlots[i].enabled = false;
+    public void OpenInventory()
+    {   
+        if (invPanel == null) return;
+        if (isOpened != true)
+        {   
+            invPanel.SetActive(true);
+            isOpened = true;
+            GameEvents.OnSelectionOpened?.Invoke();
         }
         else
-        {
-            blueprintSlots[i].enabled = true;
-            blueprintSlots[i].sprite = s.blueprint.image;
-        }
-
-        // Core A
-        if (s.Cores.Count > 0 && s.Cores[0] != null)
-        {
-            coreA_Slots[i].enabled = true;
-            coreA_Slots[i].sprite = s.Cores[0].image;
-        }
-        else
-        {
-            coreA_Slots[i].enabled = false;
-        }
-
-        // Core B
-        if (s.Cores.Count > 1 && s.Cores[1] != null)
-        {
-            coreB_Slots[i].enabled = true;
-            coreB_Slots[i].sprite = s.Cores[1].image;
-        }
-        else
-        {
-            coreB_Slots[i].enabled = false;
+        {   
+            invPanel.SetActive(false);
+            isOpened = false;
+            GameEvents.OnSelectionClosed?.Invoke();
         }
     }
-}
+
+    public void UpdateSlotUI(Inventory inv)
+    {
+        for (int i = 0; i < inv.slots.Length; i++)
+        {
+            var s = inv.slots[i];
+
+            // Blueprint
+            if (s.blueprint == null)
+            {
+                blueprintSlots[i].enabled = false;
+            }
+            else
+            {
+                blueprintSlots[i].enabled = true;
+                blueprintSlots[i].sprite = s.blueprint.image;
+            }
+
+            // Core A
+            if (s.Cores.Count > 0 && s.Cores[0] != null)
+            {
+                coreA_Slots[i].enabled = true;
+                coreA_Slots[i].sprite = s.Cores[0].image;
+            }
+            else
+            {
+                coreA_Slots[i].enabled = false;
+            }
+
+            // Core B
+            if (s.Cores.Count > 1 && s.Cores[1] != null)
+            {
+                coreB_Slots[i].enabled = true;
+                coreB_Slots[i].sprite = s.Cores[1].image;
+            }
+            else
+            {
+                coreB_Slots[i].enabled = false;
+            }
+        }
+    }
 }

@@ -15,4 +15,4 @@ MonoBehaviour:
   code: AntiDrone
   type: 0
   coreName: AntiDrone
-  image: {fileID: 21300000, guid: 0e87cff2c6ba67e498b6d2a715947227, type: 3}
+  image: {fileID: 21300000, guid: 33f6f082a52115a468e21083649dd24d, type: 3}

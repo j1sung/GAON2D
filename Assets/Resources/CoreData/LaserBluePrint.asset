@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   code: Laser
   blueprintName: Laser
-  image: {fileID: 21300000, guid: 8db80f55272cedc46b13d5aa2662555d, type: 3}
+  image: {fileID: 21300000, guid: 48360e06204bde84eba1940284e449b4, type: 3}
