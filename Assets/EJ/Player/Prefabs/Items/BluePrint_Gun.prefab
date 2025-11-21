@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 120470455756553948}
   - component: {fileID: 5711642530582872802}
-  - component: {fileID: 7632353580736034907}
+  - component: {fileID: -4132458356017631540}
   - component: {fileID: 1929056452907680759}
+  - component: {fileID: 7632353580736034907}
   - component: {fileID: 2768308620474730483}
   m_Layer: 8
   m_Name: BluePrint_Gun
@@ -30,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.1199999, y: 8.2699995, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 0}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -87,6 +88,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-4132458356017631540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8475620397080013767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b40547721a7154eb2e18f15649010a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobspeed: 2
+  bobAmplitude: 0.1
+--- !u!114 &1929056452907680759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8475620397080013767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297d501660f94f14e811fab8f9cf0b71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoCollect: 0
+  interactKey: 101
+  blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}
 --- !u!50 &7632353580736034907
 Rigidbody2D:
   serializedVersion: 4
@@ -114,21 +144,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1929056452907680759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8475620397080013767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 297d501660f94f14e811fab8f9cf0b71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoCollect: 0
-  interactKey: 101
-  blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}
 --- !u!60 &2768308620474730483
 PolygonCollider2D:
   m_ObjectHideFlags: 0
