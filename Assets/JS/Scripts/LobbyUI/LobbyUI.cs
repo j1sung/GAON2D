@@ -21,6 +21,7 @@ public class LobbyUI : MonoBehaviour
 
     void Start()
     {
+        audioSource.Play();
         pc.enabled = false;
         tutorialRoutine = StartCoroutine(Tutorial());
     }

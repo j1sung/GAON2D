@@ -18,7 +18,14 @@ public class SectorController : MonoBehaviour
     public void SetCurrentSector(Sector sector)
     {
         currentSector = sector;
-        currentSector.protal.SetActive(false);
+
+        if(currentSector.portal.Length == 0) // 포탈 없으면 마지막 섹터
+        {
+            return;
+        }
+
+        foreach (var obj in currentSector.portal)
+            obj.SetActive(false);
         currentSector.rewardSpot.gameObject.SetActive(false);
     }
 
@@ -59,6 +66,7 @@ public class SectorController : MonoBehaviour
         Instantiate(rewardPrefab[index1], leftPos, Quaternion.identity);
         Instantiate(rewardPrefab[index2], rightPos, Quaternion.identity);
 
-        currentSector.protal.SetActive(true); // 포탈 활성화
+        foreach (var obj in currentSector.portal)
+            obj.SetActive(true); // 포탈 활성화
     }
 }
