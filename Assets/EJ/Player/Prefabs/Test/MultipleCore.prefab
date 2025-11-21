@@ -81,7 +81,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.82, y: 1.82}
+  m_Size: {x: 0.25, y: 0.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -126,6 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc4339fedfedd24ab3b105e4e1875e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoCollect: 0
+  interactKey: 101
   core: {fileID: 11400000, guid: e00848974570c3645be3a2ed9497ba05, type: 2}
 --- !u!60 &7452446502656505035
 PolygonCollider2D:
@@ -163,8 +165,8 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5416667, y: 0.5208333}
-    newSize: {x: 1.82, y: 1.82}
+    oldSize: {x: 0.5208333, y: 0.5208333}
+    newSize: {x: 0.25, y: 0.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

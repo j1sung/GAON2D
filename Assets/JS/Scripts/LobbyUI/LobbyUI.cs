@@ -25,10 +25,8 @@ public class LobbyUI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(isReady);
         if (Input.GetKeyDown(KeyCode.E) && isReady)
         {
-            Debug.Log("´­¸²");
             pc.enabled = true;
             isReady = false;
             tutorialUI.SetActive(false);

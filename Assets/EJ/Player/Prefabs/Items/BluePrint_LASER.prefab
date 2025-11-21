@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 185724100844896263}
   - component: {fileID: 7055321055974150076}
-  - component: {fileID: 4159966406465213103}
+  - component: {fileID: -9153988625340040005}
   - component: {fileID: 6009513933053915498}
+  - component: {fileID: 4159966406465213103}
   - component: {fileID: 8426376262467410699}
   m_Layer: 8
   m_Name: BluePrint_LASER
@@ -30,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.59, y: -1.49, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 0}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -87,6 +88,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-9153988625340040005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597326294658837460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b40547721a7154eb2e18f15649010a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobspeed: 2
+  bobAmplitude: 0.1
+--- !u!114 &6009513933053915498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597326294658837460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297d501660f94f14e811fab8f9cf0b71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoCollect: 0
+  interactKey: 101
+  blueprint: {fileID: 11400000, guid: 8f71d807c9a9a9a4bab239643c597e21, type: 2}
 --- !u!50 &4159966406465213103
 Rigidbody2D:
   serializedVersion: 4
@@ -114,21 +144,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6009513933053915498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7597326294658837460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 297d501660f94f14e811fab8f9cf0b71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoCollect: 0
-  interactKey: 101
-  blueprint: {fileID: 11400000, guid: 8f71d807c9a9a9a4bab239643c597e21, type: 2}
 --- !u!60 &8426376262467410699
 PolygonCollider2D:
   m_ObjectHideFlags: 0
