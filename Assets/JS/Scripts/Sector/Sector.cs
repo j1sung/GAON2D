@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sector : MonoBehaviour
 {
-    public GameObject protal; // 섹터 포탈
+    public GameObject[] portal; // 섹터 포탈
     public Transform rewardSpot; // 보상 소환 지점
 
     private bool first;
