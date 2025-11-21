@@ -20,7 +20,7 @@ MonoBehaviour:
   coreA: {fileID: 0}
   coreB: {fileID: 0}
   damage: 10
-  fireRate: 0.1
+  fireRate: 0.25
   coolTime: 0.3
   burstCount: 4
   projectileSpeed: 20
