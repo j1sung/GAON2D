@@ -1,8 +1,9 @@
 using UnityEngine;
-using System;
 
 public class PlayerController : MonoBehaviour
-{   
+{       
+    public static PlayerController Instance { get; private set; }
+
     private PlayerStatus status;
     private WeaponManager weaponManager;
 
@@ -18,6 +19,8 @@ public class PlayerController : MonoBehaviour
     float dashEndTime;
     float nextDashTime;
     // public event Action OnDash; 나중에 대쉬 UI 정해지면 추가
+
+    public InventoryPanel invPanel;
 
     void Start()
     {   
@@ -43,9 +46,14 @@ public class PlayerController : MonoBehaviour
             nextDashTime = Time.time + status.RUN_dashCooldown;
         }
         if (isDashing && Time.time >= dashEndTime) isDashing = false;
-
+        
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            InventoryPanel.Instance?.OpenInventory();
+        }
         HandleWeaponInput();
     }
+
 
     void FixedUpdate()
     {
@@ -84,4 +92,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
             weaponManager.FireCombined();
     }
+
+
 }

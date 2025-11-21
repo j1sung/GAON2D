@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 927758124027989823}
   - component: {fileID: 7163348605698138414}
   m_Layer: 0
-  m_Name: Crush_AntiDroneLaser
+  m_Name: Crush_Pulse_Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -1736220332, guid: dabf03d3c26f619419433dee07010fab, type: 3}
+  m_Sprite: {fileID: 2113768741, guid: 7cb617ace7115814c81f7ce0dc5d1280, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 6212906143194052872}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3f9e62e99a7e92242bdf8a38008ff3c4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2b2fe37150153bb46ba38910b5cb423d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c20d0ff1b652bb34688029c1a7f245c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolName: Crush_AntiDroneLaser
+  poolName: Crush_PulseLaser
 --- !u!114 &7163348605698138414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,4 +133,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb4d10632b91ee4b9c8403f013ca5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 7400000, guid: 3227929e73923454c8eef9cdf93363ba, type: 2}
+  clip: {fileID: 7400000, guid: 21bdf00096d976145b036ce74a44ec69, type: 2}

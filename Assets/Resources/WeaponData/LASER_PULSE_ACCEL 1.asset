@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b0700a7db59d9e409f03917a9558de3, type: 3}
-  m_Name: LASER_PHOTON_MULTIPLE
+  m_Name: LASER_PULSE_ACCEL 1
   m_EditorClassIdentifier: 
   weaponName: "\uAD11\uC790\uAC00\uC18D\uB808\uC774\uC800"
-  weaponIcon: {fileID: 21300000, guid: e87b8a8dfe99b064cb9030f6bcb2bb43, type: 3}
+  weaponIcon: {fileID: 21300000, guid: 32ac6243c0975fb4690d7ff639772e7d, type: 3}
   firetype: 1
-  bulletPrefab: {fileID: 6747470851662068052, guid: 9ccc3ca583fb52c418c13e560763de8d, type: 3}
+  bulletPrefab: {fileID: 6747470851662068052, guid: c5804d11f1ea848418f56a59839f952b, type: 3}
   blueprint: {fileID: 11400000, guid: 8f71d807c9a9a9a4bab239643c597e21, type: 2}
-  coreA: {fileID: 11400000, guid: 12e255871c9dfac45a1e9000d8f96535, type: 2}
-  coreB: {fileID: 11400000, guid: e00848974570c3645be3a2ed9497ba05, type: 2}
+  coreA: {fileID: 11400000, guid: 8294cc5d77a189d4495c37978d5e4221, type: 2}
+  coreB: {fileID: 11400000, guid: 84e91461660d6684a99830d8fa00acf7, type: 2}
   damage: 20
   fireRate: 0.2
   coolTime: 1
   burstCount: 5
   projectileSpeed: 20
   projectileLifetime: 0.2
-  onHitTags: 8
+  onHitTags: 2
   bulletKey: 
   impactKey: 

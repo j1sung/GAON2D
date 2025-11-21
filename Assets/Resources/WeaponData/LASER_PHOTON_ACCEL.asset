@@ -25,6 +25,6 @@ MonoBehaviour:
   burstCount: 5
   projectileSpeed: 20
   projectileLifetime: 0.2
-  onHitTags: 0
+  onHitTags: 8
   bulletKey: 
   impactKey: 
