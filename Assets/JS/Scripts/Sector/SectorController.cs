@@ -53,8 +53,8 @@ public class SectorController : MonoBehaviour
         while (index2 == index1);
 
         // »ý¼º
-        Vector3 leftPos = currentSector.rewardSpot.position + new Vector3(-0.5f, 0f, 0f);
-        Vector3 rightPos = currentSector.rewardSpot.position + new Vector3(0.5f, 0f, 0f);
+        Vector3 leftPos = currentSector.rewardSpot.GetChild(0).position;
+        Vector3 rightPos = currentSector.rewardSpot.GetChild(1).position;
 
         Instantiate(rewardPrefab[index1], leftPos, Quaternion.identity);
         Instantiate(rewardPrefab[index2], rightPos, Quaternion.identity);

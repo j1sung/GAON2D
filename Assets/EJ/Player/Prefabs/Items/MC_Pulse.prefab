@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5122999715496210043}
   - component: {fileID: 7211156483163707317}
-  - component: {fileID: 8451405190996517658}
+  - component: {fileID: 556988573108528119}
   - component: {fileID: 1997307420314187704}
+  - component: {fileID: 8451405190996517658}
   - component: {fileID: 108795541901148769}
   m_Layer: 8
   m_Name: MC_Pulse
@@ -87,6 +88,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &556988573108528119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16568960910163046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b40547721a7154eb2e18f15649010a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobspeed: 2
+  bobAmplitude: 0.1
+--- !u!114 &1997307420314187704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16568960910163046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc4339fedfedd24ab3b105e4e1875e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoCollect: 0
+  interactKey: 101
+  core: {fileID: 11400000, guid: 8294cc5d77a189d4495c37978d5e4221, type: 2}
 --- !u!50 &8451405190996517658
 Rigidbody2D:
   serializedVersion: 4
@@ -114,21 +144,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1997307420314187704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16568960910163046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfc4339fedfedd24ab3b105e4e1875e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoCollect: 0
-  interactKey: 101
-  core: {fileID: 11400000, guid: 8294cc5d77a189d4495c37978d5e4221, type: 2}
 --- !u!60 &108795541901148769
 PolygonCollider2D:
   m_ObjectHideFlags: 0
