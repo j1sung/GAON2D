@@ -37,6 +37,15 @@ public class Portal : MonoBehaviour, IInteractable
         }
 
         Debug.Log($"[Portal] 이동 요청: {nextScene}");
+        GameStateContext.IsStageTransition = true;
+
         GameEvents.OnRequestSceneChange?.Invoke(nextScene);
+
+
     }
+}
+
+public static class GameStateContext
+{
+    public static bool IsStageTransition = false;
 }

@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
         GameEvents.OnSelectionOpened += HandleSelectionOpen;
         GameEvents.OnSelectionClosed += HandleSelectionClose;
         GameEvents.OnRequestSceneChange += HandleSceneChange;
+        GameEvents.OnSceneLoaded += HandleSceneLoaded;
     }
 
     private void Start()
@@ -152,6 +153,21 @@ public class GameManager : MonoBehaviour
             {
                 AudioManager.Instance.PlayBGM(stageInfo.bgm);
             }
+        }
+    }
+
+    private void HandleSceneLoaded()
+    {
+        if (GameStateContext.IsStageTransition)
+        {
+            Debug.Log("Playing");
+            _sm.Change(GameState.Playing);
+            GameStateContext.IsStageTransition = false;
+        }
+        else
+        {
+            Debug.Log("Lobby");
+            _sm.Change(GameState.Lobby);
         }
     }
 }
