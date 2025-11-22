@@ -154,6 +154,14 @@ public class GameManager : MonoBehaviour
                 AudioManager.Instance.PlayBGM(stageInfo.bgm);
             }
         }
+        else if (sceneName.ToLower().Contains("boss"))
+        {
+            var stageInfo = StageFlowManager.Instance.GetCurrentStageInfo();
+            if (stageInfo != null && stageInfo.bossBgm != null)
+            {
+                AudioManager.Instance.PlayBGM(stageInfo.bossBgm);
+            }
+        }
     }
 
     private void HandleSceneLoaded()

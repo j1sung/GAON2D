@@ -41,6 +41,7 @@ public class SelectionUIController : MonoBehaviour
 
     public void Open()
     {
+        Debug.Log("일시정지 실행");
         panel.SetActive(true);
         GameEvents.OnSelectionOpened?.Invoke();
     }
