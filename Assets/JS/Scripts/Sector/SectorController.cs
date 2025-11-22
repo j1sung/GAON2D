@@ -63,8 +63,14 @@ public class SectorController : MonoBehaviour
         Vector3 leftPos = currentSector.rewardSpot.GetChild(0).position;
         Vector3 rightPos = currentSector.rewardSpot.GetChild(1).position;
 
-        Instantiate(rewardPrefab[index1], leftPos, Quaternion.identity);
-        Instantiate(rewardPrefab[index2], rightPos, Quaternion.identity);
+        var obj1 = Instantiate(rewardPrefab[index1], leftPos, Quaternion.identity);
+        var obj2 = Instantiate(rewardPrefab[index2], rightPos, Quaternion.identity);
+
+        // 아이템 하나 먹으면 하나 삭제 연결
+        var pairObj = new GameObject("RewardPair");
+        var pair = pairObj.AddComponent<RewardPair>();
+        pair.rewardA = obj1;
+        pair.rewardB = obj2;
 
         foreach (var obj in currentSector.portal)
             obj.SetActive(true); // 포탈 활성화
