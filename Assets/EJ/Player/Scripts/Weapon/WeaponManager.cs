@@ -57,6 +57,7 @@ public sealed class WeaponManager : MonoBehaviour
     void Update()
     {
         float dt = Time.deltaTime;
+        _switchTimer -= dt;
 
         // 각 무기의 쿨타임 계속 감소
         _defaultCtl?.TickCooldown(dt);

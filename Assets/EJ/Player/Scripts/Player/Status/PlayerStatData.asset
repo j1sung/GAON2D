@@ -20,7 +20,7 @@ MonoBehaviour:
   critical: 1
   criticalMul: 2
   expCollectRadius: 3
-  moveSpeed: 5
-  dashSpeed: 15
+  moveSpeed: 3.5
+  dashSpeed: 9
   dashDuration: 0.2
   dashCooldown: 0.5

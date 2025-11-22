@@ -18,10 +18,12 @@ MonoBehaviour:
   - stageSceneName: Stage1
     bossSceneName: Boss1
     bgm: {fileID: 8300000, guid: ab0125e1d557a1d4d8fa2c80c3060810, type: 3}
+    bossBgm: {fileID: 8300000, guid: 07a835246ac33774b906e3d962dd39e6, type: 3}
     thumbnail: {fileID: 0}
     rewardItem: 
   - stageSceneName: Stage2
     bossSceneName: Boss2
-    bgm: {fileID: 8300000, guid: 07a835246ac33774b906e3d962dd39e6, type: 3}
+    bgm: {fileID: 0}
+    bossBgm: {fileID: 0}
     thumbnail: {fileID: 0}
     rewardItem: 
