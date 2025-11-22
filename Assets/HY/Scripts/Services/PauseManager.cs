@@ -17,6 +17,7 @@ public class PauseManager : MonoBehaviour
 
     public void Pause()
     {
+        Debug.Log("일시정지 실행");
         if (IsPaused) return;
         IsPaused = true;
         Time.timeScale = 0f; // 물리/업데이트 정지

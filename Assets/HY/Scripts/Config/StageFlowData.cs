@@ -11,6 +11,7 @@ public class StageFlowData : ScriptableObject
         public string stageSceneName;
         public string bossSceneName;
         public AudioClip bgm;
+        public AudioClip bossBgm;
         public Sprite thumbnail;
         public string rewardItem;
     }
