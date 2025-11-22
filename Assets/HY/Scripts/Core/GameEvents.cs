@@ -10,5 +10,6 @@ public static class GameEvents {
     public static Action OnGameResumed;
     public static Action OnSelectionOpened;
     public static Action OnSelectionClosed;
+    public static Action OnSceneLoaded;
     public static Action<string> OnRequestSceneChange;
 }

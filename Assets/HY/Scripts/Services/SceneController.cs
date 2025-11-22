@@ -38,5 +38,7 @@ public class SceneController : MonoBehaviour
         AsyncOperation op = SceneManager.LoadSceneAsync(name);
         while (!op.isDone)
             yield return null;
+
+        GameEvents.OnSceneLoaded?.Invoke();
     }
 }
