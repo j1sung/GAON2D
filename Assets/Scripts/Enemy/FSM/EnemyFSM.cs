@@ -14,7 +14,6 @@ public class EnemyFSM
         // 새로운 상태로 변경 후, 새로 바뀐 상태의 Enter() 메소드 호출
         currentState = states[(int)newstate];
         currentState.Enter(enemy);
-        //Debug.Log("현재 상태: "+ newstate);
     }
 
     public void Update(Enemy enemy) => currentState?.Execute(enemy);
