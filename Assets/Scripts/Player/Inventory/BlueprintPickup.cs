@@ -4,9 +4,9 @@ public class BlueprintPickup : BasePickup
 {
     [SerializeField] private BlueprintSO blueprint;
 
-    protected override bool TryPickup(PlayerAgents target)
+    protected override bool TryPickup(PlayerContext target)
     {
         if (target == null || blueprint == null) return false;
-        return target.inventory.PickupBlueprint(blueprint);
+        return target.Inventory.PickupBlueprint(blueprint);
     }
 }

@@ -5285,6 +5285,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2781272701583199392, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4724288646835049362, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
       propertyPath: poolManager
       value: 
