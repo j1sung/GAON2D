@@ -1,39 +1,40 @@
 using UnityEngine;
 
-/// 플레이어를 따라가되, 최초 배치 시점의 "플레이어 기준 오프셋"을 유지
+/// 씬에 배치된 로컬 위치를 그대로 기준으로 사용.
+/// 좌우 전환은 회전으로만 처리하고, 위치는 따라가기만 한다.
 public class CombinedWeaponIdleFollow : MonoBehaviour
 {
     [Header("필수")]
-    public Transform followTarget;          // 보통 Player 루트 Transform
+    public Transform followTarget;
 
-    [Header("이펙트")]
-    public float bobAmplitude = 0.08f;      // 상하 진폭
-    public float bobSpeed = 2.0f;           // 상하 속도
-    public float swayAmplitude = 0.15f;     // 좌우 진폭
-    public float followDamping = 12f;       // 플레이어를 따라붙는 속도(클수록 더 빠름)
+    [Header("Follow")]
+    public float followDamping = 12f;
 
-    [Header("거리 고정 옵션")]
-    public bool keepDistance = true;        // true: 최초 거리(반경) 유지
-    public bool flipToAim = true;           // 마우스 좌/우에 따라 X축 반전(스프라이트만)
+    [Header("Idle Motion")]
+    public float bobAmplitude = 0.08f;
+    public float bobSpeed = 2.0f;
+    public float phaseOffset = 0f;
 
     // 내부 상태
-    Vector3 initialLocal;                   // 활성화 당시의 "플레이어 기준 로컬 위치"
-    float initialRadius;                    // 거리(반경)
+    Vector3 baseLocalPos;   // ⭐ 씬에 배치된 기준 위치
     float t;
+    float facingSign = 1f;
 
     void Awake()
     {
-        if (!followTarget) followTarget = transform.root;
+        if (!followTarget)
+            followTarget = transform.root;
     }
 
     void OnEnable()
     {
-        // 플레이어 기준 로컬 위치를 앵커로 저장
-        if (followTarget)
-        {
-            initialLocal   = followTarget.InverseTransformPoint(transform.position);
-            initialRadius  = new Vector2(initialLocal.x, initialLocal.y).magnitude;
-        }
+        if (!followTarget) return;
+
+        // ⭐ 씬에서 배치한 현재 위치를 기준으로 저장
+        baseLocalPos = followTarget.InverseTransformPoint(transform.position);
+
+        // 초기 방향
+        facingSign = baseLocalPos.x >= 0f ? 1f : -1f;
     }
 
     void LateUpdate()
@@ -42,36 +43,23 @@ public class CombinedWeaponIdleFollow : MonoBehaviour
 
         t += Time.deltaTime;
 
-        // 1) 기본 로컬 앵커 + (bob/sway) 흔들림
-        float bob  = Mathf.Sin(t * bobSpeed) * bobAmplitude;
-        float sway = Mathf.Sin(t * (bobSpeed * 0.6f)) * swayAmplitude;
+        // ===== 현재 방향 (PlayerAim의 flip 결과) =====
+        float sign = Mathf.Sign(transform.lossyScale.x);
+        if (sign != 0f)
+            facingSign = sign;
 
-        Vector3 targetLocal = initialLocal + new Vector3(sway, bob, 0f);
+        // ===== 기준 위치를 좌우 회전 =====
+        Quaternion rot = Quaternion.Euler(0f, facingSign > 0f ? 0f : 180f, 0f);
+        Vector3 rotatedLocal = rot * baseLocalPos;
 
-        // 2) 거리(반경) 유지 옵션
-        if (keepDistance)
-        {
-            Vector2 v = new Vector2(targetLocal.x, targetLocal.y);
-            float m = v.magnitude;
-            if (m > 1e-4f)
-            {
-                // 벡터 길이를 최초 반경으로 정규화해서, 흔들려도 거리는 유지
-                v = v * (initialRadius / m);
-                targetLocal.x = v.x;
-                targetLocal.y = v.y;
-            }
-        }
+        // ===== 부유 (Y축만) =====
+        float bob = Mathf.Sin(t * bobSpeed + phaseOffset) * bobAmplitude;
 
-        // 3) 월드 좌표로 변환해서 부드럽게 이동
+        Vector3 targetLocal = rotatedLocal + new Vector3(0f, bob, 0f);
+
+        // ===== 월드 이동 =====
         Vector3 desiredWorld = followTarget.TransformPoint(targetLocal);
         float k = 1f - Mathf.Exp(-followDamping * Time.deltaTime);
         transform.position = Vector3.Lerp(transform.position, desiredWorld, k);
-    }
-
-    /// 필요 시, 현재 위치를 기준으로 다시 앵커를 재설정
-    public void ReanchorToCurrent()
-    {
-        initialLocal  = followTarget ? followTarget.InverseTransformPoint(transform.position) : transform.localPosition;
-        initialRadius = new Vector2(initialLocal.x, initialLocal.y).magnitude;
     }
 }

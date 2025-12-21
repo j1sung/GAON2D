@@ -23,25 +23,25 @@ public class Reposition : MonoBehaviour
         if (!other.CompareTag("Area"))
             return;
 
-        // Area ³Ñ¾î¼­¸é À§Ä¡ ÀçÁöÁ¤
-        if (coll.enabled) // »ì¾ÆÀÖ´Â Àûµé¸¸ À§Ä¡ º¯µ¿, Á×Àº ÀûÀº Ç®¸µ È¸¼ö -> Á×Àº ÀûÀº ÄÝ¶óÀÌ´õ ²¨Á®ÀÖÀ½
+        // Area ï¿½Ñ¾î¼­ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (coll.enabled) // ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½é¸¸ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½ È¸ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¶ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
-            // ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç À§Ä¡¸¦ °¡Á®¿É´Ï´Ù.
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
             Vector2 playerPos = player.transform.position;
-            Vector2 playerDir = player.GetComponent<PlayerController>().Movement;
+            Vector2 playerDir = player.GetComponent<PlayerController>().movement;
             //Vector2 playerPos = GameInstance.Instance.player.transform.position;
             //Vector2 playerDir = GameInstance.Instance.player.Movement;
             //float dirX = playerDir.x < 0 ? -1 : 1;
             //float dirY = playerDir.y < 0 ? -1 : 1;
 
-            // ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ ±âÁØÀ¸·Î ÁÂÇ¥¸¦ °è»ê
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½
             float distance = 13f;
             Vector2 randomOffset = new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
 
-            //position¿¡ Á÷Á¢ »õ À§Ä¡¸¦ ÇÒ´çÇÕ´Ï´Ù.
+            //positionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½Õ´Ï´ï¿½.
             transform.position = playerPos + playerDir * distance + randomOffset; 
 
-            // ÃßÈÄ ¿ÀºêÁ§Æ® Ç®¸µ È¸¼ö & ½ºÅÝ ÃÊ±âÈ­ ±¸¹® º¯°æ
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ç®ï¿½ï¿½ È¸ï¿½ï¿½ & ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
     }

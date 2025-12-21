@@ -86,6 +86,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable
 
     public void ApplyHit(HitContext ctx)
     {
+        if (currentHP <= 0) return;
         TakeDamage(ctx.damage);
         // 상태이상은 여기서 적용 가능(적도 마찬가지)
     }
@@ -102,7 +103,6 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     public void Die()
     {
         OnDeath?.Invoke();
-        // 호영아 부탁한다.
     }
 
     // 경험치 획득
