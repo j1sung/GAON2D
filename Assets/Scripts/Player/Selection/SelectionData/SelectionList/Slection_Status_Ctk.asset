@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7483b9cd2eeaf148ae8f4a69366c5f5, type: 3}
+  m_Name: Slection_Status_Ctk
+  m_EditorClassIdentifier: 
+  selectionName: "\uD06C\uB9AC\uD2F0\uCEEC \uD655\uB960 \uC99D\uAC00"
+  selectionImage: {fileID: 0}
+  selectionDescription: "\uD06C\uB9AC\uD2F0\uCEEC \uD655\uB960\uC774 1% \uC99D\uAC00\uD55C\uB2E4."
+  effect: {fileID: 11400000, guid: f398eb1485d38974a93cc7a2c4f5e5e2, type: 2}
