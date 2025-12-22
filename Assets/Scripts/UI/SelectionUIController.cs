@@ -3,45 +3,45 @@ using UnityEngine;
 public class SelectionUIController : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
-    [SerializeField] private PlayerStatus playerStatus;
+    // [SerializeField] private PlayerStatus playerStatus;
 
-    private void Awake()
-    {
-        BindPlayerStatus();
-    }
+    // private void Start()
+    // {
+    //     BindPlayerStatus();
+    // }
 
-    private void BindPlayerStatus()
-    {
-        if (playerStatus != null) return;
+    // private void BindPlayerStatus()
+    // {
+    //     if (playerStatus != null) return;
 
-        var playerObj = GameObject.FindWithTag("Player");
-        if (playerObj != null)
-        {
-            playerStatus = playerObj.GetComponent<PlayerStatus>();
-            playerStatus.OnLevelUp += OnLevelUp;
-        }
-    }
+    //     var playerObj = GameObject.FindWithTag("Player");
+    //     if (playerObj != null)
+    //     {
+    //         playerStatus = playerObj.GetComponent<PlayerStatus>();
+    //         playerStatus.OnLevelUp += OnLevelUp;
+    //     }
+    // }
 
-    private void OnEnable()
-    {
-        if (playerStatus == null && GameInstance.Instance?.player != null)
-        {
-            playerStatus = GameInstance.Instance.player.GetComponent<PlayerStatus>();
-        }
+    // private void OnEnable()
+    // {
+    //     if (playerStatus == null && GameInstance.Instance?.player != null)
+    //     {
+    //         playerStatus = GameInstance.Instance.player.GetComponent<PlayerStatus>();
+    //     }
 
-        if (playerStatus != null) playerStatus.OnLevelUp += OnLevelUp;
+    //     if (playerStatus != null) playerStatus.OnLevelUp += OnLevelUp;
 
-    }
+    // }
 
-    private void OnDisable()
-    {
-        if (playerStatus != null)
-            playerStatus.OnLevelUp -= OnLevelUp;
-    }
+    // private void OnDisable()
+    // {
+    //     if (playerStatus != null)
+    //         playerStatus.OnLevelUp -= OnLevelUp;
+    // }
 
     public void Open()
     {
-        Debug.Log("ÀÏ½ÃÁ¤Áö ½ÇÇà");
+        Debug.Log("ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
         panel.SetActive(true);
         GameEvents.OnSelectionOpened?.Invoke();
     }
@@ -51,6 +51,6 @@ public class SelectionUIController : MonoBehaviour
         GameEvents.OnSelectionClosed?.Invoke();
     }
 
-    public void OnLevelUp(int level) => Open();
-    public void OnSelectOption() => Close();
+    // public void OnLevelUp() => Open();
+    // public void OnSelectOption() => Close();
 }

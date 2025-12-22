@@ -42,7 +42,7 @@ public class InventoryPanel : MonoBehaviour
     }
     public void UpdateStatusUI(PlayerStatus st)
     {
-        damageText.text = $"Damage: {st.RUN_damageMul:F1}";
+        damageText.text = $"Damage: {st.RUN_baseDamage:F1}";
         fireRateText.text = $"Fire Rate: {st.RUN_fireRateMul:F2}";
         critText.text = $"Critical: {st.RUN_critical}%";
         critDamageText.text = $"Crit DMG: {st.RUN_criticalMul:F1}";

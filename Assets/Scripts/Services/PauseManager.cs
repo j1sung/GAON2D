@@ -17,10 +17,10 @@ public class PauseManager : MonoBehaviour
 
     public void Pause()
     {
-        Debug.Log("ÀÏ½ÃÁ¤Áö ½ÇÇà");
+        Debug.Log("ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
         if (IsPaused) return;
         IsPaused = true;
-        Time.timeScale = 0f; // ¹°¸®/¾÷µ¥ÀÌÆ® Á¤Áö
+        Time.timeScale = 0f; // ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         GameEvents.OnGamePaused?.Invoke();
     }
     public void Resume()
