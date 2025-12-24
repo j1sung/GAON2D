@@ -31,10 +31,10 @@ public class HUDManager : MonoBehaviour
             ps.OnExpChanged += UpdateExpBar;
             ps.OnLevelUp += UpdateLevel;
 
-            // 직접 초기화
+            // ???? ????
             UpdateHPBar(ps.currentHP / ps.RUN_maxHP);
             UpdateExpBar(ps.currentExp / ps.RUN_expToNextLevel);
-            UpdateLevel(ps.level);
+            UpdateLevel();
         }
     }
 
@@ -51,11 +51,13 @@ public class HUDManager : MonoBehaviour
     }
 
 
-    void UpdateLevel(int nextLevel)
-    {
-        if (level != null)
+    void UpdateLevel()
+    {   
+        var ps = PlayerStatus.Instance;
+        
+        if (ps != null)
         {
-            level.text = $"Lv. {nextLevel}";
+            level.text = $"Lv. {ps.level}";
         }
     }
 

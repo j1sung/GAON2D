@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class PlayerStatus : MonoBehaviour, IDamageable
 {   
@@ -30,7 +31,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     
     public event Action<float> OnHPChanged; // 체력 변동
     public event Action<float> OnExpChanged; // 경험치 변동
-    public event Action<int> OnLevelUp; // 레벨업시 발생하는 이벤트
+    public event Action OnLevelUp; // 레벨업시 발생하는 이벤트
     public event Action OnDeath; // 사망시 발생하는 이벤트
     public event Action OnStatsChanged; // 스탯 변동
 
@@ -85,6 +86,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable
 
     public void ApplyHit(HitContext ctx)
     {
+        if (currentHP <= 0) return;
         TakeDamage(ctx.damage);
         // 상태이상은 여기서 적용 가능(적도 마찬가지)
     }
@@ -101,7 +103,6 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     public void Die()
     {
         OnDeath?.Invoke();
-        // 호영아 부탁한다.
     }
 
     // 경험치 획득
@@ -120,6 +121,37 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     private void LevelUp()
     {
         level++;
-        OnLevelUp?.Invoke(level);
+        OnLevelUp?.Invoke();
+    }
+
+    public void StatsModifier(StatKind kind, float addValue, float mulValue = 1f) // 스탯 변화 메서드
+    {
+        switch (kind)
+        {
+            case StatKind.HP:
+            RUN_maxHP += addValue;
+            break;
+
+            case StatKind.Damage:
+            RUN_baseDamage += addValue;
+            break;
+
+            case StatKind.FireRate:
+            RUN_fireRateMul *= mulValue;
+            break;
+
+            case StatKind.Critical:
+            RUN_critical += addValue;
+            break;  
+
+            case StatKind.CriticalDamage:
+            RUN_criticalMul *= addValue;
+            break;   
+
+            case StatKind.MoveSpeed:
+            RUN_moveSpeed += addValue;
+            break;                  
+        }
+        OnStatsChanged?.Invoke(); // HUD에 바로 상태반영 하기 위해 이벤트 발생
     }
 }
