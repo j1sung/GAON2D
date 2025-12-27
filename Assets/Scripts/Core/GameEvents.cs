@@ -12,4 +12,5 @@ public static class GameEvents {
     public static Action OnSelectionClosed;
     public static Action OnSceneLoaded;
     public static Action<string> OnRequestSceneChange;
+    public static Action OnDeathDirectionEnd; // 죽음 연출 종료
 }

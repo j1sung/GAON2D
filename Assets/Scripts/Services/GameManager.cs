@@ -33,6 +33,16 @@ public class GameManager : MonoBehaviour
         GameEvents.OnSceneLoaded += HandleSceneLoaded;
     }
 
+    private void OnEnable()
+    {
+        GameEvents.OnDeathDirectionEnd += EndStage;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnDeathDirectionEnd -= EndStage;
+    }
+
     private void Start()
     {
         _sm.Change(GameState.Boot);
@@ -176,7 +186,24 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Lobby");
             _sm.Change(GameState.Lobby);
+             ApplyLobbySpawn();
         }
+    }
+
+    // 로비 스폰위치 강제
+    private void ApplyLobbySpawn()
+    {
+        if (LobbySpawnPoint.Instance == null) return;
+        if (PlayerAgents.Instance == null) return; 
+
+        PlayerAgents.Instance.transform.position = LobbySpawnPoint.Instance.transform.position;
+    }
+
+    // 스테이지 종료 로직
+    public void EndStage()
+    {
+        GameEvents.OnGameOver?.Invoke(); // 게임오버 이벤트 invoke
+        GameEvents.OnRequestSceneChange?.Invoke(StageFlowManager.Instance.GetLobbyScene()); // 로비씬으로 전환
     }
 }
 
