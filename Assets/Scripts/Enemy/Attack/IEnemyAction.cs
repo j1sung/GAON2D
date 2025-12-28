@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IEnemyAction
 {
-    void Attack(Transform transform, float Damage);
+    void Attack(float Damage, Vector2 targetPos);
 }

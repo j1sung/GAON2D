@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2ab201e86facc544b8291c410ab9864c
+guid: 1b6ffd0e08b3f844f903b9ce0532b2e7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,11 +97,95 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: M2-Sheet_0
+      name: M1_walk_sheet_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 4
+        x: 2
+        y: 5
+        width: 43
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08b0d1beb5f26ba49a7354d2895e49ff
+      internalID: 654653478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: M1_walk_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 5
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cdb40c0320d0d14b87e655572813765
+      internalID: -274490352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: M1_walk_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 5
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ef12e6f3d173a4469652e8cb93cf813
+      internalID: 1319746610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: M1_walk_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 5
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65afb7b953dde8a479e3aced826a00fd
+      internalID: -1289406160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: M1_walk_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 5
         width: 42
         height: 38
       alignment: 0
@@ -111,18 +195,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8dc6c53f0291dd04c8d81c033c2c5b16
-      internalID: -152250073
+      spriteID: 75d217e559d62a149b285b75112328f5
+      internalID: -1854538046
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: M2-Sheet_1
+      name: M1_walk_sheet_5
       rect:
         serializedVersion: 2
-        x: 52
-        y: 4
+        x: 242
+        y: 5
         width: 42
         height: 39
       alignment: 0
@@ -132,18 +216,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a2c6a471b5382142ad7a280eb2bf928
-      internalID: 2045294016
+      spriteID: 81e62357d6810df4aae787578d3b057a
+      internalID: 66507111
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: M2-Sheet_2
+      name: M1_walk_sheet_6
       rect:
         serializedVersion: 2
-        x: 100
-        y: 4
+        x: 290
+        y: 5
         width: 42
         height: 39
       alignment: 0
@@ -153,113 +237,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22a1e9602175bc84f9050a190dbd6c7f
-      internalID: 1518058363
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: M2-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 148
-        y: 4
-        width: 42
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8bdfdf31caf40cb4181e61d20d4a5802
-      internalID: 1034366449
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: M2-Sheet_4
-      rect:
-        serializedVersion: 2
-        x: 196
-        y: 4
-        width: 42
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5e64a242ecee3504b9550e1c23605e04
-      internalID: 566157546
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: M2-Sheet_5
-      rect:
-        serializedVersion: 2
-        x: 244
-        y: 4
-        width: 42
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 32668d8c9d2cf374294b5bfed722f447
-      internalID: -1060670727
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: M2-Sheet_6
-      rect:
-        serializedVersion: 2
-        x: 292
-        y: 4
-        width: 42
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fdb867bdbf057654a8256b9647f0dad6
-      internalID: 566342382
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: M2-Sheet_7
-      rect:
-        serializedVersion: 2
-        x: 340
-        y: 4
-        width: 42
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c42aff82817cd8248b4209cabd995200
-      internalID: -1027361529
+      spriteID: cd8dc5cb60a072340804bfd10ba93c75
+      internalID: -848691830
       vertices: []
       indices: 
       edges: []
@@ -275,14 +254,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      M2-Sheet_0: -152250073
-      M2-Sheet_1: 2045294016
-      M2-Sheet_2: 1518058363
-      M2-Sheet_3: 1034366449
-      M2-Sheet_4: 566157546
-      M2-Sheet_5: -1060670727
-      M2-Sheet_6: 566342382
-      M2-Sheet_7: -1027361529
+      M1_walk_sheet_0: 654653478
+      M1_walk_sheet_1: -274490352
+      M1_walk_sheet_2: 1319746610
+      M1_walk_sheet_3: -1289406160
+      M1_walk_sheet_4: -1854538046
+      M1_walk_sheet_5: 66507111
+      M1_walk_sheet_6: -848691830
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

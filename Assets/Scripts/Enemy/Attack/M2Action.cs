@@ -4,26 +4,33 @@ using UnityEngine;
 
 public class M2Action : MonoBehaviour, IEnemyAction
 {
-    private Transform owner;
     [SerializeField] private float currentDamage;
-    private StatusTag status;
+    [SerializeField] private float dashSpeed = 1f;
+    [SerializeField] private float dashDuration = 2f;
 
-    public void Attack(Transform transform, float damage)
+    private StatusTag status = 0;
+    private EnemyMovement movement;
+    private void Awake()
     {
-        owner = transform;
+        movement = GetComponent<EnemyMovement>();
+    }
+    public void Attack(float damage, Vector2 targetPos)
+    {
         currentDamage = damage;
 
-        //Debug.Log("M2 박치기 공격!");
+        // 돌진 실행!
+        movement.DashTo(targetPos, dashSpeed, dashDuration);
         // 공격 애니메이션 넣기
         // 애니메이션 트리거 감지
 
     }
+
+    // 이제 적의 유형에 따라 몸통 부딪힘 데미지가 없을 수 있어서 다르게 구현되어야함
     void OnTriggerEnter2D(Collider2D other)
     {
         //if (dead) return;
         // 공격 상태가 아니면 트리거 무시
-        if (currentDamage <= 0)
-            return;
+        if (currentDamage <= 0) return;
 
         var dmg = other.GetComponent<IDamageable>();
         if (dmg != null)
@@ -31,7 +38,6 @@ public class M2Action : MonoBehaviour, IEnemyAction
 
             var hit = new HitContext
             {
-                attacker = owner,
                 damage = currentDamage,
                 statusTags = status
             };

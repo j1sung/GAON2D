@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 057c50537dfd32247b234bfbc599f101
+guid: 2ab201e86facc544b8291c410ab9864c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: M1_death_sheet_0
+      name: M2_walk_sheet_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 5
+        x: 4
+        y: 4
         width: 42
-        height: 37
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 820b5be698d00a547978827ce3dd5c11
-      internalID: 1365052396
+      spriteID: f34e6ecdc917e584c973156f9900d7c2
+      internalID: -1435593878
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: M1_death_sheet_1
+      name: M2_walk_sheet_1
       rect:
         serializedVersion: 2
-        x: 50
-        y: 5
+        x: 52
+        y: 4
         width: 42
-        height: 36
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7921ffd927cc2747a6c433492c38e27
-      internalID: 1565665538
+      spriteID: d63392fa4f19b394b84d87f061c13f4c
+      internalID: -1804984644
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: M1_death_sheet_2
+      name: M2_walk_sheet_2
       rect:
         serializedVersion: 2
-        x: 98
-        y: 5
+        x: 100
+        y: 4
         width: 42
-        height: 35
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec779e9773bda8b4a8f3e1715effb860
-      internalID: 697412606
+      spriteID: a609d7f6b6f17344093df1762bd2adab
+      internalID: 10867219
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: M1_death_sheet_3
+      name: M2_walk_sheet_3
       rect:
         serializedVersion: 2
-        x: 146
-        y: 5
+        x: 148
+        y: 4
         width: 42
-        height: 35
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 639a7823c21a8ee4087eb110a3461d70
-      internalID: -952336680
+      spriteID: 78aefb1a0d9c5b84e840568e6bed8934
+      internalID: -85658565
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: M1_death_sheet_4
+      name: M2_walk_sheet_4
       rect:
         serializedVersion: 2
-        x: 194
-        y: 5
+        x: 196
+        y: 4
         width: 42
-        height: 35
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 86db87352cf9d794da9f36d34b3a67a0
-      internalID: -244111657
+      spriteID: c69f9bd7b23eb2848a401cad08182af7
+      internalID: -2002783897
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: M1_death_sheet_5
+      name: M2_walk_sheet_5
       rect:
         serializedVersion: 2
-        x: 242
-        y: 5
+        x: 244
+        y: 4
         width: 42
-        height: 35
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23b0faaddc5ff6b42bec00b9561b708f
-      internalID: -157360528
+      spriteID: 3e8b94111da0b67459fde224fdd3f881
+      internalID: 280120208
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: M1_death_sheet_6
+      name: M2_walk_sheet_6
       rect:
         serializedVersion: 2
-        x: 290
-        y: 5
+        x: 292
+        y: 4
         width: 42
-        height: 35
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2275b9417293a640852df74e36de8ee
-      internalID: -1966530197
+      spriteID: 9016c0167dc724e40a5e8e3bf3e29818
+      internalID: 1337314669
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: M1_death_sheet_7
+      name: M2_walk_sheet_7
       rect:
         serializedVersion: 2
-        x: 338
-        y: 5
+        x: 340
+        y: 4
         width: 42
-        height: 35
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,71 +258,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb719170096212e46b85b36a4707fa92
-      internalID: 1484502373
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: M1_death_sheet_8
-      rect:
-        serializedVersion: 2
-        x: 386
-        y: 5
-        width: 42
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ab40d46b85ecc944d92cdef94cc29f3b
-      internalID: -1653970441
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: M1_death_sheet_9
-      rect:
-        serializedVersion: 2
-        x: 434
-        y: 5
-        width: 42
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7e37c923a6a8fc247a09042e1aac0a14
-      internalID: 944315219
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: M1_death_sheet_10
-      rect:
-        serializedVersion: 2
-        x: 482
-        y: 5
-        width: 42
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 940f7717612feaa44b5106845ce69b79
-      internalID: -1964868078
+      spriteID: ee953964b47cdce4e9e7c53ec4203b82
+      internalID: 1699109815
       vertices: []
       indices: 
       edges: []
@@ -338,17 +275,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      M1_death_sheet_0: 1365052396
-      M1_death_sheet_1: 1565665538
-      M1_death_sheet_10: -1964868078
-      M1_death_sheet_2: 697412606
-      M1_death_sheet_3: -952336680
-      M1_death_sheet_4: -244111657
-      M1_death_sheet_5: -157360528
-      M1_death_sheet_6: -1966530197
-      M1_death_sheet_7: 1484502373
-      M1_death_sheet_8: -1653970441
-      M1_death_sheet_9: 944315219
+      M2_walk_sheet_0: -1435593878
+      M2_walk_sheet_1: -1804984644
+      M2_walk_sheet_2: 10867219
+      M2_walk_sheet_3: -85658565
+      M2_walk_sheet_4: -2002783897
+      M2_walk_sheet_5: 280120208
+      M2_walk_sheet_6: 1337314669
+      M2_walk_sheet_7: 1699109815
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

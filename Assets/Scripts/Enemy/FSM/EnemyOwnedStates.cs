@@ -49,10 +49,10 @@ namespace EnemyOwnedStates
 
         public void Execute(Enemy enemy)
         {
-            if (enemy.IsInAttackRange())
+            if (enemy.IsInAttackRange()) // 공격 범위 감지 -> 공격 상태 전환
                 enemy.ChangeState(EnemyStates.AttackState);
             
-            if (!enemy.IsInChaseRange())
+            if (!enemy.IsInChaseRange()) // 플레이어 범위 멀어짐 -> 탐색 상태 전환
                 enemy.ChangeState(EnemyStates.PatrolState);
         }
         public void FixedExecute(Enemy enemy)
@@ -68,28 +68,14 @@ namespace EnemyOwnedStates
         public void Enter(Enemy enemy)
         {
             isAttacking = false;
-            enemy.StartCoroutine(AttackCoroutine(enemy));
+            enemy.StartStateRoutine(AttackCoroutine(enemy));
         }
 
-        public void Execute(Enemy enemy)
-        {
-            if (isAttacking) return;
-
-            /*
-            if (!enemy.IsInAttackRange())
-            {
-                enemy.ChangeState(EnemyStates.ChaseState);
-                return;
-            }
-            */
-
-            //enemy.DoAttack();
-            //enemy.StartCoroutine(AttackCoroutine(enemy));
-        }
+        public void Execute(Enemy enemy) { }
         private IEnumerator AttackCoroutine(Enemy enemy)
         {
             enemy.DoAttack();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3.5f);
             enemy.ChangeState(EnemyStates.ChaseState);
 
             /*
@@ -105,10 +91,7 @@ namespace EnemyOwnedStates
             isAttacking = false;
             */
         }
-        public void FixedExecute(Enemy enemy)
-        {
-
-        }
+        public void FixedExecute(Enemy enemy) { }
         public void Exit(Enemy enemy) { }
     }
 

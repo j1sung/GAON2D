@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class M1Action : MonoBehaviour, IEnemyAction
 {
-    private Transform owner;
     [SerializeField] private float currentDamage;
-    private StatusTag status;
+    private StatusTag status = 0;
 
-    public void Attack(Transform transform, float damage)
+    public void Attack(float damage, Vector2 targetPos)
     {
-        owner = transform;
         currentDamage = damage;
 
         //Debug.Log("M1 박치기 공격!");
@@ -18,6 +16,8 @@ public class M1Action : MonoBehaviour, IEnemyAction
         // 애니메이션 트리거 감지
 
     }
+
+    // 이제 적의 유형에 따라 몸통 부딪힘 데미지가 없을 수 있어서 다르게 구현되어야함
     void OnTriggerEnter2D(Collider2D other)
     {
         //if (dead) return;
@@ -31,7 +31,6 @@ public class M1Action : MonoBehaviour, IEnemyAction
             
             var hit = new HitContext
             {
-                attacker = owner,
                 damage = currentDamage,
                 statusTags = status
             };

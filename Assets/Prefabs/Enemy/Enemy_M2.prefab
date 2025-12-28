@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -152250073, guid: 2ab201e86facc544b8291c410ab9864c, type: 3}
+  m_Sprite: {fileID: -1435593878, guid: 2ab201e86facc544b8291c410ab9864c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDamage: 0
+  dashSpeed: 3
+  dashDuration: 2
 --- !u!95 &7169011576563217225
 Animator:
   serializedVersion: 5
