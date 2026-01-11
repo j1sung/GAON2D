@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
     }
 
     #endregion
-
+    
     #region Init
 
     private void InitBGM()
@@ -143,8 +143,7 @@ public class AudioManager : MonoBehaviour
         if (sfxPool.Count > 0)
             return sfxPool.Dequeue();
 
-        // 풀 부족 시 안전장치 (임시 생성)
-        AudioSource extra = Instantiate(sfxPrefab, transform);
+        AudioSource extra = Instantiate(sfxPrefab, transform); // pool 부족
         return extra;
     }
 

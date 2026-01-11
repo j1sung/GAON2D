@@ -919,6 +919,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 0}
+  sfxPrefab: {fileID: 8129557115492225439, guid: cf2ef6c6ee7cf954b9da570617fb8a06, type: 3}
+  sfxPoolSize: 10
 --- !u!4 &1329875653
 Transform:
   m_ObjectHideFlags: 0
