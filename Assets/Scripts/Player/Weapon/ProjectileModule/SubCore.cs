@@ -1,9 +1,9 @@
 using UnityEngine;
 
 public sealed class AccelCore : ISubCoreModule
-{
+{  
     [Tooltip("발사 간격 배수 (0.8이면 20% 빨라짐)")]
-    public float intervalMultiplier = 0.8f;
+    public float intervalMultiplier = 0.5f;
 
     // 가속: 발사 간격(RUN_fireRate)을 줄여 연사속도를 높인다.
     // Init 시점(1회)만 적용됨.
@@ -24,34 +24,39 @@ public sealed class AccelCore : ISubCoreModule
 public sealed class SpreadCore : ISubCoreModule
 {
     [Header("확산 파라미터")]
-    [Tooltip("추가 발사 수 (기본 1발 + extraShots)")]
-    public int   extraShots = 2;
+    // 탄환 수
+    public int totalShots = 4;
 
-    [Tooltip("인접 샷 간 각도 간격(도)")]
-    public float spreadDeg  = 10f;
+    // 조준 방향 기준 랜덤 각도 범위
+    public float randomAngleRangeDeg = 20f;
 
     public void ApplyAccel(ref RuntimeWeapon r) { }
 
-    /// 확산: 이번 발사 틱에서 여러 발을 생성하고 각도를 분배한다.
-    /// 중심 정렬: -(n-1)/2 * spreadDeg ~ +(n-1)/2 * spreadDeg
     public ShotPlan ApplyMultiple(in RuntimeWeapon r, in FireContext ctx, ShotPlan basePlan)
     {
-        int total = Mathf.Max(1, basePlan.count + extraShots);
+        int total = Mathf.Max(1, totalShots);
         var plan  = new ShotPlan { count = total, dir = new Vector2[total] };
 
-        // 중심 기준 좌/우 대칭 분배
-        float center = (total - 1) * 0.5f;
-        Vector2 aim = basePlan.dir != null && basePlan.dir.Length > 0
-                        ? basePlan.dir[0].sqrMagnitude > 0.0001f ? basePlan.dir[0].normalized
-                                                                  : ctx.aimDir.normalized
-                        : ctx.aimDir.normalized;
+        // 기준 방향(aim) 결정
+        Vector2 aim = ctx.aimDir.normalized;
+        if (basePlan.dir != null && basePlan.dir.Length > 0)
+        {
+            Vector2 d0 = basePlan.dir[0];
+            if (d0.sqrMagnitude > 0.0001f)
+                aim = d0.normalized;
+        }
+
+        // 이번 공격(seed) 기준 랜덤
+        var rng = new System.Random(ctx.seed);
+        float range = Mathf.Max(0f, randomAngleRangeDeg);
 
         for (int i = 0; i < total; i++)
         {
-            float angle = (i - center) * spreadDeg; // -k*deg ... 0 ... +k*deg
+            // -1 ~ 1사이 값으로 한정하기 위해 *2.0-1.0
+            float angle = (float)(rng.NextDouble() * 2.0 - 1.0) * range;
             plan.dir[i] = (Quaternion.Euler(0, 0, angle) * aim).normalized;
         }
+
         return plan;
     }
-    // public void MutatePerShot(ref ShotStats s, int shotIndex, in ShotPlan plan) { }
 }

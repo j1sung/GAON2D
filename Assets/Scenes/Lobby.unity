@@ -3033,7 +3033,8 @@ PrefabInstance:
       propertyPath: m_TagString
       value: MainCamera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4889871144399871998, guid: 5a234cf1625895344830a934e85c9c39, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5239,6 +5240,10 @@ PrefabInstance:
       propertyPath: poolManager
       value: 
       objectReference: {fileID: 246831205}
+    - target: {fileID: 4724288646835049362, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
+      propertyPath: cameraRecoil
+      value: 
+      objectReference: {fileID: 932048897}
     - target: {fileID: 8243265191297014823, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5257,6 +5262,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0844be530b195b34f85799f5737ef6de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &932048897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 136757475175499687, guid: 364e9d2a814182c43bf57b9783a06321, type: 3}
+  m_PrefabInstance: {fileID: 932048895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eeb5f9bc269eca4198d50b6aa571007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &935449345

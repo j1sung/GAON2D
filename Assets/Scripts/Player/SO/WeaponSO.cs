@@ -26,6 +26,9 @@ public class WeaponSO : ScriptableObject
     public float projectileLifetime;  // 탄 생존 시간
     public StatusTag onHitTags; // 추가 효과(메인 코어)
 
+    [Header("반동")]
+    public float cameraRecoilAmplitude; // 시네머신 카메라 반동 수치
+
     [Header("풀 키 이름")]
     public string bulletKey; // 탄환 pool key
     public string impactKey; // 피격 이펙트 pool key

@@ -726,7 +726,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4889871144399871998, guid: 5a234cf1625895344830a934e85c9c39, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -919,6 +920,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 0}
+  sfxPrefab: {fileID: 0}
+  sfxPoolSize: 10
 --- !u!4 &1329875653
 Transform:
   m_ObjectHideFlags: 0

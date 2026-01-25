@@ -1,9 +1,11 @@
 using UnityEngine;
+using System;
 
 public class WeaponController
 {
     private RuntimeWeapon _weapon;
     private IFireModule _module;
+    public event Action<float, Vector2> OnFire; // 발사 이벤트
 
     // 스킬 타이머
     private float _coolTimer = 0f;
@@ -90,10 +92,11 @@ public class WeaponController
         {
             muzzle = p_muzzle,
             aimDir = p_aimDir.normalized,
-            seed = Random.Range(0, 999999)
+            seed = UnityEngine.Random.Range(0, int.MaxValue)
         };
 
         _module.Fire(ctx);
+        OnFire.Invoke(_weapon.source.cameraRecoilAmplitude, ctx.aimDir);
     }
 
     // ------ 조합 무기  ------

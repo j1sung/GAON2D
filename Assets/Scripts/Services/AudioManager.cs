@@ -143,7 +143,7 @@ public class AudioManager : MonoBehaviour
         if (sfxPool.Count > 0)
             return sfxPool.Dequeue();
 
-        // Ç® ºÎÁ· ½Ã ¾ÈÀüÀåÄ¡ (ÀÓ½Ã »ý¼º)
+        // Ç® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ (ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         AudioSource extra = Instantiate(sfxPrefab, transform);
         return extra;
     }
