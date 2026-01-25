@@ -66,7 +66,12 @@ namespace Attack.Pooling
         {
             if (dead) return;
 
-            var dmg = other.GetComponent<IDamageable>();
+            // 콜라이더 레이어 체크
+            if (other.gameObject.layer != LayerMask.NameToLayer("Enemy"))
+                return;
+
+            IDamageable dmg = other.GetComponentInParent<IDamageable>();
+
             if (dmg != null)
             {
                 var hit = new HitContext

@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 2931012303639838202}
   - component: {fileID: 3334584844701463436}
   - component: {fileID: 8575219263972383550}
-  - component: {fileID: 1141895341554629352}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hit/HurtBox(Trriger)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,19 +81,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 3334584844701463436}
---- !u!114 &1141895341554629352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2734960724737813577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 112d7f2a98c6c494dad2d556a867285b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  owner: {fileID: 6204269061752879325}
 --- !u!1 &4989657624907393800
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +97,7 @@ GameObject:
   - component: {fileID: 8322358929382601991}
   - component: {fileID: 7141325747426760406}
   - component: {fileID: 1171573578336454852}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Enemy_M1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -241,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b8d7334fa08394ab5d0c6181b02f8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 3334584844701463436}
+  hitbox: {fileID: 8575219263972383550}
 --- !u!95 &7141325747426760406
 Animator:
   serializedVersion: 5

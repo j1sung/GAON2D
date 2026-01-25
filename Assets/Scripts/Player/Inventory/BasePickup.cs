@@ -12,7 +12,9 @@ public abstract class BasePickup : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        var agents = other.GetComponent<PlayerAgents>();
+
+
+        var agents = other.GetComponentInParent<PlayerAgents>();
         receiver = agents != null ? agents.Context : null;
         inRange = receiver != null;
 
@@ -27,7 +29,7 @@ public abstract class BasePickup : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        var agents = other.GetComponent<PlayerAgents>();
+        var agents = other.GetComponentInParent<PlayerAgents>();
         if (agents != null && receiver == agents.Context)
         {
             inRange = false;
