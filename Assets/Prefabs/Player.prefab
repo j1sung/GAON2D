@@ -207,6 +207,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1167855243815701415}
+  - component: {fileID: 2051169571211450572}
+  - component: {fileID: 136757475175499687}
   m_Layer: 14
   m_Name: WeaponRoot
   m_TagString: Untagged
@@ -231,6 +233,72 @@ Transform:
   - {fileID: 5622710047101280866}
   m_Father: {fileID: 1671797326596825602}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2051169571211450572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109142769265893002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 2
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.2
+    m_ImpulseType: 0
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!114 &136757475175499687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109142769265893002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eeb5f9bc269eca4198d50b6aa571007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulse: {fileID: 2051169571211450572}
 --- !u!1 &2933587542630686913
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,6 +858,7 @@ MonoBehaviour:
   owner: {fileID: 1671797326596825602}
   poolManager: {fileID: 0}
   inventory: {fileID: 6093662869728936830}
+  cameraRecoil: {fileID: 0}
   firePoint: {fileID: 3228245805355087674}
   combinedFirePoint: {fileID: 1007490133315761396}
   defaultWeapon: {fileID: 11400000, guid: c030f83f445aa8d428ee2bd5114e4c95, type: 2}
@@ -885,9 +954,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a6831d732d31247933ac6b9c7674c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathUI: {fileID: 0}
-  fadeInDuration: 1
-  fadeOutDuration: 1
+  _deathUI: {fileID: 0}
+  _fadeInDuration: 0.5
+  _fadeOutDuration: 1
 --- !u!1001 &218841102528349404
 PrefabInstance:
   m_ObjectHideFlags: 0
