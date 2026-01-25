@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IEnemy, IDamageable
+public class Enemy : MonoBehaviour, EIEnemy.IEnemy, IDamageable
 {
     [SerializeField] private EnemyData enemyData; // 적의 데이터를 가져옴
     [SerializeField] private DropTable dropTable; // 아이템 데이터 가져옴

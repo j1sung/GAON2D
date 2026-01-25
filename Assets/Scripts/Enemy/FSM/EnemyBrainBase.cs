@@ -6,7 +6,7 @@ public abstract class EnemyBrainBase<TState> : MonoBehaviour, IEnemyBrain
     where TState : Enum
 {
     protected Enemy enemy;
-    protected EnemyStateMachine fsm = new EnemyStateMachine { debugLog = true };
+    protected EStateMachine.EnemyStateMachine fsm = new EStateMachine.EnemyStateMachine { debugLog = true };
     protected Dictionary<TState, IEnemyState<Enemy>> states;
 
     public void Init(Enemy enemy)

@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IEnemy
+namespace EIEnemy
 {
-    EnemyType Type { get; }
+    public interface IEnemy
+    {
+        EnemyType Type { get; }
+    }
 }
+
 
 public enum EnemyType
 {
