@@ -1,8 +1,7 @@
-﻿using EnemyOwnedStates;
+﻿using EnemyStateSpace;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
-public enum EnemyStates { SpawnState = 0, PatrolState, ChaseState, AttackState, DieState }
 
 public class Enemy : MonoBehaviour, IEnemy, IDamageable
 {
@@ -13,10 +12,11 @@ public class Enemy : MonoBehaviour, IEnemy, IDamageable
     public EnemyType Type => enemyData.Type;
     public EnemyStatsController status { get; private set; }
     public IEnemyAction action { get; private set; }
-    private IEnemyBrain brain;
 
-    private IEnemyState[] states; // Enemy가 가진 모든 상태 인스턴스 저장
-    private EnemyFSM fsm = new EnemyFSM { debugLog = true };
+    // ==== FSM brain으로 나중에 빠질 예정 ====
+    private IEnemyBrain brain; // 추후 brain 식으로 변경
+
+    // ======================================
 
     public bool isLive { get; private set; } = false;
 
@@ -37,8 +37,13 @@ public class Enemy : MonoBehaviour, IEnemy, IDamageable
 
     private Coroutine _stateRoutine;
 
-    // 기능 구현 모듈
-    private EnemyMovement movement;
+    // ==== 기능 구현 모듈 ====
+    
+    // 추적/패트롤/범위 체크/이동
+    [SerializeField]private EnemyMovement movement;
+
+    // 공격을 언제 할지 + 히트박스 on/off + 공격 쿨/중복히트/타겟 스냅샷
+    [SerializeField] private EnemyCombat combat; //-> 전투(공격) 기능 분리
 
     void Awake()
     {
@@ -47,15 +52,14 @@ public class Enemy : MonoBehaviour, IEnemy, IDamageable
         spriter = GetComponent<SpriteRenderer>();
 
         action = GetComponent<IEnemyAction>();
-        //brain = GetComponent<IEnemyBrain>();
         status = new EnemyStatsController(enemyData);
 
-        states = new IEnemyState[5];
-        states[(int)EnemyStates.SpawnState] = new EnemyOwnedStates.SpawnState();
-        states[(int)EnemyStates.PatrolState] = new EnemyOwnedStates.PatrolState();
-        states[(int)EnemyStates.ChaseState] = new EnemyOwnedStates.ChaseState();
-        states[(int)EnemyStates.AttackState] = new EnemyOwnedStates.AttackState();
-        states[(int)EnemyStates.DieState] = new EnemyOwnedStates.DieState();
+        // ==== brain 세팅 ====
+        brain = GetComponent<IEnemyBrain>();
+        if (brain == null)
+            Debug.LogError($"[{name}] IEnemyBrain 컴포넌트가 없음. NormalBrain/MidBossBrain/BossBrain 중 하나 붙여야 함.");
+        else
+            brain.Init(this);
 
         originalColor = spriter.color;
         mpb = new MaterialPropertyBlock();
@@ -67,11 +71,21 @@ public class Enemy : MonoBehaviour, IEnemy, IDamageable
         if (movement == null)
             movement = gameObject.AddComponent<EnemyMovement>();
         movement.Init(status, rigid, spriter);
+
+        combat = GetComponent<EnemyCombat>();
+        if(combat == null)
+            combat = gameObject.AddComponent<EnemyCombat>();
+        combat.Init(status, movement, action, animator);
     }
 
     private void OnEnable()
     {
-        ChangeState(EnemyStates.SpawnState);
+        if (brain == null)
+        {
+            brain = GetComponent<IEnemyBrain>();
+            if (brain != null) brain.Init(this);
+        }
+        brain?.OnEnableBrain();
     }
 
     private void Start()
@@ -81,21 +95,23 @@ public class Enemy : MonoBehaviour, IEnemy, IDamageable
         movement.SetTarget(target);
     }
 
-    public void ChangeState(EnemyStates newstate)
+    public void ChangeState<TState>(TState s) where TState : System.Enum
     {
-        fsm.ChangeState(newstate, states, this);
+        if (brain is EnemyBrainBase<TState> typed)
+            typed.ChangeState(s);
+        else
+            UnityEngine.Debug.LogError($"[{name}] Brain 타입과 ChangeState enum 타입이 안 맞음: {typeof(TState).Name}");
     }
+
 
     private void Update()
     {
-        if (!isLive) return;
-        fsm.Update(this);
+        brain?.Tick();
     }
 
     void FixedUpdate()
     {
-        if (!isLive) return;
-        fsm.FixedUpdate(this);
+        brain?.FixedTick();
     }
 
     public void StartStateRoutine(IEnumerator routine)
@@ -155,19 +171,15 @@ public class Enemy : MonoBehaviour, IEnemy, IDamageable
 
     // =========== AttackState ===========
 
-    public void DoAttack()
+    public void DoAttack() // -> 적 데미지/콜라이더 활성화
     {
-        // 애니메이션 재생 임시 여기서 재생
-        animator.SetTrigger("Attack");
-
-        // 매개변수는 구조체로 공통으로 만들어 선택적으로 넘기게 만들어야 할듯
-        action?.Attack(status.Damage, lastPlayerPos = movement.Target.position); // 임시로 마지막 플레이어 위치 넣음
+        combat.DoAttack();
     }
 
-    // 애니 이벤트로 호출 -> 적 데미지 비활성화
+    // 애니클립 이벤트로 호출 -> 적 데미지/콜라이더 비활성화
     public void OnAttackAnimFinished()
     {
-        action?.Attack(0f, Vector2.zero); // 데미지 끄기 용 임시
+        combat.OnAttackAnimFinished();
     }
 
     // =========== DieState ===========
@@ -243,7 +255,7 @@ public class Enemy : MonoBehaviour, IEnemy, IDamageable
         status.TakeDamage(ctx.damage);
 
         if (status.IsDead)
-            ChangeState(EnemyStates.DieState);
+            ChangeState(NormalState.DieState);
     }
 
     // 적 피격 VFX

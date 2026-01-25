@@ -7,9 +7,9 @@ public class M1Action : MonoBehaviour, IEnemyAction
     [SerializeField] private float currentDamage;
     private StatusTag status = 0;
 
-    public void Attack(float damage, Vector2 targetPos)
+    public void Attack(in AttackValue attackValue)
     {
-        currentDamage = damage;
+        currentDamage = attackValue.damage;
 
         //Debug.Log("M1 박치기 공격!");
         // 공격 애니메이션 넣기
@@ -25,11 +25,11 @@ public class M1Action : MonoBehaviour, IEnemyAction
         if (currentDamage <= 0)
             return;
 
-        var dmg = other.GetComponent<IDamageable>();
+        IDamageable dmg = other.GetComponent<IDamageable>();
         if (dmg != null)
         {
-            
-            var hit = new HitContext
+            // 지금 구조체로 결국 2번 넘기는거라 만약 같은걸 넘길거면 하나로 통합하는거도 괜찮을듯
+            HitContext hit = new HitContext
             {
                 damage = currentDamage,
                 statusTags = status

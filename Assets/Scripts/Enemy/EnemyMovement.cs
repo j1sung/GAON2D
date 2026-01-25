@@ -91,10 +91,19 @@ public class EnemyMovement : MonoBehaviour
         if (dashRoutine != null)
             StopCoroutine(dashRoutine);
 
-        dashRoutine = StartCoroutine(CoDashTo(targetPos, speed, duration));
+        dashRoutine = StartCoroutine(DashCoroutine(targetPos, speed, duration));
+    }
+    public void StopDash()
+    {
+        if (dashRoutine != null)
+        {
+            StopCoroutine(dashRoutine);
+            dashRoutine = null;
+        }
+        rigid.velocity = Vector2.zero; // ∏ÿ√„
     }
 
-    private IEnumerator CoDashTo(Vector2 targetPos, float speed, float duration)
+    private IEnumerator DashCoroutine(Vector2 targetPos, float speed, float duration)
     {
         float t = 0f;
 
