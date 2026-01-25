@@ -1,4 +1,4 @@
-using EnemyOwnedStates;
+using EnemyStateSpace;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +57,7 @@ public class Spawner : MonoBehaviour
             GameObject enemyObj = pool.Get(spawnIndex);
             if (enemyObj == null)
             {
-                // 최대치 도달로 인해 생성 실패
+                // 해당 적 종류 생성 최대치 도달로 인해 생성 실패
                 return;
             }
             
