@@ -12,9 +12,12 @@ public class EnemyState : MonoBehaviour
     }
     private State currentState;
 
+    private Animator anim;
+    private static readonly int IsMove = Animator.StringToHash("isMove");
+
     private EnemyBase enemy;
     private Transform target;
-
+    
     [SerializeField] private float moveSpeed = 3f;
 
     [Header("Ranges")]
@@ -24,6 +27,8 @@ public class EnemyState : MonoBehaviour
     private void Awake()
     {
         enemy = GetComponent<EnemyBase>();
+        anim = GetComponentInChildren<Animator>();
+        Debug.Log($"Animator found? {anim != null}", this);
     }
 
     private void Start()
@@ -55,6 +60,7 @@ public class EnemyState : MonoBehaviour
     private void ChangeState(State next)
     {
         currentState = next;
+
     }
 
     private void UpdateIdle()
@@ -64,6 +70,7 @@ public class EnemyState : MonoBehaviour
         FindTarget();
         if (target != null)
         {
+
             ChangeState(State.Chase);
         }
     }
@@ -80,6 +87,11 @@ public class EnemyState : MonoBehaviour
     private void UpdateChase()
     {
         Debug.Log("[EnemyState] UpdateChase");
+        if (anim != null)
+        {
+            bool moving = true;
+            anim.SetBool(IsMove, moving);
+        }
 
         if (target == null)
         {

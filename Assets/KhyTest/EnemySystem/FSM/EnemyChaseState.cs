@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class EnemyChaseState : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Animator animator;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        animator.SetBool("isMove", true);
     }
 }
