@@ -1,13 +1,12 @@
 using UnityEngine;
 
-//public abstract class EnemyBase : MonoBehaviour, IEnemy
-
-public class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour, IEnemy
 {
-   /* [SerializeField] protected EnemyStats stats;
-    [SerializeField] protected EnemyTier tier;
+    [Header("Config")]
+    [SerializeField] protected BossEnemyStats stats;
+    [SerializeField] protected EnemyTier tier = EnemyTier.Normal;
 
-    public float AttackPower => stats.AttackPower;
+    public float AttackPower => (stats != null) ? stats.AttackPower : 0f;
     public EnemyTier Tier => tier;
 
     public float CurrentHp { 
@@ -19,13 +18,18 @@ public class EnemyBase : MonoBehaviour
     {
         if (stats == null)
         {
-            Debug.LogError("EnemyStats is not assigned!", this);
+            enabled = false;
+            return;
         }
+
         CurrentHp = stats.maxHp;
     }
 
     public virtual void ApplyHit(HitContext ctx)
     {
+        if (stats == null)
+            return;
+
         CurrentHp -= ctx.damage;
         CurrentHp = Mathf.Clamp(CurrentHp, 0, stats.maxHp);
 
@@ -41,5 +45,4 @@ public class EnemyBase : MonoBehaviour
     }
 
     public abstract void Attack();
-   */
 }
