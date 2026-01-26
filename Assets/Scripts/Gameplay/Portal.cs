@@ -11,16 +11,18 @@ public class Portal : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<PlayerTag>()) _playerInside = true;
+        if (other.CompareTag("Player")) _playerInside = true;
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.GetComponent<PlayerTag>()) _playerInside = false;
+        if (other.CompareTag("Player")) _playerInside = false;
     }
 
     private void Update()
     {
         if (_playerInside && Input.GetKeyDown(config.interactKey)) Interact();
+        else
+            Debug.Log(_playerInside);
     }
 
     public void Interact()

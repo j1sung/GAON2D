@@ -1,84 +1,132 @@
-﻿using EnemyOwnedStates;
+﻿using EnemyStateSpace;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyStates { SpawnState = 0, PatrolState, ChaseState, AttackState, DieState }
-
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour, EIEnemy.IEnemy, IDamageable
 {
-    public EnemyStatsController status { get; private set; }
-    public IEnemyAction action { get; private set; }
-
-    private IEnemyState[] states; // Enemy가 가진 모든 상태 인스턴스 저장
-    private EnemyFSM fsm = new EnemyFSM();
-
     [SerializeField] private EnemyData enemyData; // 적의 데이터를 가져옴
     [SerializeField] private DropTable dropTable; // 아이템 데이터 가져옴
     [SerializeField] private Transform dropParent; // 아이템 계층 부모
 
+    public EnemyType Type => enemyData.Type;
+    public EnemyStatsController status { get; private set; }
+    public IEnemyAction action { get; private set; }
+
+    // ==== FSM brain으로 나중에 빠질 예정 ====
+    private IEnemyBrain brain; // 추후 brain 식으로 변경
+
+    // ======================================
+
     public bool isLive { get; private set; } = false;
 
-    Rigidbody2D target;
-    Rigidbody2D rigid;
-    Animator animator;
+    private Vector2 lastPlayerPos;
 
-    public Animator Animator => animator;
+    private Rigidbody2D target;
+    private Rigidbody2D rigid;
 
-    SpriteRenderer spriter;
+    private Animator animator;
+
+    private SpriteRenderer spriter;
+
     private Color originalColor;
     private MaterialPropertyBlock mpb;
 
     // === 중복 타격 방지(한 프레임에 레이저+트리거 동시 충돌 시 1회만 처리) ===
     private int _lastHitFrame = -9999;
 
+    private Coroutine _stateRoutine;
+
+    // ==== 기능 구현 모듈 ====
+    
+    // 추적/패트롤/범위 체크/이동
+    [SerializeField]private EnemyMovement movement;
+
+    // 공격을 언제 할지 + 히트박스 on/off + 공격 쿨/중복히트/타겟 스냅샷
+    [SerializeField] private EnemyCombat combat; //-> 전투(공격) 기능 분리
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriter = GetComponent<SpriteRenderer>();
+
         action = GetComponent<IEnemyAction>();
         status = new EnemyStatsController(enemyData);
 
-        states = new IEnemyState[5];
-        states[(int)EnemyStates.SpawnState] = new EnemyOwnedStates.SpawnState();
-        states[(int)EnemyStates.PatrolState] = new EnemyOwnedStates.PatrolState();
-        states[(int)EnemyStates.ChaseState] = new EnemyOwnedStates.ChaseState();
-        states[(int)EnemyStates.AttackState] = new EnemyOwnedStates.AttackState();
-        states[(int)EnemyStates.DieState] = new EnemyOwnedStates.DieState();
+        // ==== brain 세팅 ====
+        brain = GetComponent<IEnemyBrain>();
+        if (brain == null)
+            Debug.LogError($"[{name}] IEnemyBrain 컴포넌트가 없음. NormalBrain/MidBossBrain/BossBrain 중 하나 붙여야 함.");
+        else
+            brain.Init(this);
 
         originalColor = spriter.color;
         mpb = new MaterialPropertyBlock();
 
         dropParent = GameObject.Find("====== Item ======").transform;
+
+        // 모듈 초기화
+        movement = GetComponent<EnemyMovement>();
+        if (movement == null)
+            movement = gameObject.AddComponent<EnemyMovement>();
+        movement.Init(status, rigid, spriter);
+
+        combat = GetComponent<EnemyCombat>();
+        if(combat == null)
+            combat = gameObject.AddComponent<EnemyCombat>();
+        combat.Init(status, movement, action, animator);
     }
 
     private void OnEnable()
     {
-        ChangeState(EnemyStates.SpawnState);
+        if (brain == null)
+        {
+            brain = GetComponent<IEnemyBrain>();
+            if (brain != null) brain.Init(this);
+        }
+        brain?.OnEnableBrain();
     }
 
     private void Start()
     {
         // 최초 적 오브젝트 생성시 초기화
-        //target = GameInstance.Instance.player.GetComponent<Rigidbody2D>();
         target = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
+        movement.SetTarget(target);
     }
 
-    public void ChangeState(EnemyStates newstate)
+    public void ChangeState<TState>(TState s) where TState : System.Enum
     {
-        fsm.ChangeState(newstate, states, this);
+        if (brain is EnemyBrainBase<TState> typed)
+            typed.ChangeState(s);
+        else
+            UnityEngine.Debug.LogError($"[{name}] Brain 타입과 ChangeState enum 타입이 안 맞음: {typeof(TState).Name}");
     }
+
 
     private void Update()
     {
-        if (!isLive) return;
-        fsm.Update(this);
+        brain?.Tick();
     }
 
     void FixedUpdate()
     {
-        if (!isLive) return;
-        fsm.FixedUpdate(this);
+        brain?.FixedTick();
+    }
+
+    public void StartStateRoutine(IEnumerator routine)
+    {
+        StopStateRoutine();
+        _stateRoutine = StartCoroutine(routine);
+    }
+
+    public void StopStateRoutine()
+    {
+        if(_stateRoutine != null)
+        {
+            StopCoroutine(_stateRoutine);
+            _stateRoutine = null;
+        }
     }
 
     // =========== SpawnState ===========
@@ -87,69 +135,51 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         isLive = true;
         status.ResetStats();
+        animator.ResetTrigger("Die");
     }
 
     // =========== PatrolState ===========
-    private bool goingLeft = true;
-    private float leftX;
-    private float rightX;
+    //private bool goingLeft = true;
+    //private float leftX;
+    //private float rightX;
 
     public void ReAllocCurrentPos() // 위치 재설정
     {
-        leftX = transform.position.x - 2f;
-        rightX = transform.position.x + 2f;
+        movement.ReAllocCurrentPos(transform.position);
     }
     public void PatrolAround() // 주변 순찰
     {
-        float targetX = goingLeft ? leftX : rightX;
-        float dir = Mathf.Sign(targetX - transform.position.x);
-
-        Vector2 nextPos = new Vector2(
-            transform.position.x + dir * status.Speed * Time.fixedDeltaTime,
-            transform.position.y
-            );
-
-        rigid.MovePosition(nextPos);
-
-        // 바라보는 방향 변경
-        spriter.flipX = goingLeft;
-
-        if (Mathf.Abs(transform.position.x - targetX) < 0.05f)
-        {
-            goingLeft = !goingLeft;
-        }
+        movement.PatrolAround();
     }
 
-    private float chaseRange = 7f;
+    //private float chaseRange = 7f;
     public bool IsInChaseRange() // Chase 범위 체크
     {
-        // 적과 플레이어 사이 거리 범위 내부라면 true
-        return Vector2.Distance(transform.position, target.position) <= chaseRange;
+        return movement.IsInChaseRange();
     }
 
     // =========== ChaseState ===========
 
     public void MoveToTarget()
     {
-        // 적 -> 플레이어 방향 = 위치차이 정규화
-        Vector2 dirVec = target.position - rigid.position;
-        Vector2 nextVec = dirVec.normalized * status.Speed * Time.fixedDeltaTime; // 프레임 독립 이동
-        rigid.MovePosition(rigid.position + nextVec);
-        rigid.velocity = Vector2.zero;
-
-        spriter.flipX = target.position.x < rigid.position.x; // 적 좌우 변환
+        movement.MoveToTarget();
     }
     public bool IsInAttackRange()
     {
-        // 적과 플레이어 사이 거리가 공격 사거리 범위 내부라면 true
-        return Vector2.Distance(transform.position, target.position) <= status.AttackRange;
+        return movement.IsInAttackRange(status.AttackRange);
     }
 
     // =========== AttackState ===========
 
-    public void DoAttack()
+    public void DoAttack() // -> 적 데미지/콜라이더 활성화
     {
-        action?.Attack(transform, status.Damage);
+        combat.DoAttack();
+    }
+
+    // 애니클립 이벤트로 호출 -> 적 데미지/콜라이더 비활성화
+    public void OnAttackAnimFinished()
+    {
+        combat.OnAttackAnimFinished();
     }
 
     // =========== DieState ===========
@@ -158,6 +188,14 @@ public class Enemy : MonoBehaviour, IDamageable
         isLive = false;
         ItemDrop(); // 죽을때 아이템 드랍
         SectorController.Instance.OnEnemyDied(); // 죽은 갯수 카운트
+
+        animator.SetTrigger("Die");
+        //gameObject.SetActive(false);
+    }
+
+    // 애니 이벤트로 호출 -> 적 비활성화
+    public void OnDeathAnimFinished()
+    {
         gameObject.SetActive(false);
     }
 
@@ -204,7 +242,7 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
     // =========================
-    //  레이저/총알 공통 데미지 진입점
+    //  적이 공격 받음
     // =========================
     public void ApplyHit(HitContext ctx)
     {
@@ -216,45 +254,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
         status.TakeDamage(ctx.damage);
 
-        // 상태이상 적용이 필요하면 여기서 ctx.statusTags를 참조해 처리
-        // e.g., status.ApplyStatus(ctx.statusTags);
-
-        // 피격 연출 원하면 주석 해제
-        // StartCoroutine(HitFlash());
-
         if (status.IsDead)
-            ChangeState(EnemyStates.DieState);
-    }
-
-    // ========== 레거시: 태그 기반 총알 트리거 ==========
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!isLive) return;
-
-        // 총알/레이저 등 피해 콜라이더 태그
-        if (!other.CompareTag("Damage")) return;
-
-        // 같은 프레임에 이미 ApplyHit로 처리됐다면 스킵
-        if (_lastHitFrame == Time.frameCount) return;
-
-        // 1) 신형: 총알도 IDamageable 경로로 넣는 경우가 많아서,
-        //    상대 스크립트가 우리에게 ApplyHit를 호출해줬다면 여기선 아무 것도 안해도 됨.
-
-        // 2) 구형(호환): Attack.Pooling.Bullet 같이 public damage 필드를 직접 읽던 총알
-        var pooledBullet = other.GetComponent<Attack.Pooling.Bullet>();
-        if (pooledBullet != null)
-        {
-            _lastHitFrame = Time.frameCount;
-            status.TakeDamage(pooledBullet.damage);
-            // StartCoroutine(HitFlash()); //적 피격 VFX
-            if (status.IsDead) ChangeState(EnemyStates.DieState);
-            return;
-        }
-
-        // 3) (선택) 아주 옛날 네임스페이스: Attack.Bullet
-        //    여기서는 damage가 private일 수 있어 직접 처리하지 않고,
-        //    총알 측 OnTriggerEnter2D에서 IDamageable.ApplyHit()를 호출하도록 유지하는 편이 안전함.
-        //    => 별도 처리 없음
+            ChangeState(NormalState.DieState);
     }
 
     // 적 피격 VFX
@@ -272,6 +273,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
         // Chase 범위
         Gizmos.color = Color.blue;
+        float chaseRange = (movement != null) ? movement.ChaseRange : 7f;
         Gizmos.DrawWireSphere(transform.position, chaseRange);
 
         // Attack 범위
