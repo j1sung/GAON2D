@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
+using System.Collections;
 
 public class PlayerStatus : MonoBehaviour, IDamageable
 {   
@@ -28,6 +28,13 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     public float RUN_dashSpeed;
     public float RUN_dashDuration;
     public float RUN_dashCooldown;
+
+    [Header("피격")]
+    public bool IsInvincible = false; // 무적 여부
+    [SerializeField] private SpriteRenderer _sr;
+    [SerializeField] private float _invincibleTime = 1f; // 무적시간
+    [SerializeField] private float _blinkInterval = 0.2f; // 깜빡임 시간
+    private Coroutine _invincibleRoutine;
     
     public event Action<float> OnHPChanged; // 체력 변동
     public event Action<float> OnExpChanged; // 경험치 변동
@@ -79,15 +86,21 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     public float GetFinalDamage(float weaponDamage)
     {
         float total = (RUN_baseDamage + weaponDamage) * RUN_damageMul;
-        bool isCrit = UnityEngine.Random.value < RUN_critical;
+        bool isCrit = UnityEngine.Random.Range(1, 101) < RUN_critical;
         if (isCrit) total *= RUN_criticalMul;
         return total;
     }
 
+    // 플레이어에 들어오는 공격 로직을 처리.
     public void ApplyHit(HitContext ctx)
-    {
+    {   
+        // 무적이면 return
+        if (IsInvincible)
+            return;
+
         if (currentHP <= 0) return;
         TakeDamage(ctx.damage);
+        StartHitInvincible();
         // 상태이상은 여기서 적용 가능(적도 마찬가지)
     }
 
@@ -98,6 +111,44 @@ public class PlayerStatus : MonoBehaviour, IDamageable
 
         if (currentHP <= 0)
             Die();
+    }
+
+    // ==================================================
+    // 피격 Logic
+    // ==================================================
+    public void SetInvincible(bool value)
+    {
+        IsInvincible = value;
+    }
+
+    void StartHitInvincible()
+    {
+        if (_invincibleRoutine != null)
+            StopCoroutine(_invincibleRoutine);
+
+        _invincibleRoutine = StartCoroutine(HitInvincibleRoutine());
+    }
+
+    // 피격 연출 코루틴
+    IEnumerator HitInvincibleRoutine()
+    {
+        IsInvincible = true;
+
+        float elapsed = 0f;
+        bool visible = true;
+
+        while (elapsed < _invincibleTime)
+        {
+            visible = !visible;
+            _sr.enabled = visible;
+
+            yield return new WaitForSeconds(_blinkInterval);
+            elapsed += _blinkInterval;
+        }
+
+        _sr.enabled = true;
+        IsInvincible = false;
+        _invincibleRoutine = null;
     }
 
     public void Die()
