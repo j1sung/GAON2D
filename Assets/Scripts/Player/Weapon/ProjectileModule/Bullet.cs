@@ -68,7 +68,10 @@ namespace Attack.Pooling
 
             // 콜라이더 레이어 체크
             if (other.gameObject.layer != LayerMask.NameToLayer("Enemy"))
-                return;
+            {
+                SpawnHitEffect();
+                Despawn();
+            }
 
             IDamageable dmg = other.GetComponentInParent<IDamageable>();
 
