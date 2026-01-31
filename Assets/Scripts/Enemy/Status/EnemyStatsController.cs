@@ -5,11 +5,11 @@ using UnityEngine;
 public class EnemyStatsController
 {
     //public EnemyStats baseStats { get; private set; }
-    private EnemyData source; // SO ÂüÁ¶
+    private EnemyData source; // SO ï¿½ï¿½ï¿½ï¿½
     public EnemyStats RuntimeStats { get; private set; }
     public float CurrentHealth { get; private set; }
 
-    // Get Á¢±Ù¿ë ÇÁ·ÎÆÛÆ¼
+    // Get ï¿½ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼
     public float Speed => RuntimeStats.Speed;
     public float Damage => RuntimeStats.Damage;
     public float AttackRange => RuntimeStats.AttackRange;
@@ -19,7 +19,7 @@ public class EnemyStatsController
     public EnemyStatsController(EnemyData data)
     {
         source = data;
-        //ResetStats(); -> SpawnState¿¡¼­µµ ÇÑ¹ø ½ÇÇàµÇ¾î¼­ Ã³À½¿¡ °ãÄ§
+        //ResetStats(); -> SpawnStateï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾î¼­ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä§
     }
     public void ResetStats()
     {

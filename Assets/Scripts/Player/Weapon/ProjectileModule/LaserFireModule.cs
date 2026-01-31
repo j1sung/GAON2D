@@ -18,12 +18,27 @@ public sealed class LaserFireModule : IFireModule
 
     public void Fire(in FireContext ctx)
     {
-        var basePlan = new ShotPlan { count = 1, dir = new[] { ctx.aimDir.normalized } }; // 기본 발사 방향
-        var plan = sub?.ApplyMultiple(r, ctx, basePlan) ?? basePlan; // 확산 코어 존재시, basePlan을 기준으로 추가 방향 지정
+        var basePlan = new ShotPlan
+        {
+            count = 1,
+            dir = new[] { ctx.aimDir.normalized }
+        };
+
+        var plan = sub?.ApplyMultiple(r, ctx, basePlan) ?? basePlan;
+
+        // 최종 데미지 계산
+        float finalDamage = r.RUN_damage;
+        if (owner.TryGetComponent<PlayerStatus>(out var status))
+        {
+            finalDamage = status.GetFinalDamage(finalDamage);
+        }
 
         for (int i = 0; i < plan.count; i++)
         {
-            Vector2 dir = plan.dir[i].sqrMagnitude > 0.0001f ? plan.dir[i].normalized : Vector2.right;
+            Vector2 dir =
+                plan.dir[i].sqrMagnitude > 0.0001f
+                    ? plan.dir[i].normalized
+                    : Vector2.right;
 
             var go = pool.Get(r.bulletPrefabKey, ctx.muzzle.position, Quaternion.identity);
             var beam = go.GetComponent<LaserBeamSprite>();
@@ -33,12 +48,12 @@ public sealed class LaserFireModule : IFireModule
                 owner = owner,
                 origin = ctx.muzzle.position,
                 dir = dir,
-                length = Mathf.Max(0.5f, r.RUN_projectileSpeed),     // 길이
-                life = Mathf.Max(0.03f, r.RUN_projectileLifetime), // 반짝 시간
-                width = 0.12f,               // 굵기(원하면 SO에 필드 하나 추가)
-                damage = r.RUN_damage,
+                length = Mathf.Max(0.5f, r.RUN_projectileSpeed),
+                life = Mathf.Max(0.03f, r.RUN_projectileLifetime),
+                width = 0.12f,
+                damage = finalDamage,             
                 status = r.RUN_OnHitTags,
-                pierceAll = true,                 // 여러 적 관통(원하면 false)
+                pierceAll = true,
             });
         }
     }

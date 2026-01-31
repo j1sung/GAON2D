@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStateMachine
+namespace EStateMachine 
+{
+    public class EnemyStateMachine
 {
     public IEnemyState<Enemy> currentState { get; private set; }
 
@@ -45,3 +47,6 @@ public class EnemyStateMachine
     public void FixedUpdate(Enemy enemy) => currentState?.FixedExecute(enemy);
 
 }
+
+}
+

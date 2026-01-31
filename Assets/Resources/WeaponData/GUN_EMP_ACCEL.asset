@@ -23,8 +23,9 @@ MonoBehaviour:
   fireRate: 0.2
   coolTime: 1.5
   burstCount: 10
-  projectileSpeed: 20
+  projectileSpeed: 12
   projectileLifetime: 2
-  onHitTags: 1
+  onHitTags: 0
+  cameraRecoilAmplitude: 0.05
   bulletKey: EMP_ACCEL_BULLET
   impactKey: 

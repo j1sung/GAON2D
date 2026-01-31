@@ -19,12 +19,13 @@ MonoBehaviour:
   blueprint: {fileID: 11400000, guid: 13c7e05508d92ea4db66a36446224167, type: 2}
   coreA: {fileID: 11400000, guid: 3f9fab921ceca904f9614cf4c0da1670, type: 2}
   coreB: {fileID: 11400000, guid: e00848974570c3645be3a2ed9497ba05, type: 2}
-  damage: 20
+  damage: 10
   fireRate: 0.2
   coolTime: 1.5
-  burstCount: 10
-  projectileSpeed: 20
+  burstCount: 4
+  projectileSpeed: 12
   projectileLifetime: 2
-  onHitTags: 16
+  onHitTags: 0
+  cameraRecoilAmplitude: 0.15
   bulletKey: 
   impactKey: 

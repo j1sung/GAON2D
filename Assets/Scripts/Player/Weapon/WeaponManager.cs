@@ -5,8 +5,9 @@ public sealed class WeaponManager : MonoBehaviour
 {
     [Header("Refs")]
     [SerializeField] private Transform owner;
-    [SerializeField] private Attack.Pooling.PoolManager poolManager;
+    [SerializeField] private PoolManager poolManager;
     [SerializeField] private Inventory inventory;
+    [SerializeField] private CameraRecoil cameraRecoil;
 
     [Header("Fire Points")]
     [SerializeField] public Transform firePoint; // 기본무기용
@@ -42,6 +43,7 @@ public sealed class WeaponManager : MonoBehaviour
             pool    = poolManager,
             subCore = null
         });
+        _defaultCtl.OnFire  += cameraRecoil.Fire;
     }
     
     void OnEnable()
@@ -84,7 +86,13 @@ public sealed class WeaponManager : MonoBehaviour
     {
         var selected = inventory.GetSelectedCombinedWeapon();
 
-        _combinedCtl = null;
+
+        // 기존 조합 무기 정리
+        if (_combinedCtl != null)
+        {
+            _combinedCtl.OnFire -= cameraRecoil.Fire;
+            _combinedCtl = null;
+        }
 
         if (selected == null) return;
 
@@ -104,6 +112,7 @@ public sealed class WeaponManager : MonoBehaviour
 
         // 등록
         _combinedCtl = ctl;
+        _combinedCtl.OnFire += cameraRecoil.Fire;
     }
 
     // ====== 자동 공격 ======

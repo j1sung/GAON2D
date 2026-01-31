@@ -1,4 +1,3 @@
-// ISubCoreModule.cs
 using UnityEngine;
 
 public interface ISubCoreModule
