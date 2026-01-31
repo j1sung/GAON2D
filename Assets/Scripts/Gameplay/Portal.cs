@@ -7,15 +7,15 @@ public class Portal : MonoBehaviour, IInteractable
     [SerializeField] private string overrideNextScene;
 
     private bool _playerInside;
-    public string Prompt => $"[{config.interactKey}] ÀÌµ¿";
+    public string Prompt => $"[{config.interactKey}] ï¿½Ìµï¿½";
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<PlayerTag>()) _playerInside = true;
+        if (other.CompareTag("Player")) _playerInside = true;
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.GetComponent<PlayerTag>()) _playerInside = false;
+        if (other.CompareTag("Player")) _playerInside = false;
     }
 
     private void Update()
@@ -31,12 +31,12 @@ public class Portal : MonoBehaviour, IInteractable
 
         if (string.IsNullOrEmpty(nextScene))
         {
-            Debug.Log("[Portal] ¸ðµç ½ºÅ×ÀÌÁö Å¬¸®¾î! ¿£µù/°á°ú·Î ÀÌµ¿");
+            Debug.Log("[Portal] ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½");
             GameEvents.OnGameOver?.Invoke();
             return;
         }
 
-        Debug.Log($"[Portal] ÀÌµ¿ ¿äÃ»: {nextScene}");
+        Debug.Log($"[Portal] ï¿½Ìµï¿½ ï¿½ï¿½Ã»: {nextScene}");
         GameStateContext.IsStageTransition = true;
 
         GameEvents.OnRequestSceneChange?.Invoke(nextScene);

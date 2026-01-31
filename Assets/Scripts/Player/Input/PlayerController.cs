@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     bool isDashing;
     float dashEndTime;
     float nextDashTime;
+    [SerializeField] private float afterImageInterval = 0.025f; // 잔상 간격
+    private float nextAfterImageTime; // 다음 잔상 시간
     // public event Action OnDash; 나중에 대쉬 UI 정해지면 추가
 
     public InventoryPanel invPanel;
@@ -55,16 +57,27 @@ public class PlayerController : MonoBehaviour
         if (moveX > 0 && _inputEnabled) _sr.flipX = true;
         else if (moveX < 0 && _inputEnabled) _sr.flipX = false;
 
+
+        if (isDashing) _anim.enabled = false;
         UpdateAnimator();
 
         // 대쉬
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing && Time.time >= nextDashTime)
         {
-            isDashing = true;
-            dashEndTime = Time.time + _status.RUN_dashDuration;
-            nextDashTime = Time.time + _status.RUN_dashCooldown;
+            StartDash();
         }
-        if (isDashing && Time.time >= dashEndTime) isDashing = false;
+
+        if (isDashing && Time.time >= dashEndTime)
+        {
+            EndDash();
+        }
+
+        // 대쉬 중일때 nextAfterImageTime 간격으로 현재 프레임의 스프라이트를 찍는다.
+        if (isDashing && Time.time >= nextAfterImageTime)
+        {
+            SpawnAfterImage();
+            nextAfterImageTime = Time.time + afterImageInterval;
+        }
         
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -95,10 +108,60 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void MovementStop()
-    {
-        _inputEnabled = false;
+    //  ========== Dash 로직 ==========
+    private void StartDash()
+    {   
+        _status.SetInvincible(true);
+        isDashing = true;
+        dashEndTime = Time.time + _status.RUN_dashDuration;
+        nextDashTime = Time.time + _status.RUN_dashCooldown;
+
+        // 전이 경쟁 무시: 즉시 Dash로 스냅
+        _anim.ResetTrigger("DashTrigger");
+        _anim.Play("Player_Dash", 0, 0f);
+        _anim.Update(0f); // 바로 반영(선택)
+
+        nextAfterImageTime = Time.time; 
+
+        _anim.SetTrigger("DashTrigger");
     }
+
+    private void EndDash()
+    {
+        isDashing = false;
+
+        // 애니메이터를 켜면서 Walk 상태로 강제 지정
+        _anim.enabled = true; 
+        _anim.Play("Player_Walk", 0, 0f);
+        _anim.Update(0f);
+        
+        _status.SetInvincible(false);
+    }
+
+    void SpawnAfterImage()
+    {
+        var go = new GameObject("AfterImage_TMP");
+        var sr = go.AddComponent<SpriteRenderer>();
+
+        // 위치 / 정렬
+        go.transform.position = transform.position;
+        go.transform.localScale = transform.localScale;
+
+        // 스프라이트 그대로 복사
+        sr.sprite = _sr.sprite;
+        sr.flipX = _sr.flipX;
+        sr.sortingLayerID = _sr.sortingLayerID;
+        sr.sortingOrder = _sr.sortingOrder - 1;
+
+        // 색은 그대로, 알파만 낮춤
+        var c = _sr.color;
+        c.a = 0.6f;
+        sr.color = c;
+
+        // 0.15초 뒤 제거
+        Destroy(go, 0.15f);
+    }
+    //  ========== Dash 로직 ==========
 
     private void PlayerDie()
     {   
@@ -112,11 +175,19 @@ public class PlayerController : MonoBehaviour
         _rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
+    private void MovementStop()
+    {
+        _inputEnabled = false;
+    }
+
     private void UpdateAnimator()
     {
         if (!_anim) return;
 
-        _anim.SetFloat("Speed", movement.sqrMagnitude);
+        // Dash 중엔 Speed로 상태 흔들지 않음
+        if (!isDashing)
+            _anim.SetFloat("Speed", movement.sqrMagnitude);
+
         _anim.SetBool("isDashing", isDashing);
         _anim.SetBool("isDead", isDead);
     }
@@ -133,6 +204,4 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
             _weaponManager.FireCombined();
     }
-
-
 }
