@@ -51,18 +51,16 @@ public class Spawner : MonoBehaviour
             
             SectorController.Instance.OnEnemySpawned(); // 섹터 적 스폰 카운트
 
+            // 1. 먼저 카운트 1 증가.
             spawnCount++;
+
+            // 2. 적 생성 종류 선택 로직 -> 3번째 생성마다 근거리 적 생성 (추후 로직은 변경 가능!).
             spawnIndex = spawnCount % 3 == 0 ? 1 : 0;
 
+            // 3. 해당 인덱스 적 풀링 생성.
             GameObject enemyObj = pool.Get(spawnIndex);
-            if (enemyObj == null)
-            {
-                // 해당 적 종류 생성 최대치 도달로 인해 생성 실패
-                return;
-            }
-            
 
-            // 적의 소환 위치 순서대로 배정
+            // 4. 적 스폰 위치 순서대로 배정.
             enemyObj.transform.position = spawnPoint[spawnCount-1].position; 
         }
     }
