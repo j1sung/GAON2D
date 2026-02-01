@@ -11,7 +11,7 @@ namespace EnemyStateSpace.Normal
         public void Enter(Enemy enemy)
         {
             // 공통 스폰 로직
-            enemy.ResetEnemy(); // 필수 초기화만
+           // enemy.ResetEnemy(); // 필수 초기화만
             // SpawnState가 isLive를 true로 안 켜면 영원히 Tick이 안 돈다 → 이거만 주의.
         }
 
@@ -76,7 +76,11 @@ namespace EnemyStateSpace.Normal
         private IEnumerator AttackCoroutine(Enemy enemy)
         {
             enemy.DoAttack();
+
+            // 여기서 공격 후에 임시로 잠깐 쉬고 다음 상태로 넘어가게 함.
+            // 여기서 쉰다고 애니메이션 전환이 멈추는건 아님 -> Attack 애니메이션을 play하고 바로 기존 애니메이션으로 돌아가기 때문.
             yield return new WaitForSeconds(3.5f);
+
             enemy.ChangeState(NormalState.ChaseState);
         }
         public void FixedExecute(Enemy enemy) { }

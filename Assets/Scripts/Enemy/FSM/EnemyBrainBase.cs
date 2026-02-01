@@ -17,8 +17,8 @@ public abstract class EnemyBrainBase<TState> : MonoBehaviour, IEnemyBrain
 
     public void OnEnableBrain()
     {
-        if (states == null) states = BuildStates();
-        fsm.ChangeState(GetEntryState(), states, enemy);
+        if (states == null) states = BuildStates(); // fsm 상태들이 없으면 여기서 다시 초기화
+        fsm.ChangeState(GetEntryState(), states, enemy); // 처음 spawn 상태로 지정
     }
 
     public void Tick()

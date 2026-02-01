@@ -71,6 +71,7 @@ namespace Attack.Pooling
             {
                 SpawnHitEffect();
                 Despawn();
+                return; // 이거 안하면 벽도 밑의 로직을 거쳐서 데미지 판정함
             }
 
             IDamageable dmg = other.GetComponentInParent<IDamageable>();

@@ -105,11 +105,11 @@ public class EnemyMovement : MonoBehaviour
 
     private IEnumerator DashCoroutine(Vector2 targetPos, float speed, float duration)
     {
-        float t = 0f;
+        float time = 0f;
 
-        while (t < duration)
+        while (time < duration)
         {
-            t += Time.fixedDeltaTime;
+            time += Time.fixedDeltaTime;
 
             Vector2 pos = rigid.position;
             Vector2 to = targetPos - pos;
@@ -119,7 +119,7 @@ public class EnemyMovement : MonoBehaviour
 
             Vector2 step = to.normalized * speed * Time.fixedDeltaTime;
             rigid.MovePosition(pos + step);
-            rigid.velocity = Vector2.zero;
+            rigid.velocity = Vector2.zero; // Rigidbody2D의 기존 속도가 영향을 주지 않게 강제로 속도 없애기.
 
             spriter.flipX = targetPos.x < pos.x;
 
