@@ -11,7 +11,8 @@ public class EnemyStatsController
 
     // Get ���ٿ� ������Ƽ
     public float Speed => RuntimeStats.Speed;
-    public float Damage => RuntimeStats.Damage;
+    public float NormalDamage => RuntimeStats.NormalDamage;
+    public float SkillDamage => RuntimeStats.SkillDamage;
     public float AttackRange => RuntimeStats.AttackRange;
     public float MaxHealth => RuntimeStats.MaxHelath;
 
@@ -19,11 +20,10 @@ public class EnemyStatsController
     public EnemyStatsController(EnemyData data)
     {
         source = data;
-        //ResetStats(); -> SpawnState������ �ѹ� ����Ǿ ó���� ��ħ
     }
     public void ResetStats()
     {
-        RuntimeStats = new EnemyStats(source.health, source.speed, source.attackRange, source.damage);
+        RuntimeStats = new EnemyStats(source.health, source.speed, source.attackRange, source.normalDamage, source.skillDamage);
         CurrentHealth = RuntimeStats.MaxHelath;
     }
 

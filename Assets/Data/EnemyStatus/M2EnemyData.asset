@@ -18,5 +18,6 @@ MonoBehaviour:
   health: 100
   speed: 1
   attackRange: 4
-  damage: 15
+  normalDamage: 15
+  skillDamage: 20
   controller: {fileID: 0}
