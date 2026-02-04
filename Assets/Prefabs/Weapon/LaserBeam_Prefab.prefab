@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2029342712815547066}
   - component: {fileID: 3738471770456216985}
   - component: {fileID: 5279679792539396988}
-  - component: {fileID: 7031948161574645698}
   - component: {fileID: -1012337355218766627}
   - component: {fileID: 8548157815476477180}
   m_Layer: 7
@@ -119,19 +118,6 @@ MonoBehaviour:
     m_Bits: 439
   spritePivotIsCenter: 1
   impactPrefab: {fileID: 6212906143194052872, guid: 0fe16716918c5514d9147db3ff65ceda, type: 3}
---- !u!114 &7031948161574645698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6747470851662068052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb7fa772e07ce114dac4544330c9eaab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 50
 --- !u!61 &-1012337355218766627
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -168,7 +154,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.9375, y: 0.0625}
+    oldSize: {x: 2.953125, y: 0.046875}
     newSize: {x: 3.9375, y: 0.0625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

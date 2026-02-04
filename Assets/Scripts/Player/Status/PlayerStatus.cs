@@ -41,6 +41,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     public event Action OnLevelUp; // 레벨업시 발생하는 이벤트
     public event Action OnDeath; // 사망시 발생하는 이벤트
     public event Action OnStatsChanged; // 스탯 변동
+    public event Action<float> OnHit; // 피격 이벤트
 
     void Awake()
     {
@@ -108,6 +109,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     {
         currentHP = Mathf.Max(0, currentHP - dmg);
         OnHPChanged?.Invoke(currentHP / RUN_maxHP);
+        OnHit.Invoke(dmg);
 
         if (currentHP <= 0)
             Die();
@@ -125,13 +127,13 @@ public class PlayerStatus : MonoBehaviour, IDamageable
     {
         if (_invincibleRoutine != null)
             StopCoroutine(_invincibleRoutine);
-
+        
         _invincibleRoutine = StartCoroutine(HitInvincibleRoutine());
     }
 
     // 피격 연출 코루틴
     IEnumerator HitInvincibleRoutine()
-    {
+    {   
         IsInvincible = true;
 
         float elapsed = 0f;

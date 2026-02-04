@@ -13254,6 +13254,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   impulse: {fileID: 2051169572075861811}
+  status: {fileID: 7857489942120159170}
+  hitScale: 0.01
 --- !u!114 &251079649156482039
 MonoBehaviour:
   m_ObjectHideFlags: 0

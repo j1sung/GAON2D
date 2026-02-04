@@ -50,7 +50,7 @@ public sealed class LaserFireModule : IFireModule
                 dir = dir,
                 length = Mathf.Max(0.5f, r.RUN_projectileSpeed),
                 life = Mathf.Max(0.03f, r.RUN_projectileLifetime),
-                width = 0.12f,
+                width = 0.3f,
                 damage = finalDamage,             
                 status = r.RUN_OnHitTags,
                 pierceAll = true,

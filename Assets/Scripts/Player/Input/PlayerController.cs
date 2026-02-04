@@ -108,7 +108,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //  ========== Dash 로직 ==========
+    // ==================================================
+    // Dash
+    // ==================================================
     private void StartDash()
     {   
         _status.SetInvincible(true);
@@ -138,6 +140,7 @@ public class PlayerController : MonoBehaviour
         _status.SetInvincible(false);
     }
 
+    // 잔상효과 연출 - 일정 프레임 간격으로 이미지 복사
     void SpawnAfterImage()
     {
         var go = new GameObject("AfterImage_TMP");
@@ -147,13 +150,13 @@ public class PlayerController : MonoBehaviour
         go.transform.position = transform.position;
         go.transform.localScale = transform.localScale;
 
-        // 스프라이트 그대로 복사
+        // 스프라이트 복사
         sr.sprite = _sr.sprite;
         sr.flipX = _sr.flipX;
         sr.sortingLayerID = _sr.sortingLayerID;
         sr.sortingOrder = _sr.sortingOrder - 1;
 
-        // 색은 그대로, 알파만 낮춤
+        // 알파값 조정
         var c = _sr.color;
         c.a = 0.6f;
         sr.color = c;
@@ -161,7 +164,6 @@ public class PlayerController : MonoBehaviour
         // 0.15초 뒤 제거
         Destroy(go, 0.15f);
     }
-    //  ========== Dash 로직 ==========
 
     private void PlayerDie()
     {   

@@ -142,7 +142,7 @@ public sealed class LaserBeamSprite : MonoBehaviour
         if (owner && h.collider.transform == owner) return;
 
         // 1) 데미지/상태 부여
-        var dmg = h.collider.GetComponent<IDamageable>();
+        var dmg = h.collider.GetComponentInParent<IDamageable>();
         if (dmg != null)
         {
             var ctx = new HitContext { attacker = owner, damage = damage, statusTags = status };

@@ -25,7 +25,7 @@ MonoBehaviour:
   burstCount: 5
   projectileSpeed: 12
   projectileLifetime: 0.2
-  onHitTags: 2
-  cameraRecoilAmplitude: 0
+  onHitTags: 0
+  cameraRecoilAmplitude: 0.15
   bulletKey: 
   impactKey: 

@@ -26,6 +26,6 @@ MonoBehaviour:
   projectileSpeed: 12
   projectileLifetime: 0.2
   onHitTags: 8
-  cameraRecoilAmplitude: 0
+  cameraRecoilAmplitude: 0.05
   bulletKey: 
   impactKey: 
