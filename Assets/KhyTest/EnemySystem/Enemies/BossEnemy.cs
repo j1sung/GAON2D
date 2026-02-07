@@ -13,13 +13,13 @@ public class BossEnemy : EnemyBase
     private void Reset()
     {
         tier = EnemyTier.Boss;
-        patternManager = GetComponent<BossPatternManager>(); // 같은 오브젝트에 붙이는 기준
+        patternManager = GetComponent<BossPatternManager>(); // 같은 오브젝트에 붙이는 기준.
     }
 
     protected override void Awake()
     {
         base.Awake();
-        if (!enabled) return; // stats null이면 base에서 enabled=false 처리했을 수 있음
+        if (!enabled) return; // stats null이면 base에서 enabled=false 처리했을 수 있음.
 
         if (patternManager == null)
         {
@@ -35,7 +35,8 @@ public class BossEnemy : EnemyBase
 
     public override void Attack()
     {
-        // 쿨타임 없으면 FSM UpdateAttack에서 매 프레임 공격해버림
+
+        // 쿨타임 없으면 FSM UpdateAttack에서 매 프레임 공격해버림.
         if (Time.time < _nextAttackTime) return;
         _nextAttackTime = Time.time + attackCooldown;
 
@@ -46,7 +47,7 @@ public class BossEnemy : EnemyBase
     protected override void Die()
     {
         // 보스 전용 사망 처리 (연출/드랍/컷신 등)
-        // 예: patternManager.StopAll(); 같은 거 넣고 싶으면 여기서 처리
+        // 예: patternManager.StopAll(); 같은 거 넣고 싶으면 여기서 처리.
         Debug.Log($"{name}: Boss died.");
 
         base.Die();

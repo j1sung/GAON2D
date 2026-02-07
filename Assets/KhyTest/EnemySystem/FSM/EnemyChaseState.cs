@@ -9,5 +9,6 @@ public class EnemyChaseState : MonoBehaviour
     void Update()
     {
         animator.SetBool("isMove", true);
+        animator.SetBool("isAttack", false);
     }
 }

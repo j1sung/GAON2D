@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f37d27c1e0b2fd4c87583900ee61fa4, type: 3}
   m_Name: BossEnemyStats
   m_EditorClassIdentifier: 
-  maxHp: 100
+  maxHp: 1000
   attackPower: 10
