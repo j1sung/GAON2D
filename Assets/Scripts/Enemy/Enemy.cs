@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour, EIEnemy.IEnemy, IDamageable
     private Vector2 lastPlayerPos;
 
     private Rigidbody2D target;
+    public Rigidbody2D Target => target;
     private Rigidbody2D rigid;
 
     private Animator animator;
