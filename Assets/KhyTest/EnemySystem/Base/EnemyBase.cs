@@ -7,6 +7,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy
     [SerializeField] protected EnemyTier tier = EnemyTier.Normal;
 
     public float AttackPower => (stats != null) ? stats.AttackPower : 0f;
+    public float MaxHP => (stats != null) ? stats.maxHp : 0f;
     public EnemyTier Tier => tier;
 
     public float CurrentHp { 
@@ -29,10 +30,10 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy
     {
         if (stats == null)
             return;
-
+        
         CurrentHp -= ctx.damage;
         CurrentHp = Mathf.Clamp(CurrentHp, 0, stats.maxHp);
-
+        
         if (CurrentHp <= 0)
         {
             Die();
