@@ -4,37 +4,40 @@ using UnityEngine;
 
 public class M1Action : MonoBehaviour, IEnemyAction
 {
-    [SerializeField] private float currentDamage;
-    private StatusTag status = 0;
+    [SerializeField] private EnemyBulletSpawn spawn;
 
+    private bool _hasPending;
+    private AttackValue _pending;
     public void Attack(in AttackValue attackValue)
     {
-        currentDamage = attackValue.damage;
+        // 공격 모드 설정 안됐으면 중단.
+        if (attackValue.mode == AttackMode.None)
+        {
+            _hasPending = false;
+            return;
+        }
 
-        //Debug.Log("M1 박치기 공격!");
-        // 공격 애니메이션 넣기
-        // 애니메이션 트리거 감지
+        // 발사 예약
+        _pending = attackValue;
+        _hasPending = true;
 
+        //// 일반 공격 - 원거리 공격 실행!
+        //else if (attackValue.mode == AttackMode.Normal)
+        //{
+        //    // 총탄 발사!
+        //    spawn.Shoot(attackValue);
+        //}
     }
 
-    // 이제 적의 유형에 따라 몸통 부딪힘 데미지가 없을 수 있어서 다르게 구현되어야함
-    void OnTriggerEnter2D(Collider2D other)
+    // Attack 애니메이션의 "발사 프레임"에 이벤트로 호출
+    public void AnimEvent_Shoot()
     {
-        //if (dead) return;
-        // 공격 상태가 아니면 트리거 무시
-        if (currentDamage <= 0)
-            return;
+        if (!_hasPending) return;
 
-        IDamageable dmg = other.GetComponent<IDamageable>();
-        if (dmg != null)
-        {
-            // 지금 구조체로 결국 2번 넘기는거라 만약 같은걸 넘길거면 하나로 통합하는거도 괜찮을듯
-            HitContext hit = new HitContext
-            {
-                damage = currentDamage,
-                statusTags = status
-            };
-            dmg.ApplyHit(hit);
-        }
+        // Normal 공격만 총알 (스킬이면 다른 처리)
+        if (_pending.mode == AttackMode.Normal)
+            spawn.Shoot(_pending);
+
+        _hasPending = false; // 1회 발사 후 초기화
     }
 }

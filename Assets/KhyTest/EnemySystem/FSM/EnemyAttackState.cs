@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EnemyAttackState : EnemyState
 {
+    Animator animator;
+
+    void Update()
+    {
+        animator.SetBool("isAttack", true);
+    }
     /*public override void Enter(IEnemy enemy, EnemytStateMachine fsm)
     {
         this.enemy = enemy;

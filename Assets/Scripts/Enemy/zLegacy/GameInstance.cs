@@ -1,41 +1,41 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
+//using UnityEngine;
+//using UnityEngine.SceneManagement;
 
-public class GameInstance : MonoBehaviour
-{
-    public static GameInstance Instance;
-    public PlayerController player;
-    public EnemyPoolManager pool;
+//public class GameInstance : MonoBehaviour
+//{
+//    public static GameInstance Instance;
+//    public PlayerController player;
+//    public EnemyPoolManager pool;
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+//    private void Awake()
+//    {
+//        if (Instance != null && Instance != this)
+//        {
+//            Destroy(gameObject);
+//            return;
+//        }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+//        Instance = this;
+//        DontDestroyOnLoad(gameObject);
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
+//        SceneManager.sceneLoaded += OnSceneLoaded;
+//    }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (player == null)
-        {
-            FindPlayer();
-        }
-    }
+//    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+//    {
+//        if (player == null)
+//        {
+//            FindPlayer();
+//        }
+//    }
 
-    private void FindPlayer()
-    {
-        player = FindObjectOfType<PlayerController>();
-    }
+//    private void FindPlayer()
+//    {
+//        player = FindObjectOfType<PlayerController>();
+//    }
 
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-}
+//    private void OnDestroy()
+//    {
+//        SceneManager.sceneLoaded -= OnSceneLoaded;
+//    }
+//}

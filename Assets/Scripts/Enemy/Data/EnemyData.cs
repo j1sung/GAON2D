@@ -17,7 +17,8 @@ public class EnemyData : ScriptableObject
     public int health;
     public float speed;
     public float attackRange;
-    public float damage;
+    public float normalDamage;
+    public float skillDamage;
 
     [Header("Visual (optional)")]
     public RuntimeAnimatorController controller;

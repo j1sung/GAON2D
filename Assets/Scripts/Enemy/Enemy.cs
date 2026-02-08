@@ -13,16 +13,17 @@ public class Enemy : MonoBehaviour, EIEnemy.IEnemy, IDamageable
     public EnemyStatsController status { get; private set; }
     public IEnemyAction action { get; private set; }
 
-    // ==== FSM brain으로 나중에 빠질 예정 ====
-    private IEnemyBrain brain; // 추후 brain 식으로 변경
+    // ==== FSM brain ====
+    private IEnemyBrain brain;
 
-    // ======================================
+    // ===================
 
-    public bool isLive { get; private set; } = false;
+    public bool isLive { get; private set; } = true;
 
     private Vector2 lastPlayerPos;
 
     private Rigidbody2D target;
+    public Rigidbody2D Target => target;
     private Rigidbody2D rigid;
 
     private Animator animator;
@@ -53,6 +54,7 @@ public class Enemy : MonoBehaviour, EIEnemy.IEnemy, IDamageable
 
         action = GetComponent<IEnemyAction>();
         status = new EnemyStatsController(enemyData);
+        status.ResetStats(); // 여기서 1회 초기화를 해야 Awake() 단계의 combat.Init()에서 터지지 않음.
 
         // ==== brain 세팅 ====
         brain = GetComponent<IEnemyBrain>();
@@ -73,8 +75,8 @@ public class Enemy : MonoBehaviour, EIEnemy.IEnemy, IDamageable
         movement.Init(status, rigid, spriter);
 
         combat = GetComponent<EnemyCombat>();
-        if(combat == null)
-            combat = gameObject.AddComponent<EnemyCombat>();
+        //if(combat == null)
+        //    combat = gameObject.AddComponent<EnemyCombat>();
         combat.Init(status, movement, action, animator);
     }
 
@@ -183,6 +185,13 @@ public class Enemy : MonoBehaviour, EIEnemy.IEnemy, IDamageable
     }
 
     // =========== DieState ===========
+
+    [SerializeField] private EnemyPoolManager ownerPool;
+    public void SetOwnerPool(EnemyPoolManager pool)
+    {
+        ownerPool = pool;
+    }
+
     public void Die()
     {
         isLive = false;
@@ -196,7 +205,9 @@ public class Enemy : MonoBehaviour, EIEnemy.IEnemy, IDamageable
     // 애니 이벤트로 호출 -> 적 비활성화
     public void OnDeathAnimFinished()
     {
-        gameObject.SetActive(false);
+        // 풀로 반환
+        if (ownerPool != null)
+            ownerPool.Release(gameObject);
     }
 
     // 추후 ItemManager나 다른 클래스로 분리해서 구현
@@ -266,7 +277,7 @@ public class Enemy : MonoBehaviour, EIEnemy.IEnemy, IDamageable
         spriter.material.color = originalColor;
     }
 
-    // 공격 범위 기즈모
+    // Chase & Attack 범위 기즈모 디버깅
     void OnDrawGizmos()
     {
         if (status == null) return;
@@ -281,7 +292,7 @@ public class Enemy : MonoBehaviour, EIEnemy.IEnemy, IDamageable
         Gizmos.DrawWireSphere(transform.position, status.AttackRange);
     }
 
-    // (임시 체력 GUI는 주석 유지)
+    // 임시 체력 GUI
     /*
     private string label = "";
     private void OnGUI()
