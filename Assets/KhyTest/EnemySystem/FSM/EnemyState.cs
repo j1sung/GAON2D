@@ -14,12 +14,13 @@ public class EnemyState : MonoBehaviour
 
     private Animator anim;
     private static readonly int IsMove = Animator.StringToHash("isMove");
-
+    private static readonly int IsDie = Animator.StringToHash("isDie");
     private static readonly int IsAttack = Animator.StringToHash("isAttack");
 
     private EnemyBase enemy;
     private Transform target;
 
+    private bool isDead;
 
     private SpriteRenderer spriteRenderer; 
 
@@ -45,6 +46,8 @@ public class EnemyState : MonoBehaviour
     private void Update()
     {
         Debug.Log($"[EnemyState] Update - State: {currentState}");
+
+        if (isDead) return;
 
         switch (currentState)
         {
@@ -207,5 +210,4 @@ public class EnemyState : MonoBehaviour
         Vector3 dir = (target.position - transform.position).normalized;
         transform.position += dir * Time.deltaTime * 2f;
     }
-
 }
