@@ -14,10 +14,16 @@ public class EnemyState : MonoBehaviour
 
     private Animator anim;
     private static readonly int IsMove = Animator.StringToHash("isMove");
+    private static readonly int IsDie = Animator.StringToHash("isDie");
+    private static readonly int IsAttack = Animator.StringToHash("isAttack");
 
     private EnemyBase enemy;
     private Transform target;
-    
+
+    private bool isDead;
+
+    private SpriteRenderer spriteRenderer; 
+
     [SerializeField] private float moveSpeed = 3f;
 
     [Header("Ranges")]
@@ -28,6 +34,7 @@ public class EnemyState : MonoBehaviour
     {
         enemy = GetComponent<EnemyBase>();
         anim = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         Debug.Log($"Animator found? {anim != null}", this);
     }
 
@@ -39,6 +46,8 @@ public class EnemyState : MonoBehaviour
     private void Update()
     {
         Debug.Log($"[EnemyState] Update - State: {currentState}");
+
+        if (isDead) return;
 
         switch (currentState)
         {
@@ -55,6 +64,20 @@ public class EnemyState : MonoBehaviour
                 UpdateAttack();
                 break;
         }
+    }
+
+    private void UpdateFacing()
+    {
+       if (spriteRenderer == null || target == null) 
+       {
+            return;
+       }
+
+        float dx = target.position.x - transform.position.x;
+
+        if (Mathf.Abs(dx) < 0.01f) return;
+
+        spriteRenderer.flipX = dx > 0f;
     }
 
     private void ChangeState(State next)
@@ -86,10 +109,10 @@ public class EnemyState : MonoBehaviour
 
     private void UpdateChase()
     {
-        Debug.Log("[EnemyState] UpdateChase");
+        bool moving = false;
         if (anim != null)
         {
-            bool moving = true;
+            moving = true;
             anim.SetBool(IsMove, moving);
         }
 
@@ -107,12 +130,24 @@ public class EnemyState : MonoBehaviour
             return;
         }
 
+        UpdateFacing();
+
         Vector2 dir = EnemyUtil.Direction2D(transform, target);
         transform.position += (Vector3)(dir * moveSpeed * Time.deltaTime);
     }
 
     private void UpdateAttack()
     {
+        Debug.Log("[EnemyState] UpdateAttack");
+
+        bool attacking = false;
+
+        if (anim != null)
+        {
+            attacking = true;
+            anim.SetBool(IsAttack, attacking);
+        }
+
         if (target == null)
         {
             ChangeState(State.Idle);
@@ -121,14 +156,40 @@ public class EnemyState : MonoBehaviour
 
         float dist = EnemyUtil.Distance2D(transform, target);
 
-
         if (dist > attackRange)
         {
+            attacking = false;
+            anim.SetBool(IsAttack, attacking);
             ChangeState(State.Chase);
             return;
         }
 
-        enemy.Attack();
+        //enemy.Attack();
+    }
+
+    public void AttackHit()
+    {
+
+        float dist = EnemyUtil.Distance2D(transform, target);
+        if (dist > attackRange) return;
+
+        var dmg = target.GetComponentInParent<IDamageable> ();
+        if (dmg != null)
+        {
+            dmg.ApplyHit(new HitContext
+            {
+                damage = enemy.AttackPower,
+            });
+        }
+
+        // Todo : 이펙트/사운드
+    }
+
+    public void AttackEnd()
+    {
+        anim.SetBool(IsAttack, false);
+        ChangeState (State.Chase);
+
     }
 
     private void FindTarget()
@@ -149,6 +210,4 @@ public class EnemyState : MonoBehaviour
         Vector3 dir = (target.position - transform.position).normalized;
         transform.position += dir * Time.deltaTime * 2f;
     }
-
-
 }

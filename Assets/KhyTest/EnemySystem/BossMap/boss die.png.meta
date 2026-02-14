@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c4247b9e6595cf6468082a4fad397880
+guid: 12bf5df26cf9714429a5c87cfa7d0555
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_0"
+      name: boss die_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6acb9cfbf4e5a14a91f1af5887a2b83
-      internalID: -1292421608
+      spriteID: dcd99f519ef51e7449ebde8dfa21b215
+      internalID: 222447147
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_1"
+      name: boss die_1
       rect:
         serializedVersion: 2
         x: 459
@@ -132,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b12b029541d0dd048a48c95bbbd219da
-      internalID: -980083200
+      spriteID: a8f71f235d287ee4e99ea254b459c934
+      internalID: 2019457466
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_2"
+      name: boss die_2
       rect:
         serializedVersion: 2
         x: 918
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 948abf00811a63a4a8de9636aa3672b3
-      internalID: -1830087603
+      spriteID: cd199e5b8d63c994291b0be18d6bc1b7
+      internalID: -471652698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_3"
+      name: boss die_3
       rect:
         serializedVersion: 2
         x: 1377
@@ -174,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99a409b9a22998e45b5658ab57330509
-      internalID: -740901909
+      spriteID: 97b3088004327da43abcbacae12264ab
+      internalID: -771034492
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_4"
+      name: boss die_4
       rect:
         serializedVersion: 2
         x: 1836
@@ -195,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31b8e3c5eb69db04e91440b377fa0f5d
-      internalID: -20699688
+      spriteID: 5000ae85b03b8e541a0711009134a772
+      internalID: -1045665250
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_5"
+      name: boss die_5
       rect:
         serializedVersion: 2
         x: 2295
@@ -216,14 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 563fad7ba81cafa42bfbcec692a296c5
-      internalID: -2097468976
+      spriteID: 262624b78d30483439349814a7786d07
+      internalID: -1996652561
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_6"
+      name: boss die_6
       rect:
         serializedVersion: 2
         x: 2754
@@ -237,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2fae451f3d1d13d42bb22f145201a660
-      internalID: 186610990
+      spriteID: a76a5fe00218d9f4da5ba12f047172a4
+      internalID: -2059353765
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_7"
+      name: boss die_7
       rect:
         serializedVersion: 2
         x: 3213
@@ -258,14 +258,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a854db17d8d8efd49b648202433e35ca
-      internalID: -997347066
+      spriteID: 33440a5259bb23e408e7126c293c8cf1
+      internalID: -463046464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_8"
+      name: boss die_8
       rect:
         serializedVersion: 2
         x: 3672
@@ -279,14 +279,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61570b597dfd3a04d8d988f2e3526f56
-      internalID: -776754714
+      spriteID: 66c59010068bf5d4c992cde22e68b10c
+      internalID: -206269056
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_9"
+      name: boss die_9
       rect:
         serializedVersion: 2
         x: 4131
@@ -300,14 +300,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 986af67f271b8dc46940178acfb019e9
-      internalID: 1678939029
+      spriteID: 33b9df650788e68479ec7b7eaca49032
+      internalID: 989618678
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_10"
+      name: boss die_10
       rect:
         serializedVersion: 2
         x: 4590
@@ -321,14 +321,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54743ffa89f50314eb34560369dc3a2f
-      internalID: -454340695
+      spriteID: 1f3b7e0db787f144d8699e2eca3cc663
+      internalID: 1052711819
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_11"
+      name: boss die_11
       rect:
         serializedVersion: 2
         x: 5049
@@ -342,134 +342,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7066ad3ace4ca474eaf598d195cb52e4
-      internalID: 563180920
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_12"
-      rect:
-        serializedVersion: 2
-        x: 5508
-        y: 0
-        width: 459
-        height: 281
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be40bb3e3edf9144eb1de28d19669ee4
-      internalID: -1965554517
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_13"
-      rect:
-        serializedVersion: 2
-        x: 5967
-        y: 0
-        width: 459
-        height: 281
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1a4e64e3a5bd5ed4094c4f07fe749fff
-      internalID: -187174224
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_14"
-      rect:
-        serializedVersion: 2
-        x: 6426
-        y: 0
-        width: 459
-        height: 281
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ee58be3d83f5ec14abe3c6affbd526dc
-      internalID: 992730691
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_15"
-      rect:
-        serializedVersion: 2
-        x: 6885
-        y: 0
-        width: 459
-        height: 281
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 942434ae49db5a14d8612aa90adc87b2
-      internalID: -898706688
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_16"
-      rect:
-        serializedVersion: 2
-        x: 7344
-        y: 0
-        width: 459
-        height: 281
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 88d1c44cb5f95f54f9fb53587f1310e8
-      internalID: -275280993
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_17"
-      rect:
-        serializedVersion: 2
-        x: 7803
-        y: 0
-        width: 459
-        height: 281
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 654a12692481a2d4da79722e040b444f
-      internalID: 2000846349
+      spriteID: afdb0fcdd3c46e344a9e7afe7519688b
+      internalID: -707280148
       vertices: []
       indices: 
       edges: []
@@ -485,24 +359,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_0": -1292421608
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_1": -980083200
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_10": -454340695
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_11": 563180920
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_12": -1965554517
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_13": -187174224
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_14": 992730691
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_15": -898706688
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_16": -275280993
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_17": 2000846349
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_2": -1830087603
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_3": -740901909
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_4": -20699688
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_5": -2097468976
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_6": 186610990
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_7": -997347066
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_8": -776754714
-      "\uBCF4\uC2A4 \uD314 \uACF5\uACA9_9": 1678939029
+      boss die_0: 222447147
+      boss die_1: 2019457466
+      boss die_10: 1052711819
+      boss die_11: -707280148
+      boss die_2: -471652698
+      boss die_3: -771034492
+      boss die_4: -1045665250
+      boss die_5: -1996652561
+      boss die_6: -2059353765
+      boss die_7: -463046464
+      boss die_8: -206269056
+      boss die_9: 989618678
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

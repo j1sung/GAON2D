@@ -1,219 +1,113 @@
-//using System;
-//using UnityEngine;
-
-///*
-// * 스폰될때 이미 타켓 위치 시작.
-// * N초 동안 애니메이션만 재생. -> 지금은 7초.
-// * 애니메이션 끝나는 프레임에서 판정
-// * 
-// * N초 후 실제 피격 판정 시작.
-// * 재생 후 풀로 반납.
-// */
-
-//public class FallingHazard : MonoBehaviour
-//{
-//    [SerializeField] private LayerMask targetMask;
-//    [SerializeField] private float radius = 0.6f;
-//    [SerializeField] private Transform hitPoint;
-
-
-//    [Header("Movement")]
-//    //[SerializeField] private float fallSpeed = 12f;
-//    //[SerializeField] private float xFollowSpeed = 20f;
-
-//    [Header("Life")]
-//    [SerializeField] private float activeDuration = 2.0f;
-//    [SerializeField] private Animator animator;
-//    [SerializeField] private string playStateName = "Play";
-
-
-//    [SerializeField] private float lifeTime = 5f;
-
-
-//    private bool damageEnabled;
-
-//    private Vector2 targetPos;
-//    private bool active;
-//    private float timer;
-
-//    //------------------------
-//    [SerializeField] private Transform hitArea;
-//    [SerializeField] private Collider2D hitCollider;
-//    [SerializeField] private float hitWindow = 0.05f;
-
-//    private Vector2 lockedPos;
-//    private Action<FallingHazard> release;
-//    //------------------------
-
-
-//    public void Spawn(Vector2 targetPos, Action<FallingHazard> releaseCallback)
-//    {
-//        /*this.targetPos = targetPos;
-//        release = releaseCallback;
-
-//        timer = 0f;
-//        active = true;
-//        gameObject.SetActive(true);*/
-//        /*transform.position = targetPos;
-
-//        release = releaseCallback;
-//        timer = 0f;
-//        active = true;
-//        gameObject.SetActive(true);
-
-//        if (animator != null && !string.IsNullOrEmpty(playStateName))
-//            animator.Play(playStateName, 0, 0f);
-//        */
-
-//        release = releaseCallback;
-//        active = true;
-//        damageEnabled = false;
-//        timer = 0f;
-
-//        // 스폰 순간에 플레이어 위치 잠금.
-//        lockedPos = targetPos;
-
-//        // hitArea 위치 고정 .
-//        if (hitArea != null) hitArea.transform.position = lockedPos;
-
-//        // 애니메이션은 실행되지만, 판정은 따로.
-//        gameObject.SetActive(true);
-
-//        if (hitCollider != null) hitCollider.enabled = false;
-
-//        animator.Play(playStateName, 0, 0f);
-//    }
-
-//    private void Update()
-//    {
-//        if (!active) return;
-
-//        /*Vector2 pos = transform.position;
-
-//        pos.x = Mathf.Lerp(pos.x, targetPos.x, Time.deltaTime * xFollowSpeed);
-//        pos.y -= fallSpeed * Time.deltaTime;
-//        transform.position = pos;
-
-//        if (pos.y <= targetPos.y)
-//        {
-//            Despawn();
-//            return;
-//        }*/
-
-//        timer += Time.deltaTime;
-//        if (timer >= lifeTime)
-//        {
-//            Despawn();
-//            //return;
-//        }
-
-//    }
-
-//    private void OnTriggerEnter2D(Collider2D other)
-//    {
-//        /*var dmg = other.GetComponentInParent<IDamageable>();
-//        if (dmg != null)
-//        {
-//            dmg.ApplyHit(new HitContext
-//            {
-//                attacker = transform,
-//                damage = 10f,
-//                statusTags = default
-//            });
-//        }
-
-//        Despawn();
-//        */
-//        if (!damageEnabled) return;
-
-//        var dmg = other.GetComponentInParent<IDamageable>();
-//        if (dmg != null)
-//        {
-//            dmg.ApplyHit(new HitContext
-//            {
-//                attacker = transform,
-//                damage = 10f,
-//                statusTags = default
-//            });
-//        }
-
-//        Despawn();
-//    }
-
-//    private void Despawn()
-//    {
-//        if (!active) return;
-//        active = false;
-
-//        if (release != null) release(this);
-//        else gameObject.SetActive(false);
-//    }
-
-//    public void EnableDamage()
-//    {
-//        if (!active) return;
-//        StartCoroutine(HitOnce());
-//    }
-
-//    private System.Collections.IEnumerator HitOnce()
-//    {
-//        damageEnabled = true;
-//        if (hitCollider != null) hitCollider.enabled = true;
-
-//        yield return new WaitForSeconds(hitWindow);
-
-//        if (hitCollider != null) hitCollider.enabled = false;
-//        damageEnabled = false;
-
-//        Despawn();
-//    }
-//}
-
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class FallingHazard : MonoBehaviour
 {
-    [Header("Refs")]
-    [SerializeField] private Transform impact;                 // Impact 오브젝트(기둥)
-    [SerializeField] private Animator impactAnimator;          // Impact Animator
-    [SerializeField] private string playStateName = "Play";
+    /*
+    1. 플레이어 위치 샘플링.
+    2. 바닥에 경고 원 생성.
+    - 원이 서서히 커지거나 채워지는 연출.
+    3. 딜레이 동안.
+    3.1 원이 플레이어를 따라다니게 할지, 처음 위치에 고정할지 결정.
+    4. 딜레이가 끝나면.
+    원 제거 후 컨테이너를 그 x,y 좌표의 위쪽에서 스폰.
+    그리고 아래로 이동 (음... 애니메이션, 트윈, 리지드바디).
+    5. 바닥에 도달하면.
+    충돌 처리, 이펙트, 데미지 판정.
+    오브젝트는 풀로 반환.
+     */
 
-    [SerializeField] private Transform telegraph;              // Telegraph 오브젝트(원)
-    [SerializeField] private SpriteRenderer telegraphRenderer; // 원 스프라이트
-    [SerializeField] private Collider2D hitCollider;           // Telegraph의 BoxCollider2D
+    // -----------------------------------------------------------------
+    // 애니메이션으로 대체 하므로 추가.
+    [Header("Animatior")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private string playTrigger = "Play";
+    [SerializeField] private string idelStateName = "Idle";
 
-    [Header("Hit")]
-    [SerializeField] private LayerMask targetMask;             // Player 레이어 포함
-    [SerializeField] private float damage = 10f;
+    [Header("Damage")]
+    [SerializeField] private Collider2D hitArea;
+    [SerializeField] private LayerMask targetMask;
+    [SerializeField] private int damage = 1;
+    // -----------------------------------------------------------------
 
-    [Header("Timing")]
-    [SerializeField] private float spawnHeight = 8f;           // 위에서 시작 높이
-    [SerializeField] private float lifeTime = 10f;             // 혹시 모를 안전 타임아웃
+    [Header("Drop")]
+    [SerializeField] private float fallTime = 0.4f;
+
+    [Header("Life Safety")]
+    // 애니메이션 시간보다 살짝 여유있게.
+    [SerializeField] private float lifeTime = 15f; // 혹시 버그 나면 자동 반납
 
     private bool active;
     private float timer;
-    private Vector2 lockedPos;
-    private Action<FallingHazard> release;
 
-    public void Spawn(Vector2 playerPos, Action<FallingHazard> releaseCallback)
+    private bool damageEnabled;
+    private bool hasHit;
+
+    private Action<FallingHazard> release;
+    private Coroutine running;
+
+    // BossMapPatternController에서 호출할 메서드
+    // 애니메이션 재생이므로 스폰 지점에 최종 targetPos로.
+    // 오브젝트를 바로 옮겨두고 애니메이션 재생.
+    public void Spawn(Vector2 targetPos, Action<FallingHazard> releaseCallback)
     {
         release = releaseCallback;
         active = true;
         timer = 0f;
 
-        lockedPos = playerPos;
+        // 최종 히트 위치에 "고정" 배치 (애니메이션 실행).
+        //transform.position = targetPos;
 
-        if (telegraph != null) telegraph.position = lockedPos;
-        if (telegraphRenderer != null) telegraphRenderer.enabled = true;
+        // HitArea 기준으로 targetPos에 맞추기.
+        AlignHitAreaTo(targetPos);
 
-        if (hitCollider != null) hitCollider.enabled = false;
+        // 데미지는 기본 off (6초 이벤트 On).
+        if (hitArea != null) hitArea.enabled = false;
 
-        if (impact != null) impact.position = lockedPos + Vector2.up * spawnHeight;
+        if (animator != null)
+        {
+            animator.ResetTrigger(playTrigger);
+            animator.SetTrigger(playTrigger);
+        }
+        else
+        {
+            Despawn();
+        }
 
-        gameObject.SetActive(true);
-        if (impactAnimator != null && !string.IsNullOrEmpty(playStateName))
-            impactAnimator.Play(playStateName, 0, 0f);
+
+        // 중복 코루틴 방지
+        //if (running != null) StopCoroutine(running);
+        //running = StartCoroutine(CoFall(targetPos));
+    }
+
+    // 애니메이션 실행하면 더 이상 위치 보간 및 낙하 계산 안해도 됨.
+
+    private IEnumerator CoFall(Vector2 targetPos)
+    {
+        Vector2 start = transform.position;
+
+        float t = 0f;
+        while (t < fallTime)
+        {
+            t += Time.deltaTime;
+            //float p = Mathf.Clamp01(t / fallTime);
+        
+            // 실제 움직이는 부분.
+            // 애니메이션 부분으로 변경예정.
+
+            // 낙하 느낌 (ease-in)
+            //float eased = p * p;
+        
+            //transform.position = Vector2.Lerp(start, targetPos, eased);
+            yield return null;
+        }
+        
+        transform.position = targetPos;
+
+        // TODO: 여기서 이펙트/데미지/카메라쉐이크 등 처리 가능
+
+        Despawn();
     }
 
     private void Update()
@@ -222,31 +116,88 @@ public class FallingHazard : MonoBehaviour
 
         timer += Time.deltaTime;
         if (timer >= lifeTime)
+        {
             Despawn();
+        }
+    
     }
 
+    // ===== Animation Events =====
+
+    // <summary>
+    //  애니메이션 6초 지점에 AnimationEvent로 호출.
+    // </summary>
+    // 애니메이션 6초 지점에 이벤트로 호출.
     public void EnableDamage()
     {
         if (!active) return;
-        if (hitCollider == null) { Despawn(); return; }
 
-        var center = hitCollider.bounds.center;
-        var size = hitCollider.bounds.size;
+        if (hitArea != null) hitArea.enabled = true;
 
-        var hits = Physics2D.OverlapBoxAll(center, size, 0f, targetMask);
+        // 여기서 "한 번만" 판정하고 싶으면 Overlap으로 바로 처리 추천.
+        DoDamageOnce();
 
-        for (int i = 0; i < hits.Length; i++)
+    }
+
+    // <summary>
+    //  데미지 프레임 끝나는 지점에 AnimationEvent로 호출.
+    // 또는 EnbaleDamage에서 1회 판정 후 바로 끄고 싶으면 자동 호출.
+    // </summary>
+    // 애니메이션에서 데미지 프레임이 끝나는 지점에 이벤트로 호출 (선택)
+    public void DisableDamage()
+    {
+        if (hitArea != null) hitArea.enabled = false;
+    }
+
+    /// <summary>
+    /// 애니메이션 마지막(11초 끝)에 AnimationEvent로 호출
+    /// </summary>
+    // 애니메이션 마지막(11초 끝)에 이벤트로 호출
+    public void OnAnimFinished()
+    {
+        Despawn();
+    }
+
+    private void DoDamageOnce()
+    {
+        if (hitArea == null) return;
+
+        // hitArea의 바운즈로 OverlapBox 판정(Trigger 여부 상관없이 "한 번" 체크 가능)
+        Vector2 center = hitArea.bounds.center;
+        Vector2 size = hitArea.bounds.size;
+
+        Collider2D[] cols = Physics2D.OverlapBoxAll(center, size, 0f, targetMask);
+        if (cols == null || cols.Length == 0) return;
+
+        for (int i = 0; i < cols.Length; i++)
         {
-            var dmgTarget = hits[i].GetComponentInParent<IDamageable>();
-            if (dmgTarget != null)
+            var col = cols[i];
+            if (col == null) continue;
+
+            var damageable = col.GetComponent<IDamageable>();
+            if (damageable == null) continue;
+
+            // ApplyHit(HitContext)
+            HitContext ctx = new HitContext
             {
-                dmgTarget.ApplyHit(new HitContext
-                {
-                    attacker = transform,
-                    damage = damage,
-                    statusTags = default
-                });
-            }
+                damage = damage,
+            };
+
+            damageable.ApplyHit(ctx);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!damageEnabled) return;
+
+        var dmg = other.GetComponentInParent<IDamageable>();
+        if (dmg != null)
+        {
+            dmg.ApplyHit(new HitContext
+            {
+                damage = 10f,
+            });
         }
 
         Despawn();
@@ -257,19 +208,38 @@ public class FallingHazard : MonoBehaviour
         if (!active) return;
         active = false;
 
-        if (telegraphRenderer != null) telegraphRenderer.enabled = false;
-        if (hitCollider != null) hitCollider.enabled = false;
+        //if (running != null)
+        //{
+        //    StopCoroutine(running);
+        //    running = null;
+        //}
+        if (hitArea != null)
+        {
+            hitArea.enabled = false;
+        }
+        
+        // 풀로 반환
+        if (release != null) release(this);
+        else gameObject.SetActive(false);
+    }
 
-        release?.Invoke(this);
-        if (release == null) gameObject.SetActive(false);
+    public void AlignHitAreaTo(Vector2 targetPos)
+    {
+        // hitArea
+        if (hitArea == null) return;
+
+        Vector3 delta = (Vector3)targetPos - hitArea.transform.position;
+        transform.position += delta; 
     }
 
 #if UNITY_EDITOR
-    // Scene에서 원 범위 디버그로 보기
+    // hitArea OverlapBox 범위
     private void OnDrawGizmosSelected()
     {
-        if (hitCollider == null) return;
-        Gizmos.DrawWireCube(hitCollider.bounds.center, hitCollider.bounds.size);
+        if (hitArea == null) return;
+
+        Gizmos.matrix = Matrix4x4.identity;
+        Gizmos.DrawWireCube(hitArea.bounds.center, hitArea.bounds.size);
     }
 #endif
 }
