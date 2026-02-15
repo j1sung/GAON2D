@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
@@ -11,6 +11,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Image hpBar;
     [SerializeField] private Image expBar;
     [SerializeField] private Text level;
+    [SerializeField] private TextMeshProUGUI Bits;
 
     void Awake()
     {
@@ -24,16 +25,19 @@ public class HUDManager : MonoBehaviour
 
     void Start()
     {
-        var ps = PlayerStatus.Instance;
-        if (ps != null)
-        {
-            ps.OnHPChanged += UpdateHPBar;
-            ps.OnExpChanged += UpdateExpBar;
-            ps.OnLevelUp += UpdateLevel;
+        var context = PlayerAgents.Instance.Context;
+        var status = context.Status;
+        var currency = context.Currency;
 
-            // ???? ????
-            UpdateHPBar(ps.currentHP / ps.RUN_maxHP);
-            UpdateExpBar(ps.currentExp / ps.RUN_expToNextLevel);
+        if (context != null)
+        {
+            status.OnHPChanged += UpdateHPBar;
+            status.OnExpChanged += UpdateExpBar;
+            status.OnLevelUp += UpdateLevel;
+            currency.OnBitsChanged += UpdateBit;
+
+            UpdateHPBar(status.currentHP / status.RUN_maxHP);
+            UpdateExpBar(status.currentExp / status.RUN_expToNextLevel);
             UpdateLevel();
         }
     }
@@ -50,7 +54,6 @@ public class HUDManager : MonoBehaviour
             expBar.fillAmount = normalizedExp;
     }
 
-
     void UpdateLevel()
     {   
         var ps = PlayerStatus.Instance;
@@ -60,6 +63,11 @@ public class HUDManager : MonoBehaviour
             level.text = $"Lv. {ps.level}";
         }
     }
+
+    void UpdateBit(int bitAmount)
+    {
+        Bits.text = $"x {bitAmount}";
+    } 
 
     public void UpdateWeaponSlot(int slotIndex, WeaponSO weaponData)
     {

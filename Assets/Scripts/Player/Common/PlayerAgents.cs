@@ -22,7 +22,8 @@ public class PlayerAgents : MonoBehaviour
         var status = GetComponent<PlayerStatus>();
         var inv = GetComponent<Inventory>();
         var wm = GetComponent<WeaponManager>();
+        var currency = GetComponent<PlayerCurrency>();
 
-        Context = new PlayerContext(status, inv, wm);
+        Context = new PlayerContext(status, inv, wm, currency);
     }
 }

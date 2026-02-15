@@ -91,6 +91,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable
         if (isCrit) total *= RUN_criticalMul;
         return total;
     }
+    
 
     // 플레이어에 들어오는 공격 로직을 처리.
     public void ApplyHit(HitContext ctx)
@@ -114,6 +115,7 @@ public class PlayerStatus : MonoBehaviour, IDamageable
         if (currentHP <= 0)
             Die();
     }
+
 
     // ==================================================
     // 피격 Logic
@@ -206,5 +208,15 @@ public class PlayerStatus : MonoBehaviour, IDamageable
             break;                  
         }
         OnStatsChanged?.Invoke(); // HUD에 바로 상태반영 하기 위해 이벤트 발생
+    }
+    
+    public void Heal(int amount)
+    {
+        currentHP += amount;
+
+        if (currentHP > RUN_maxHP)
+            currentHP = RUN_maxHP;
+
+        OnHPChanged?.Invoke(currentHP);
     }
 }

@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer _sr;
     public bool isDead; // 생사여부 판별 bool 변수
     private bool _inputEnabled; // Input 제어용 bool 변수
+    private bool _isControlReversed; // 좌우반전
     
 
     [Header("Dash")]
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     float nextDashTime;
     [SerializeField] private float afterImageInterval = 0.025f; // 잔상 간격
     private float nextAfterImageTime; // 다음 잔상 시간
+    private bool _dashDisabled; // 대쉬 막기
     // public event Action OnDash; 나중에 대쉬 UI 정해지면 추가
 
     public InventoryPanel invPanel;
@@ -54,6 +56,12 @@ public class PlayerController : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         movement = new Vector2(moveX, moveY).normalized;
 
+        if (_isControlReversed)
+        {
+            moveX *= -1f;
+            moveY *= -1f;
+        }
+
         if (moveX > 0 && _inputEnabled) _sr.flipX = true;
         else if (moveX < 0 && _inputEnabled) _sr.flipX = false;
 
@@ -62,7 +70,7 @@ public class PlayerController : MonoBehaviour
         UpdateAnimator();
 
         // 대쉬
-        if (Input.GetKeyDown(KeyCode.Space) && !isDashing && Time.time >= nextDashTime)
+        if (!_dashDisabled && Input.GetKeyDown(KeyCode.Space) && !isDashing && Time.time >= nextDashTime)
         {
             StartDash();
         }
@@ -140,6 +148,11 @@ public class PlayerController : MonoBehaviour
         _status.SetInvincible(false);
     }
 
+    public void DisableDash()
+    {
+        _dashDisabled = true;
+    }
+
     // 잔상효과 연출 - 일정 프레임 간격으로 이미지 복사
     void SpawnAfterImage()
     {
@@ -180,6 +193,12 @@ public class PlayerController : MonoBehaviour
     private void MovementStop()
     {
         _inputEnabled = false;
+    }
+
+    // 입력 좌우반전
+    public void SetControlReversed(bool value)
+    {
+        _isControlReversed = value;
     }
 
     private void UpdateAnimator()

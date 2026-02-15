@@ -12,8 +12,6 @@ public abstract class BasePickup : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-
-
         var agents = other.GetComponentInParent<PlayerAgents>();
         receiver = agents != null ? agents.Context : null;
         inRange = receiver != null;
